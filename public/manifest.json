@@ -1,0 +1,11 @@
+{
+  "name": "DoDaily",
+  "short_name": "DoDaily",
+  "description": "Organize sua rotina diária",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "icons": []
+  
+}
