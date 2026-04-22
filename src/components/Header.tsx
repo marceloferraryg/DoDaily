@@ -7,8 +7,8 @@ export function Header() {
 
   return (
     <div className="mb-6">
-      <p className="text-gray-500 capitalize">{today}</p>
-      <h1 className="text-2xl font-bold">Hoje</h1>
+      <p className="text-gray-600 capitalize font-bold">{today}</p>
+      <h1 className="text-2xl font-bold text-blue-400">Hoje</h1>
     </div>
   )
 }
