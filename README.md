@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 DoDaily
 
-## Getting Started
+Organize sua rotina de forma simples, rápida e eficiente.
 
-First, run the development server:
+O **DoDaily** é um aplicativo focado em produtividade pessoal, permitindo gerenciar tarefas, compromissos, lembretes e listas de compras em um único lugar.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Funcionalidades
+
+### ✅ Tarefas
+
+* Criar tarefas com título, data e hora
+* Categorizar (tarefas, reuniões, remédios)
+* Marcar como concluída
+* Visualização por:
+
+  * Hoje
+  * Semana
+  * Todas
+  * Atrasadas
+
+---
+
+### 📅 Organização inteligente
+
+* Tarefas sem data aparecem sempre em "Hoje"
+* Tarefas com data aparecem no dia correspondente
+* Identificação automática de tarefas atrasadas
+
+---
+
+### 🛒 Listas de compras
+
+* Criar múltiplas listas
+* Adicionar itens
+* Marcar itens como concluídos
+* Visualização rápida com preview
+
+---
+
+### 🎨 Interface
+
+* Design mobile-first
+* Interface limpa e intuitiva
+* Suporte a temas (em evolução)
+
+---
+
+## 🧱 Tecnologias
+
+* Next.js
+* React
+* Tailwind CSS
+* Supabase (futuro)
+
+---
+
+## 📁 Estrutura do projeto
+
+```
+src/
+  app/
+  components/
+  store/
+  services/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚙️ Regras principais
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* Tarefas sem data ficam visíveis até serem concluídas
+* Filtros combinam período + categoria
+* Listas de compras são independentes das tarefas
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🚧 Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* [ ] Notificações e lembretes
+* [ ] Tema escuro
+* [ ] Sincronização com backend
+* [ ] Compartilhamento de listas
+* [ ] Repetição de tarefas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 💡 Objetivo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Criar uma ferramenta simples, mas poderosa, para organização do dia a dia.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📌 Status
+
+Em desenvolvimento 🚀
