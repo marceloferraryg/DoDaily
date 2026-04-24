@@ -3,7 +3,7 @@ import { TaskCard } from '@/components/TaskCard'
 
 export default function Home() {
   return (
-    <main className="flex-col min-h-screen bg-gray-100 p-4">
+    <main className="flex-col min-h-screen bg-gray-100">
       <Header />
 
       <div className="mt-4">

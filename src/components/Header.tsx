@@ -6,9 +6,30 @@ export function Header() {
   })
 
   return (
-    <div className="mb-6">
-      <p className="text-(--color-text) capitalize font-bold">{today}</p>
-      <h1 className="text-2xl font-bold text-(--color-primary)">Hoje</h1>
-    </div>
+    <header className="bg-(--color-bg) px-5 py-4">
+      
+      
+      <div className="flex items-center mb-5">
+        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+          <span className="text-sm text-gray-600">foto</span>
+        </div>
+
+        <div className="ml-3">
+          <h1 className="font-bold text-xl text-white">
+            Olá, Marcelo
+          </h1>
+        </div>
+      </div>
+
+      
+      <h2 className="text-4xl font-bold text-white">
+        Hoje
+      </h2>
+
+      
+      <p className="text-white/80">
+        {today}
+      </p>
+    </header>
   )
 }

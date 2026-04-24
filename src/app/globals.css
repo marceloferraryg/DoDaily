@@ -2,7 +2,7 @@
 
 :root {
   --color-primary: #2563eb;
-  --color-bg: #7C3AED;
+  --color-bg: #5e2db4;
   --color-text: #111827;
 }
 
@@ -36,5 +36,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
