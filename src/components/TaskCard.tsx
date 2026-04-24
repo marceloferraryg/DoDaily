@@ -1,20 +1,37 @@
-type Props = {
+type PropsTaskCard = {
   title: string
   done?: boolean
+  onToggle?: () => void
 }
 
-export function TaskCard({ title, done }: Props) {
+export function TaskCard({ title, done, onToggle }: PropsTaskCard) {
   return (
-    <div className="flex items-center gap-3 p-4 bg-(--color-bg) rounded-2xl shadow-sm mb-3">
-      <div
-        className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-          done ? 'bg-green-600 border-green-600' : 'border-gray-300'
-        }`}
+    
+    <div 
+      onClick={onToggle}
+      className="flex items-center gap-3 p-4 bg-(--color-bg-task) rounded-2xl shadow-sm mb-3 
+                    hover:bg-(--color-hover) transition-colors cursor-pointer"
+    >
+
+      <input
+        type="checkbox"
+        checked={done}
+        onChange={(e) => {
+    e.stopPropagation()
+    onToggle?.()
+  }}
+        className="w-5 h-5 cursor-pointer accent-(--color-primary) "
       />
 
-      <p className={`${done ? 'line-through text-gray-400' : 'text-gray-700 font-bold'}`}>
+        <p 
+        className={`${done 
+          ? 'line-through text-(--color-text-muted)' 
+          : 'text-(--color-text-primary) font-medium'}`}
+      >
         {title}
       </p>
+
+     
     </div>
   )
 }

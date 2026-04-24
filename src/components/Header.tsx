@@ -5,8 +5,10 @@ export function Header() {
     month: 'long'
   })
 
+  const Username = 'Marcelo'
+
   return (
-    <header className="bg-(--color-bg) px-5 py-4">
+    <header className="bg-(--color-bg-primary) px-5 pt-4 pb-10">
       
       
       <div className="flex items-center mb-5">
@@ -16,7 +18,7 @@ export function Header() {
 
         <div className="ml-3">
           <h1 className="font-bold text-xl text-white">
-            Olá, Marcelo
+            Olá, {Username}
           </h1>
         </div>
       </div>

@@ -1,19 +1,40 @@
+'use client'
+
 import { Header } from '@/components/Header'
 import { TaskCard } from '@/components/TaskCard'
+import SummaryDay from '@/components/SummaryDay'
+import { useTasks } from '@/store/useTasks'
+
 
 export default function Home() {
-  return (
-    <main className="flex-col min-h-screen bg-gray-100">
-      <Header />
 
-      <div className="mt-4">
-        <TaskCard title="Tomar remédio" />
-        <TaskCard title="Ir ao mercado" done />
-        <TaskCard title="Finalizar projeto" done />
-        <TaskCard title="Ler 20 páginas" />
-        <TaskCard title="Beber água" done/>
-        <TaskCard title="Organizar mesa" />
-      </div>
+const { tasks, toggleTask } = useTasks()
+
+
+  return (
+    <main className="flex flex-col h-screen bg-(--color-bg-body) overflow-hidden">
+      <Header />
+       
+      
+    <div className='flex flex-1 flex-col p-5 bg-(--color-bg-body)
+                     overflow-y-auto scroll-smooth pb-20 rounded-t-3xl -mt-5'>
+     <SummaryDay />
+
+      <div className="mt-8"  >
+        <h1 className='text-2xl font-bold text-(--color-text-primary) mb-5'>
+          Tarefas de hoje
+        </h1>
+        
+         {tasks.map((task) => (
+      <TaskCard
+        key={task.id}
+        title={task.title}
+        done={task.done}
+        onToggle={() => toggleTask(task.id)}
+      />
+    ))}
+      </div> 
+    </div>
     </main>
   )
 }

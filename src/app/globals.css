@@ -1,9 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #2563eb;
-  --color-bg: #5e2db4;
-  --color-text: #111827;
+  --color-bg-body: #f1f1f1;
+  --color-bg-primary: #5e2db4;
+  --color-primary: #5e2db4;
+  --color-bg-task: #ffffff;
+  --color-bg-summary-card: #e8dafc;
+  --color-border: #d1d5db;
+
+
+  --color-text-primary: #111827;
+  --color-text-secondary: #464e5e;
+  --color-text-muted: #9ca3af;
+
+  --color-category-task: #2563eb;
+  --color-category-meeting: #f59e0b;
+  --color-category-medicine: #22c55e;
+
+  --color-hover: #e8dafc;
+  --color-active: #e5e7eb;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;   
 }
 
 .dark {
@@ -25,16 +44,15 @@
 }
 
 
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-bg-body);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+
+ 
+}
+*::-webkit-scrollbar { width: 0; }
+* {
+  scrollbar-width: none;
 }
