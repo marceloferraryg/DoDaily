@@ -4,11 +4,16 @@ import { Header } from '@/components/Header'
 import { TaskCard } from '@/components/TaskCard'
 import SummaryDay from '@/components/SummaryDay'
 import { useTasks } from '@/store/useTasks'
+import { useState } from 'react'
+import { NewTaskModal } from '@/components/NewTaskModal'
+import { FabButton } from '@/components/FabButton'
+
 
 
 export default function Home() {
 
 const { tasks, toggleTask } = useTasks()
+const [isOpen, setIsOpen] = useState(false)
 
 
   return (
@@ -35,6 +40,16 @@ const { tasks, toggleTask } = useTasks()
     ))}
       </div> 
     </div>
+
+    <FabButton onClick={() => setIsOpen(true)} />
+     
+    
+    <NewTaskModal 
+      isOpen={isOpen} 
+      onClose={() => setIsOpen(false)} 
+    />
     </main>
+
+    
   )
 }

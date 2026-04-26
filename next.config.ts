@@ -12,6 +12,8 @@ const withPWA = withPWAInit({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  allowedDevOrigins: ['192.168.0.127'],
 }
+
 
 export default withPWA(nextConfig)

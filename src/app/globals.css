@@ -7,6 +7,8 @@
   --color-bg-task: #ffffff;
   --color-bg-summary-card: #e8dafc;
   --color-border: #d1d5db;
+  --color-input-bg: #ffffff;
+  --color-hover-btn: #7134da;
 
 
   --color-text-primary: #111827;
@@ -17,7 +19,7 @@
   --color-category-meeting: #f59e0b;
   --color-category-medicine: #22c55e;
 
-  --color-hover: #e8dafc;
+  --color-hover-task: #e8dafc;
   --color-active: #e5e7eb;
 
   --color-success: #22c55e;
@@ -55,4 +57,17 @@ body {
 *::-webkit-scrollbar { width: 0; }
 * {
   scrollbar-width: none;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.25s ease;
 }

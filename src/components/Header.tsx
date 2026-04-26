@@ -1,9 +1,13 @@
+
+
 export function Header() {
+
   const today = new Date().toLocaleDateString('pt-BR', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long'
-  })
+  weekday: 'short',
+  day: 'numeric',
+  month: 'long'
+})
+
 
   const Username = 'Marcelo'
 

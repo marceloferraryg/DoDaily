@@ -10,7 +10,7 @@ export function TaskCard({ title, done, onToggle }: PropsTaskCard) {
     <div 
       onClick={onToggle}
       className="flex items-center gap-3 p-4 bg-(--color-bg-task) rounded-2xl shadow-sm mb-3 
-                    hover:bg-(--color-hover) transition-colors cursor-pointer"
+                    hover:bg-(--color-hover-task) transition-colors cursor-pointer"
     >
 
       <input
