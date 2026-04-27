@@ -39,12 +39,12 @@ export function NewTaskModal({ isOpen, onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 bg-black/40 flex items-end justify-center z-50"
+      className="fixed inset-0 bg-black/40 flex items-end justify-center z-50 "
       onClick={onClose}
     >
     
       <div
-        className="w-full max-w-md bg-(--color-bg-body) rounded-t-3xl p-5 animate-slideUp"
+        className="w-full max-w-md bg-(--color-bg-body) rounded-t-2xl p-5 animate-slideUp"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4">

@@ -1,11 +1,15 @@
-type Props = {
-  onClick: () => void
-}
+import { useRouter } from 'next/navigation'
 
-export function FabButton({ onClick }: Props) {
+
+export function FabButton() {
+
+const router = useRouter()
+
+
+
   return (
     <button
-      onClick={onClick}
+      onClick={() => router.push('/tasks/new')}
       className="
         fixed bottom-10 right-10
         w-18 h-18

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --color-bg-body: #f1f1f1;
@@ -10,9 +10,10 @@
   --color-input-bg: #ffffff;
   --color-hover-btn: #7134da;
 
-
   --color-text-primary: #111827;
+  --color-text-primary-white: #ffffff;
   --color-text-secondary: #464e5e;
+  --color-text-secondary-white: #f1f1f1;
   --color-text-muted: #9ca3af;
 
   --color-category-task: #2563eb;
@@ -24,7 +25,7 @@
 
   --color-success: #22c55e;
   --color-warning: #f59e0b;
-  --color-danger: #ef4444;   
+  --color-danger: #ef4444;
 }
 
 .dark {
@@ -45,16 +46,15 @@
   --color-text: #2e1065;
 }
 
-
 body {
   background: var(--color-bg-body);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-
- 
 }
-*::-webkit-scrollbar { width: 0; }
+*::-webkit-scrollbar {
+  width: 0;
+}
 * {
   scrollbar-width: none;
 }

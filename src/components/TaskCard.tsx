@@ -17,19 +17,19 @@ export function TaskCard({ title, done, onToggle }: PropsTaskCard) {
         type="checkbox"
         checked={done}
         onChange={(e) => {
-    e.stopPropagation()
-    onToggle?.()
-  }}
+        e.stopPropagation()
+        onToggle?.()
+        }}
         className="w-5 h-5 cursor-pointer accent-(--color-primary) "
       />
 
         <p 
-        className={`${done 
-          ? 'line-through text-(--color-text-muted)' 
-          : 'text-(--color-text-primary) font-medium'}`}
-      >
-        {title}
-      </p>
+          className={`${done 
+            ? 'line-through text-(--color-text-muted)' 
+            : 'text-(--color-text-primary) font-medium'}`}
+        >
+          {title}
+        </p>
 
      
     </div>
