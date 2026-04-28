@@ -1,8 +1,8 @@
-export default function NewTask() {
+export default function Tasks() {
 
 return(
     <div>
-        <h1>New Task</h1>
+        <h1>Tasks</h1>
     </div>
 )
 

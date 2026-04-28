@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation'
 
+import { Plus } from 'lucide-react'
 
 export function FabButton() {
 
@@ -15,13 +16,12 @@ const router = useRouter()
         w-18 h-18
         rounded-full
         bg-(--color-primary)
-        text-white text-5xl
         flex items-center justify-center
         shadow-lg
         active:scale-95 transition
       "
     >
-      +
+      <Plus size={32} color="#fff" strokeWidth={3}/>
     </button>
   )
 }
