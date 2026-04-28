@@ -7,7 +7,7 @@ import { useTasks } from '@/store/useTasks'
 import { FabButton } from '@/components/FabButton'
 
 export default function Home() {
-  const { tasks, toggleTask } = useTasks()
+  const { tasks, toggleTask, removeTask } = useTasks()
 
   return (
     <main className="flex flex-col h-screen bg-(--color-bg-body) overflow-hidden">
@@ -24,12 +24,11 @@ export default function Home() {
             Tarefas de hoje
           </h1>
 
-          {tasks.map((task) => (
+          {tasks.map((task) => ( 
             <TaskCard
-              key={task.id}
-              title={task.title}
-              done={task.done}
+              task={task}
               onToggle={() => toggleTask(task.id)}
+              onRemove={() => removeTask(task.id)}
             />
           ))}
         </div>

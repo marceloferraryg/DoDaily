@@ -5,7 +5,7 @@ import { useTasks } from '@/store/useTasks'
 import { useRouter } from 'next/navigation'
 import Header from '@/components/Header'
 
-import { ArrowLeft, Calendar, Clock, Subtitles  } from "lucide-react"
+import { Calendar, Clock } from "lucide-react"
 
 
 export default function NewTask() {
