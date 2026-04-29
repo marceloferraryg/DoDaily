@@ -2,10 +2,10 @@ import { useTasks } from '@/store/useTasks'
 
 export default function SummaryDay() {
 
-const { tasks } = useTasks()
+const tasks = useTasks((state) => state.tasks)
 
-  const done = tasks.filter(t => t.done).length
-  const pending = tasks.filter(t => !t.done).length
+const done = tasks.filter(t => t.done).length
+const pending = tasks.filter(t => !t.done).length
 
   return (
     <div className="flex flex-col items-center justify-center pb-10 border-b border-(--color-border)

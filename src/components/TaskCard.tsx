@@ -1,46 +1,45 @@
+import { Trash, Info } from 'lucide-react'
 
-import { Trash } from "lucide-react"
-
-type PropsTaskCard = {
- task: {
+type Task = {
   id: string
   title: string
   done: boolean
   date?: string
   time?: string
   notes?: string
- }
-  onToggle?: () => void
-  onRemove?: () => void 
 }
 
+type PropsTaskCard = {
+  task: Task
+  onToggle?: () => void
+  onRemove?: () => void
+  onShowNotes?: () => void
+}
 
+export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCard) {
 
-export function TaskCard({ task, onToggle, onRemove }: PropsTaskCard) {  
-
-
+  const colorIndicator = task.done
+    ? 'bg-green-500'
+    : 'bg-amber-300'
 
   return (
 
+    <div
+      onClick={onToggle}
+      className="flex mb-3 rounded-2xl overflow-hidden shadow-sm cursor-pointer 
+                  active:scale-[0.97] transition-transform"
+    >
+   
+      <div className={`w-3 self-stretch ${colorIndicator}`} />
 
-  <div 
-    onClick={onToggle}
-    className="flex shadow-sm mb-3 hover:bg-(--color-hover-task) transition-colors cursor-pointer 
-                rounded-r-2xl"
-  >
-      
+  
       <div
-        className="bg-amber-300 w-4 h-14 rounded-l-2xl" 
+        className="flex items-center gap-3 w-full px-4 py-2
+                    bg-(--color-bg-task)
+                    hover:bg-(--color-hover-task) 
+                    transition-colors"
       >
-      </div>
-
-      <div
-        className="flex w-full h-fullitems-center gap-3 bg-(--color-bg-task) rounded-r-2xl px-4
-                   shadow-sm mb-3 hover:bg-(--color-hover-task) transition-colors cursor-pointer"
-      >
-
-      
-
+    
         <input
           type="checkbox"
           checked={task.done}
@@ -51,30 +50,50 @@ export function TaskCard({ task, onToggle, onRemove }: PropsTaskCard) {
           className="w-5 h-5 accent-(--color-primary)"
         />
 
+
         <p
-          className={`${
+          className={`flex-1 truncate ${
             task.done
               ? 'line-through text-(--color-text-muted)'
-              : 'text-(--color-text-primary) font-bold'
+              : 'text-(--color-text-primary) font-medium'
           }`}
         >
           {task.title}
         </p>
 
-        <p className="ml-auto text-(--color-text-muted)">
-          {task.time}
-        </p>
+  
+        <div className="flex items-center gap-3 text-(--color-text-muted)">
+          {task.notes && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                onShowNotes?.()
+              }}
+              className="hover:text-(--color-primary) transition-colors cursor-pointer hover:scale-130"
+            >
+              <Info size={24} />
+            </button>
+          )}
 
-        <Trash
-          size={20}
-          className="ml-auto text-(--color-text-muted) hover:text-red-500 transition-colors"
-          onClick={(e) => {
-            e.stopPropagation()
-            onRemove?.()
-          }}
-        />
+          {task.time && (
+            <span className="text-sm mr-4">
+              {task.time}
+            </span>
+          )}
+
+          
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              onRemove?.()
+            }}
+            className="hover:text-red-500 transition-colors cursor-pointer hover:scale-130"
+          >
+            <Trash size={24} />
+          </button>
+        </div>
       </div>
-
-  </div>
+    </div>
   )
 }

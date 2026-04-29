@@ -7,7 +7,10 @@ import { useTasks } from '@/store/useTasks'
 import { FabButton } from '@/components/FabButton'
 
 export default function Home() {
-  const { tasks, toggleTask, removeTask } = useTasks()
+  
+  const tasks = useTasks((state) => state.tasks)
+  const toggleTask = useTasks((state) => state.toggleTask)
+  const removeTask = useTasks((state) => state.removeTask)
 
   return (
     <main className="flex flex-col h-screen bg-(--color-bg-body) overflow-hidden">
@@ -26,6 +29,7 @@ export default function Home() {
 
           {tasks.map((task) => ( 
             <TaskCard
+              key={task.id}
               task={task}
               onToggle={() => toggleTask(task.id)}
               onRemove={() => removeTask(task.id)}

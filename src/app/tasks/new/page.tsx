@@ -12,7 +12,7 @@ export default function NewTask() {
 
   const router = useRouter()
 
-  const { addTask } = useTasks()
+    const addTask = useTasks((state) => state.addTask)
 
   const [title, setTitle] = useState('')
   const [date, setDate] = useState('')
