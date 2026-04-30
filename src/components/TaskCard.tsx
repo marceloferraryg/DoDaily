@@ -1,6 +1,17 @@
+'use client'
+
+import { useState } from 'react'
 import { Trash, Info } from 'lucide-react'
 
-type Task = {
+import { NoteTaskModal } from './NoteTaskModal'
+
+type Props = {
+  isOpen: boolean
+  onClose: () => void
+  task: Task
+} 
+
+export type Task = {
   id: string
   title: string
   done: boolean
@@ -22,6 +33,8 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
     ? 'bg-green-500'
     : 'bg-amber-300'
 
+    const [isNoteModalOpen, setIsNoteModalOpen] = useState<boolean>(false)
+
   return (
 
     <div
@@ -30,7 +43,7 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
                   active:scale-[0.97] transition-transform"
     >
    
-      <div className={`w-3 self-stretch ${colorIndicator}`} />
+      <div className={`w-3 self-stretch shrink-0 ${colorIndicator}`} />
 
   
       <div
@@ -43,16 +56,17 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
         <input
           type="checkbox"
           checked={task.done}
-          onChange={(e) => {
+          onClick={(e) => {
             e.stopPropagation()
             onToggle?.()
           }}
+          readOnly
           className="w-5 h-5 accent-(--color-primary)"
         />
 
 
         <p
-          className={`flex-1 truncate ${
+          className={`flex-1 truncate min-w-0 ${
             task.done
               ? 'line-through text-(--color-text-muted)'
               : 'text-(--color-text-primary) font-medium'
@@ -67,7 +81,7 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
             <button
               onClick={(e) => {
                 e.stopPropagation()
-                onShowNotes?.()
+                setIsNoteModalOpen(true)
               }}
               className="hover:text-(--color-primary) transition-colors cursor-pointer hover:scale-130"
             >
@@ -94,6 +108,13 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
           </button>
         </div>
       </div>
+      
+      <NoteTaskModal 
+        isOpen={isNoteModalOpen} 
+        onClose={() => setIsNoteModalOpen(false)} 
+        task={task} 
+      />
+
     </div>
   )
 }

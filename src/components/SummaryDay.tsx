@@ -8,7 +8,7 @@ const done = tasks.filter(t => t.done).length
 const pending = tasks.filter(t => !t.done).length
 
   return (
-    <div className="flex flex-col items-center justify-center pb-10 border-b border-(--color-border)
+    <div className="flex flex-col items-center justify-center pb-6 border-b border-(--color-border)
                      bg-(--color-bg-body)">
 
       <h1 className="mb-4 text-(--color-text-primary) font-bold text-2xl">
