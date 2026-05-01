@@ -19,6 +19,7 @@ const router = useRouter()
         flex items-center justify-center
         shadow-lg
         active:scale-95 transition
+        pb-[env(safe-area-inset-bottom)]
       "
     >
       <Plus size={32} color="#fff" strokeWidth={3}/>

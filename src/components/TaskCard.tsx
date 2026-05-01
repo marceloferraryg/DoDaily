@@ -37,6 +37,7 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
 
   return (
 
+    <>
     <div
       onClick={onToggle}
       className="flex mb-3 rounded-2xl overflow-hidden shadow-sm cursor-pointer 
@@ -109,12 +110,14 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
         </div>
       </div>
       
-      <NoteTaskModal 
+    </div>
+    
+    <NoteTaskModal 
         isOpen={isNoteModalOpen} 
         onClose={() => setIsNoteModalOpen(false)} 
-        task={task} 
-      />
-
-    </div>
+        title={task.title}
+        content={task.notes}
+    />
+ </>   
   )
 }

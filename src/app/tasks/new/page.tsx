@@ -123,7 +123,7 @@ export default function NewTask() {
             <button
                 onClick={handleAdd}
                 className="w-full bg-(--color-primary) text-white text-xl font-bold h-16
-                        active:scale-[0.98] transition"
+                        active:scale-[0.98] transition pb-[env(safe-area-inset-bottom)]"
             >
                 Salvar tarefa
             </button>
