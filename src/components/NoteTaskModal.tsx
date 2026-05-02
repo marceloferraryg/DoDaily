@@ -1,20 +1,26 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { Task } from '@/types/tasks'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
-  title: string
-  content?: string
+  task: Task
 }
 
-export function NoteTaskModal({
-  isOpen,
-  onClose,
-  title,
-  content,
-}: Props) {
+function formatDateBR(dateString: string | number | Date) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+}
+
+
+export function NoteTaskModal({ isOpen, onClose, task }: Props) {
+
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
   const [translateY, setTranslateY] = useState(0)
@@ -61,14 +67,14 @@ export function NoteTaskModal({
     }
   }
 
-  if (!visible) return null
+  if (!visible || !task) return null
 
   const overlayOpacity = Math.max(0, 0.4 - translateY / 500)
 
   return (
     <div
       onClick={handleClose}
-      className="fixed inset-0 z-50 flex items-end justify-center backdrop-blur-sm p-2"
+      className="fixed inset-0 z-60 flex items-end justify-center backdrop-blur-sm px-2"
       style={{
         backgroundColor: `rgba(0,0,0,${overlayOpacity})`,
         transition: closing ? 'opacity 0.25s ease' : 'none',
@@ -98,22 +104,64 @@ export function NoteTaskModal({
 
         <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-5" />
 
+         <div className="flex justify-center mb-3">
+            <span
+              className={`px-5 py-1 rounded-3xl text-sm font-semibold tracking-wide
+                ${task.done
+                  ? 'bg-(--color-task-done) text-(--color-success)'
+                  : 'bg-(--color-task-pending) text-(--color-warning)'}
+              `}
+            >
+               {task.done ? 'Concluída' : 'Pendente'}
+            </span>
+        </div>
+
   
-        <h2 className="text-xl font-bold text-center truncate whitespace-pre-wrap wrap-break-word leading-7">
-          {title}
+        <h2 className="text-xl font-bold truncate whitespace-pre-wrap break-word leading-7 text-center
+                        text-(--color-text-primary)">
+          {task.title}
         </h2>
 
+        <div className="mt-2 text-sm text-(--color-text-secondary)">
 
-        <div className="mt-5 max-h-[50vh] overflow-y-auto">
+            {task.date && task.time && (
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center">
+                <span className="text-right pr-3">
+                  {formatDateBR(task.date)}
+                </span>
+
+                <span className="opacity-40">•</span>
+
+                <span className="text-left pl-3">
+                  {task.time}
+                </span>
+              </div>
+            )}
+
+            {task.date && !task.time && (
+              <div className="text-center">
+                {formatDateBR(task.date)}
+              </div>
+            )}
+
+            {!task.date && task.time && (
+              <div className="text-center">  
+                {task.time}
+              </div>
+            )}
+
+        </div>
+
+        <div className="mt-5 max-h-[50vh] overflow-y-auto text-justify">
           <p
             className="
               text-(--color-text-secondary)
               whitespace-pre-wrap
-              wrap-break-word
+              break-word
               leading-7
             "
           >
-            {content || 'Sem observações'}
+            {task.notes || 'Sem observações'}
           </p>
         </div>
 

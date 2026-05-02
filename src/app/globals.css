@@ -4,11 +4,11 @@
   --color-bg-body: #f1f1f1;
   --color-bg-primary: #5e2db4;
   --color-primary: #5e2db4;
+
   --color-bg-task: #ffffff;
   --color-bg-summary-card: #e8dafc;
-  --color-border: #d1d5db;
   --color-input-bg: #ffffff;
-  --color-hover-btn: #7134da;
+  --color-border: #d1d5db;
 
   --color-text-primary: #111827;
   --color-text-primary-white: #ffffff;
@@ -16,34 +16,19 @@
   --color-text-secondary-white: #f1f1f1;
   --color-text-muted: #9ca3af;
 
-  --color-category-task: #2563eb;
-  --color-category-meeting: #f59e0b;
-  --color-category-medicine: #22c55e;
-
+  --color-hover-btn: #7134da;
   --color-hover-task: #e8dafc;
-  --color-active: #e5e7eb;
+
+  --color-task-done: #d1fae5;
+  --color-task-pending: #fef3c7;
 
   --color-success: #22c55e;
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
 }
 
-.dark {
-  --color-primary: #60a5fa;
-  --color-bg: #0f172a;
-  --color-text: #f9fafb;
-}
-
-.green {
-  --color-primary: #22c55e;
-  --color-bg: #f0fdf4;
-  --color-text: #052e16;
-}
-
-.purple {
-  --color-primary: #a855f7;
-  --color-bg: #faf5ff;
-  --color-text: #2e1065;
+html {
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -52,40 +37,20 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
+
+/* Scrollbar hidden */
 *::-webkit-scrollbar {
   width: 0;
+  height: 0;
 }
+
 * {
   scrollbar-width: none;
 }
 
-@keyframes slideUp {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-.animate-slideUp {
-  animation: slideUp 0,25s ease;
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes sheet-up {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
+/* =========================
+   ANIMATIONS
+========================= */
 
 @keyframes fade-in {
   from { opacity: 0; }
@@ -98,47 +63,27 @@ body {
 }
 
 @keyframes sheet-up {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }
 
 @keyframes sheet-down {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(100%);
-  }
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.5s ease-out forwards;
+  animation: fade-in 0.25s ease-out forwards;
 }
 
 .animate-fade-out {
-  animation: fade-out 0.5s ease-out forwards;
+  animation: fade-out 0.25s ease-out forwards;
 }
 
 .animate-sheet-up {
-  animation: sheet-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: sheet-up 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .animate-sheet-down {
-  animation: sheet-down 0.5s ease-in forwards;
+  animation: sheet-down 0.24s ease-in forwards;
 }
-
-html {
-  -webkit-tap-highlight-color: transparent;
-}
-
-* {
-  -webkit-overflow-scrolling: touch;
-}
-
-
-
-

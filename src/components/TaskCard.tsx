@@ -2,23 +2,11 @@
 
 import { useState } from 'react'
 import { Trash, Info } from 'lucide-react'
-
+import { Task } from '@/types/tasks'
 import { NoteTaskModal } from './NoteTaskModal'
 
-type Props = {
-  isOpen: boolean
-  onClose: () => void
-  task: Task
-} 
 
-export type Task = {
-  id: string
-  title: string
-  done: boolean
-  date?: string
-  time?: string
-  notes?: string
-}
+
 
 type PropsTaskCard = {
   task: Task
@@ -27,7 +15,7 @@ type PropsTaskCard = {
   onShowNotes?: () => void
 }
 
-export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCard) {
+export function TaskCard({ task, onToggle, onRemove }: PropsTaskCard) {
 
   const colorIndicator = task.done
     ? 'bg-green-500'
@@ -78,7 +66,7 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
 
   
         <div className="flex items-center gap-3 text-(--color-text-muted)">
-          {task.notes && (
+          
             <button
               onClick={(e) => {
                 e.stopPropagation()
@@ -88,7 +76,7 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
             >
               <Info size={24} />
             </button>
-          )}
+          
 
           {task.time && (
             <span className="text-sm mr-4">
@@ -115,8 +103,7 @@ export function TaskCard({ task, onToggle, onRemove, onShowNotes }: PropsTaskCar
     <NoteTaskModal 
         isOpen={isNoteModalOpen} 
         onClose={() => setIsNoteModalOpen(false)} 
-        title={task.title}
-        content={task.notes}
+        task={task}
     />
  </>   
   )

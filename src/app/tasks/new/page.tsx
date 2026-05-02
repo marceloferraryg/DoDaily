@@ -1,5 +1,6 @@
 'use client'
 
+import { AppShell } from '@/components/AppShell'
 import { useState } from 'react'
 import { useTasks } from '@/store/useTasks'
 import { useRouter } from 'next/navigation'
@@ -12,7 +13,7 @@ export default function NewTask() {
 
   const router = useRouter()
 
-    const addTask = useTasks((state) => state.addTask)
+  const addTask = useTasks((state) => state.addTask)
 
   const [title, setTitle] = useState('')
   const [date, setDate] = useState('')
@@ -40,6 +41,8 @@ export default function NewTask() {
   }
 
   return (
+
+    <AppShell>
    
     
      <div className="flex flex-col h-screen w-full bg-(--color-bg-body) overflow-hidden"> 
@@ -59,6 +62,7 @@ export default function NewTask() {
                         type="text"
                         placeholder="Título da tarefa"
                         value={title}
+                        maxLength={70}
                         onChange={(e) => setTitle(e.target.value)}
                         autoFocus
                         className="w-full p-3 rounded-xl bg-(--color-input-bg) text-(--color-text-primary) outline-none shadow-md"
@@ -67,6 +71,17 @@ export default function NewTask() {
                         handleAdd()
                         }}
                     />
+                    <div className="text-right mt-1 mr-3">
+                        <span
+                        className={`text-sm ${
+                            title.length > 60
+                            ? 'text-red-500'
+                            : 'text-(--color-text-muted)'
+                        }`}
+                        >
+                        {title.length}/70
+                        </span>
+                    </div>
                 </div>
 
                 <div className='border-b border-(--color-border) pb-8 mt-5 gap-4 flex-col flex'>
@@ -113,8 +128,20 @@ export default function NewTask() {
                     onChange={(e) => setNotes(e.target.value)}
                     className="w-full p-3 rounded-xl bg-(--color-input-bg) text-(--color-text-primary) outline-none 
                                 resize-none shadow-md mt-5"
-                    rows={3}
+                    rows={4}
+                    maxLength={250}
                 />
+                <div className="text-right mt-1 mr-3">
+                    <span
+                    className={`text-sm ${
+                        notes.length > 230
+                        ? 'text-red-500'
+                        : 'text-(--color-text-muted)'
+                    }`}
+                    >
+                    {notes.length}/250
+                    </span>
+                </div>        
             </div>
         </div>
 
@@ -130,5 +157,7 @@ export default function NewTask() {
         </div>
 
     </div>
+
+    </AppShell>
   )
 }

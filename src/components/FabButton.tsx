@@ -12,7 +12,7 @@ const router = useRouter()
     <button
       onClick={() => router.push('/tasks/new')}
       className="
-        fixed bottom-20 right-10
+        fixed bottom-20 right-10 z-50
         w-18 h-18
         rounded-full
         bg-(--color-primary)
