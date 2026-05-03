@@ -87,3 +87,19 @@ body {
 .animate-sheet-down {
   animation: sheet-down 0.24s ease-in forwards;
 }
+
+.shell-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  z-index: 60;
+}
+
+@media (min-width: 1280px) {
+  .shell-bottom {
+    max-width: 800px;
+  }
+}

@@ -20,6 +20,7 @@ export function AppShell({ children }: Props) {
     >
       <main
         className="
+        relative
           w-full
           max-w-107.5
           min-h-screen

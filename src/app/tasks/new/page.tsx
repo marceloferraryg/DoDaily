@@ -1,18 +1,15 @@
 'use client'
 
-import { AppShell } from '@/components/AppShell'
 import { useState } from 'react'
-import { useTasks } from '@/store/useTasks'
 import { useRouter } from 'next/navigation'
+import { Calendar, Clock } from 'lucide-react'
+
+import { AppShell } from '@/components/AppShell'
 import Header from '@/components/Header'
-
-import { Calendar, Clock } from "lucide-react"
-
+import { useTasks } from '@/store/useTasks'
 
 export default function NewTask() {
-
   const router = useRouter()
-
   const addTask = useTasks((state) => state.addTask)
 
   const [title, setTitle] = useState('')
@@ -20,144 +17,213 @@ export default function NewTask() {
   const [time, setTime] = useState('')
   const [notes, setNotes] = useState('')
 
+  const canSave = title.trim().length > 0
 
   function handleAdd() {
-    if (!title.trim()) return
+    if (!canSave) return
 
     addTask({
-      title,
+      title: title.trim(),
       date,
       time,
-      notes,
+      notes: notes.trim(),
     })
 
-    // limpa campos
-    setTitle('')
-    setDate('')
-    setTime('')
-    setNotes('')
-    
     router.push('/')
   }
 
   return (
-
     <AppShell>
-   
-    
-     <div className="flex flex-col h-screen w-full bg-(--color-bg-body) overflow-hidden"> 
+      <div className="relative flex h-screen w-full flex-col overflow-hidden bg-(--color-bg-body)">
+        
        
-        <Header 
-            title={"Nova tarefa"}
-            subtitle={"Adicione uma nova tarefa à sua lista"}
+        <Header
+          title="Nova tarefa"
+          subtitle="Adicione uma nova tarefa à sua lista"
         />
 
-        <div className="w-full bg-(--color-bg-body) rounded-t-3xl flex-1
-                        overflow-y-auto scroll-smooth pb-50 -mt-5 z-50">
+       
+        <div
+          className="
+            z-50
+            -mt-5
+            flex-1
+            overflow-y-auto
+            rounded-t-3xl
+            bg-(--color-bg-body)
+            pb-32
+            scroll-smooth
+          "
+        >
+          <div className="space-y-5 p-5">
+            
+           
+            <section className="border-b border-(--color-border) pb-3">
+              <div className="mb-2 ml-2">
+                <span className="text-md font-bold text-(--color-text-secondary)">
+                  Título
+                </span>
+              </div>
 
-            <div className="p-5 flex flex-col gap-3">
+              <input
+                type="text"
+                autoFocus
+                maxLength={70}
+                value={title}
+                placeholder="Ex: Comprar leite"
+                onChange={(e) => setTitle(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleAdd()
+                }}
+                className="
+                  w-full rounded-3xl
+                  bg-(--color-input-bg)
+                  px-3 py-3
+                  text-(--color-text-primary)
+                  placeholder:text-(--color-text-muted)
+                  shadow-md
+                  outline-none
+                  transition
+                  focus:ring-2
+                  focus:ring-(--color-primary)/20
+                "
+              />
 
-                <div className='border-b border-(--color-border) pb-8 mt-8'>
-                    <input
-                        type="text"
-                        placeholder="Título da tarefa"
-                        value={title}
-                        maxLength={70}
-                        onChange={(e) => setTitle(e.target.value)}
-                        autoFocus
-                        className="w-full p-3 rounded-xl bg-(--color-input-bg) text-(--color-text-primary) outline-none shadow-md"
-                        onKeyDown={(e) => {
-                        if (e.key === 'Enter') 
-                        handleAdd()
-                        }}
-                    />
-                    <div className="text-right mt-1 mr-3">
-                        <span
-                        className={`text-sm ${
-                            title.length > 60
-                            ? 'text-red-500'
-                            : 'text-(--color-text-muted)'
-                        }`}
-                        >
-                        {title.length}/70
-                        </span>
-                    </div>
+              <div className="mt-2 mr-2 text-right">
+                <span
+                  className={`text-sm ${
+                    title.length > 60
+                      ? 'text-red-500'
+                      : 'text-(--color-text-muted)'
+                  }`}
+                >
+                  {title.length}/70
+                </span>
+              </div>
+            </section>
+
+           
+            <section className="border-b border-(--color-border) pb-5">
+              <div className="mb-2 ml-2">
+                <span className="text-md font-bold text-(--color-text-secondary)">
+                  Agendamento
+                </span>
+              </div>
+
+              <div className="space-y-4">
+               
+                <div className="flex items-center gap-4">
+                  <div className="flex w-24 items-center gap-2 text-(--color-text-primary)">
+                    <Calendar size={22} />
+                    <span className="font-medium text-md">Data</span>
+                  </div>
+
+                  <input
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="
+                      h-12 w-full rounded-3xl
+                      bg-(--color-input-bg)
+                      px-3
+                      shadow-md
+                      outline-none
+                      transition
+                      focus:ring-2
+                      focus:ring-(--color-primary)/20
+                    "
+                  />
                 </div>
 
-                <div className='border-b border-(--color-border) pb-8 mt-5 gap-4 flex-col flex'>
-                    
-                    <div className='flex items-center gap-4'>
-                        <div className='flex items-center gap-2 text-xl '>
-                            <Calendar size={32}/>
-                            <h1>Data</h1>
-                        </div>
-                        <div className=''>
-                            <input
-                                type="date"
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                className="w-60 p-3 rounded-xl bg-(--color-input-bg) text-(--color-text-primary) outline-none shadow-md"
-                            />
-                             <span className='text-(--color-text-muted) ml-5'>opcional</span>
-                        </div>
-                    </div>
-                    <div className='flex items-center gap-4'>
-                        <div className='flex items-center gap-2 text-xl '>
-                            <Clock size={32}/>
-                            <h1>Hora</h1>
-                        </div>
-                        <div className=''>
-                            <input
-                                type="time"
-                                value={time}
-                                onChange={(e) => setTime(e.target.value)}
-                                className="w-60 p-3 rounded-xl bg-(--color-input-bg) text-(--color-text-primary) outline-none shadow-md"
-                            />
-                            <span  className='text-(--color-text-muted) ml-5'>opcional</span>
-                        </div>
-                    </div>
-                    
+               
+                <div className="flex items-center gap-4">
+                  <div className="flex w-24 items-center gap-2 text-(--color-text-primary)">
+                    <Clock size={22} />
+                    <span className="font-medium text-md">Hora</span>
+                  </div>
 
-                
-                   
+                  <input
+                    type="time"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    className="
+                      h-12 w-full rounded-3xl
+                      bg-(--color-input-bg)
+                      px-3
+                      shadow-md
+                      outline-none
+                      transition
+                      focus:ring-2
+                      focus:ring-(--color-primary)/20
+                    "
+                  />
                 </div>
-        
-                <textarea
-                    placeholder="Observações (opcional)"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    className="w-full p-3 rounded-xl bg-(--color-input-bg) text-(--color-text-primary) outline-none 
-                                resize-none shadow-md mt-5"
-                    rows={4}
-                    maxLength={250}
-                />
-                <div className="text-right mt-1 mr-3">
-                    <span
-                    className={`text-sm ${
-                        notes.length > 230
-                        ? 'text-red-500'
-                        : 'text-(--color-text-muted)'
-                    }`}
-                    >
-                    {notes.length}/250
-                    </span>
-                </div>        
-            </div>
+              </div>
+            </section>
+
+           
+            <section>
+              <div className="mb-3 ml-2">
+                <span className="text-md font-bold text-(--color-text-secondary)">
+                  Observações
+                </span>
+              </div>
+
+              <textarea
+                rows={4}
+                maxLength={250}
+                value={notes}
+                placeholder="Adicione detalhes importantes..."
+                onChange={(e) => setNotes(e.target.value)}
+                className="
+                  w-full resize-none rounded-3xl
+                  bg-(--color-input-bg)
+                  px-3 py-3
+                  leading-6
+                  shadow-md
+                  outline-none
+                  transition
+                  placeholder:text-(--color-text-muted)
+                  focus:ring-2
+                  focus:ring-(--color-primary)/20
+                "
+              />
+
+              <div className="mt-2 mr-2 text-right">
+                <span
+                  className={`text-sm ${
+                    notes.length > 230
+                      ? 'text-red-500'
+                      : 'text-(--color-text-muted)'
+                  }`}
+                >
+                  {notes.length}/250
+                </span>
+              </div>
+            </section>
+          </div>
         </div>
 
-      
-        <div className="fixed bottom-0 left-0 w-full bg-(--color-bg-body) z-50">
-            <button
-                onClick={handleAdd}
-                className="w-full bg-(--color-primary) text-white text-xl font-bold h-16
-                        active:scale-[0.98] transition pb-[env(safe-area-inset-bottom)]"
-            >
-                Salvar tarefa
-            </button>
+       
+        <div className="shell-bottom">
+          <button
+            onClick={handleAdd}
+            disabled={!canSave}
+            className={`
+              h-14 w-full 
+              text-lg font-bold text-white
+              transition active:scale-[0.98]
+              ${
+                canSave
+                  ? 'bg-(--color-primary) shadow-[0_10px_30px_rgba(94,45,180,0.35)]'
+                  : 'bg-gray-400'
+              }
+            `}
+          >
+            Salvar tarefa
+          </button>
         </div>
-
-    </div>
-
+      </div>
     </AppShell>
   )
 }
