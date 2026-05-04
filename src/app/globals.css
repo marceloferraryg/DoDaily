@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* =========================
+    COLORS
+========================= */
+
 :root {
   --color-bg-body: #f1f1f1;
   --color-bg-primary: #5e2db4;
@@ -27,6 +31,10 @@
   --color-danger: #ef4444;
 }
 
+/* =========================
+    BASE STYLES
+========================= */
+
 html {
   -webkit-tap-highlight-color: transparent;
 }
@@ -38,7 +46,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar hidden */
 *::-webkit-scrollbar {
   width: 0;
   height: 0;
@@ -47,6 +54,7 @@ body {
 * {
   scrollbar-width: none;
 }
+
 
 /* =========================
    ANIMATIONS
@@ -88,7 +96,63 @@ body {
   animation: sheet-down 0.24s ease-in forwards;
 }
 
-.shell-bottom {
+
+/* =========================
+   TOP SHEET
+========================= */
+
+
+.shell-top {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  z-index: 60;
+}
+
+@media (min-width: 768px) {
+  .shell-top {
+    max-width: 600px;
+  }
+}
+
+
+@media (min-width: 1280px) {
+  .shell-top {
+    max-width: 800px;
+  }
+}
+
+
+/* =========================
+   SCROLL SHELL
+========================= */
+
+.shell-body {
+  position: absolute;
+  top: 100px;
+  bottom: 88px;
+  left: 0;
+  right: 0;
+
+  overflow-y: auto;
+  background: var(--color-bg-body);
+
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+
+  z-index: 30;
+}
+
+
+  
+
+/* =========================
+   BUTTON SHEET
+========================= */
+.shell-button {
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -96,6 +160,57 @@ body {
   width: 100%;
   max-width: 430px;
   z-index: 60;
+
+}
+
+@media (min-width: 768px) {
+  .shell-button {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .shell-button {
+    max-width: 800px;
+  }
+}
+
+/* =========================
+   BOTTOM SHEET
+========================= */
+
+
+.shell-sheet {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  padding: 0 8px;
+
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.35);
+
+  z-index: 100;
+}
+
+.shell-sheet-content {
+  width: 100%;
+  max-width: 430px;
+
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+
+  box-shadow: 0 -10px 30px rgba(0,0,0,.12);
+  background: white;
+}
+
+@media (min-width: 768px) {
+  .shell-bottom {
+    max-width: 600px;
+  }
 }
 
 @media (min-width: 1280px) {

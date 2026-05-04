@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Task } from '@/types/tasks'
+import { Edit } from 'lucide-react'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
+  onEdit: () => void
   task: Task
 }
 
@@ -19,7 +21,7 @@ function formatDateBR(dateString: string | number | Date) {
 }
 
 
-export function NoteTaskModal({ isOpen, onClose, task }: Props) {
+export function InfoTaskBottom({ isOpen, onClose, onEdit, task }: Props) {
 
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
@@ -74,7 +76,7 @@ export function NoteTaskModal({ isOpen, onClose, task }: Props) {
   return (
     <div
       onClick={handleClose}
-      className="fixed inset-0 z-60 flex items-end justify-center backdrop-blur-sm px-2"
+      className="shell-sheet"
       style={{
         backgroundColor: `rgba(0,0,0,${overlayOpacity})`,
         transition: closing ? 'opacity 0.25s ease' : 'none',
@@ -85,12 +87,7 @@ export function NoteTaskModal({ isOpen, onClose, task }: Props) {
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        className={`
-          w-full bg-white rounded-t-3xl shadow-2xl
-          px-5 pt-3
-          pb-[calc(1.5rem+env(safe-area-inset-bottom))]
-          max-h-[85vh]
-          overflow-hidden
+        className={`shell-sheet-content p-5
           ${closing ? 'animate-sheet-down' : 'animate-sheet-up'}
         `}
         style={{
@@ -104,16 +101,27 @@ export function NoteTaskModal({ isOpen, onClose, task }: Props) {
 
         <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-5" />
 
-         <div className="flex justify-center mb-3">
-            <span
-              className={`px-5 py-1 rounded-3xl text-sm font-semibold tracking-wide
-                ${task.done
-                  ? 'bg-(--color-task-done) text-(--color-success)'
-                  : 'bg-(--color-task-pending) text-(--color-warning)'}
-              `}
-            >
-               {task.done ? 'Concluída' : 'Pendente'}
-            </span>
+         <div className="flex justify-center items-center mb-3">
+            <div > 
+                <span
+                  className={`px-5 py-1 rounded-3xl text-sm font-semibold tracking-wide
+                    ${task.done
+                      ? 'bg-(--color-task-done) text-(--color-success)'
+                      : 'bg-(--color-task-pending) text-(--color-warning)'}
+                  `}
+                >
+                  {task.done ? 'Concluída' : 'Pendente'}
+                </span>
+           </div>
+           
+           <div className="flex items-center text-(--color-text-primary) absolute right-0">
+                <button
+                  onClick={onEdit}
+                  className='w-15 h-15 cursor-pointer'
+                >
+                  <Edit size={32} className="text-(--color-text-primary)" />
+                </button>
+          </div>
         </div>
 
   

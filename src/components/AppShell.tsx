@@ -12,10 +12,7 @@ export function AppShell({ children }: Props) {
       className="
         min-h-screen
         bg-(--color-bg-body)
-
-        md:flex
-        md:items-center
-        md:justify-center
+        flex items-center justify-center
       "
     >
       <main
@@ -26,12 +23,13 @@ export function AppShell({ children }: Props) {
           min-h-screen
           bg-(--color-bg-body)
           overflow-hidden
+          shadow-2xl
+        
 
-          md:min-h-screen
+
           md:rounded-4xl
-          md:shadow-2xl
-          md:border
-          md:border-black/5
+          md:max-w-150
+          
 
           xl:max-w-200
 

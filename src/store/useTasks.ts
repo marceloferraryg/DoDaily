@@ -24,6 +24,7 @@ type TaskStore = {
   tasks: Task[]
 
   addTask: (task: NewTask) => void
+  updateTask: (id: string, data: Partial<Task>) => void
   toggleTask: (id: string) => void
   removeTask: (id: string) => void
   editTask: (id: string, updates: Partial<Task>) => void
@@ -67,6 +68,15 @@ export const useTasks = create<TaskStore>()(
             tasks: sortTasks([...state.tasks, newTask]),
           }
         }),
+
+      updateTask: (id, data) =>
+          set(state => ({
+            tasks: state.tasks.map(task =>
+                task.id === id
+                  ? { ...task, ...data }
+                  : task
+            )
+          })),
 
       toggleTask: (id) =>
         set((state) => ({

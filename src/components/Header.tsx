@@ -11,22 +11,26 @@ export default function Header({title, subtitle} : propsHeader) {
 
  const router = useRouter()
 
-    return(
-        <div className='flex  w-full top-0 left-0 z-20 h-30'>
-            <div 
-                className='bg-(--color-primary) w-24 flex items-center justify-center -mt-5'
-                onClick={() => router.push('/')}
-            >
-              <ArrowLeft size={32} color="white"/>
-            </div>
-            <div className="flex-col flex-1 bg-(--color-primary) py-5">
-                <h2 className="text-3xl font-bold text-(--color-text-primary-white)">
-                    {title}
-                </h2>
-                <p className="text-sm text-(--color-text-secondary-white)">
-                    {subtitle}
-                </p>
-            </div>
-        </div>
-    )
+   return (
+  <header className="shell-top">
+    <div className="flex h-30 w-full">
+      <button
+        className="w-24 bg-(--color-primary) flex items-center justify-center pb-5"
+        onClick={() => router.push('/')}
+      >
+        <ArrowLeft size={32} color="white" />
+      </button>
+
+      <div className="flex flex-1 flex-col justify-center bg-(--color-primary) pb-5">
+        <h2 className="text-3xl font-bold text-(--color-text-primary-white)">
+          {title}
+        </h2>
+
+        <p className="text-sm text-(--color-text-secondary-white)">
+          {subtitle}
+        </p>
+      </div>
+    </div>
+  </header>
+)
 } 
