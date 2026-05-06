@@ -1,93 +1,158 @@
 'use client'
 
+import { ReactNode } from 'react'
 import {
   motion,
   useMotionValue,
   useTransform,
+  animate,
 } from 'framer-motion'
 
-import { ReactNode } from 'react'
-import { Check, Trash } from 'lucide-react'
+import { Check, RotateCcw, Trash2 } from 'lucide-react'
 
 type Props = {
   children: ReactNode
+  isDone?: boolean
   onComplete: () => void
   onRemove: () => void
 }
 
 export function TaskSwipeCard({
   children,
+  isDone,
   onComplete,
   onRemove,
 }: Props) {
-
   const x = useMotionValue(0)
 
-  const greenWidth = useTransform(x, [0, 180], ['0%', '100%'])
-  const redWidth = useTransform(x, [-180, 0], ['100%', '0%'])
+  const greenWidth = useTransform(
+    x,
+    [0, 180],
+    ['0%', '100%']
+  )
 
-  const greenOpacity = useTransform(x, [0, 40], [0, 1])
-  const redOpacity = useTransform(x, [-40, 0], [1, 0])
+  const greenOpacity = useTransform(
+    x,
+    [0, 40],
+    [0, 1]
+  )
+
+  const redOpacity = useTransform(
+    x,
+    [-96, -20],
+    [1, 0]
+  )
+
+  function resetCard() {
+    animate(x, 0, {
+      type: 'spring',
+      stiffness: 420,
+      damping: 34,
+    })
+  }
+
+  function lockDelete() {
+    animate(x, -96, {
+      type: 'spring',
+      stiffness: 420,
+      damping: 34,
+    })
+  }
 
   function handleDragEnd(_: any, info: any) {
     const offset = info.offset.x
 
+    // direita = alterna status
     if (offset > 110) {
       onComplete()
+      resetCard()
+      return
     }
 
-    if (offset < -110) {
-      onRemove()
+    // esquerda = mostra excluir
+    if (offset < -70) {
+      lockDelete()
+      return
     }
+
+    resetCard()
+  }
+
+  function handleDelete() {
+    onRemove()
+    resetCard()
   }
 
   return (
     <div className="relative mb-3 overflow-hidden rounded-2xl">
 
+      {/* Fundo direita */}
       <motion.div
         style={{
           width: greenWidth,
           opacity: greenOpacity,
         }}
-        className="
-          absolute left-0 top-0 bottom-0
-          bg-green-500
+        className={`
+          absolute inset-y-0 left-0
           flex items-center pl-5
           text-white font-semibold
           z-0
-        "
+          ${isDone ?  'bg-yellow-500' : 'bg-green-500'}
+        `}
       >
-        <Check size={24} />
-        <span className="ml-2">Concluir</span>
+        {isDone ? (
+          <>
+            <RotateCcw size={22} color='white' strokeWidth={3}/>
+            <span className="ml-2 font-semibold">
+              Desmarcar
+            </span>
+          </>
+        ) : (
+          <>
+            <Check size={24} color='white' strokeWidth={3}/>
+            <span className="ml-2 font-semibold">
+              Concluir
+            </span>
+          </>
+        )}
       </motion.div>
 
+      {/* Fundo esquerda */}
       <motion.div
-        style={{
-          width: redWidth,
-          opacity: redOpacity,
-        }}
+        style={{ opacity: redOpacity }}
         className="
-          absolute right-0 top-0 bottom-0
+          absolute inset-y-0 right-0
+          w-24
           bg-(--color-danger)
-          flex items-center justify-end pr-5
-          text-white font-semibold
           z-0
         "
       >
-        <span className="mr-2">Deletar</span>
-        <Trash size={24} />
+        <button
+          onClick={handleDelete}
+          className="
+            w-full h-full
+            flex flex-col items-center justify-center
+            text-white font-semibold
+            active:scale-95 transition
+          "
+        >
+          <Trash2 size={22} color='white' strokeWidth={2}/>
+        </button>
       </motion.div>
 
-
+      {/* Card */}
       <motion.div
         drag="x"
         dragDirectionLock
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.5}
-        whileTap={{ scale: 0.98 }}
+        dragConstraints={{
+          left: -140,
+          right: 140,
+        }}
+        dragElastic={0.04}
+        whileTap={{ scale: 0.985 }}
         onDragEnd={handleDragEnd}
         style={{ x }}
-        className="relative z-10"
+        className="relative z-10 touch-pan-y"
       >
         {children}
       </motion.div>

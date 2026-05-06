@@ -72,6 +72,7 @@ export default function Home() {
                 key={task.id}
                 onComplete={() => toggleTask(task.id)}
                 onRemove={() => openDelete(task)}
+                isDone={task.done}
               >
                 <TaskCard
                   task={task}
