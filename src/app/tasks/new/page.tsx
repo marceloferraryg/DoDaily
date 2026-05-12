@@ -1,6 +1,6 @@
 
 
-import FormTask from '@/components/FormTask'
+import FormTask from '@/components/tasks/FormTask'
 
 export default function NewTask() {
   return (

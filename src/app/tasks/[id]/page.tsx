@@ -1,7 +1,7 @@
 'use client'
 
 import { use } from 'react'
-import FormTask from '@/components/FormTask'
+import FormTask from '@/components/tasks/FormTask'
 
 interface PageProps {
   params: Promise<{

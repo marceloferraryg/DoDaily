@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Calendar, Clock, FileText } from 'lucide-react'
 
 import { AppShell } from '@/components/AppShell'
-import Header from '@/components/Header'
+import Header from '@/components/headers/Header'
 import { useTasks } from '@/store/useTasks'
 
 type Props = {

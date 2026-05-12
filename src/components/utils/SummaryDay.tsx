@@ -1,6 +1,10 @@
 import { useTasks } from '@/store/useTasks'
 
+import { useRouter } from 'next/navigation'
+
 export default function SummaryDay() {
+
+ const router = useRouter()
 
 const tasks = useTasks((state) => state.tasks)
 
@@ -17,7 +21,9 @@ const pending = tasks.filter(t => !t.done).length
 
       <div className="flex justify-center gap-5">
         
-        <div className="w-40 h-20 bg-(--color-bg-summary-card) rounded-2xl flex flex-col 
+        <div 
+            onClick={() => router.push('/tasks')}
+            className="w-40 h-20 bg-(--color-bg-summary-card) rounded-2xl flex flex-col 
                         justify-center items-center shadow-md  hover:scale-[1.03]">
           <h1 className="text-3xl font-bold text-(--color-primary)">{done}</h1>
           <p className="text-md text-(--color-text-secondary)">{done === 1 ? 'Concluída' : 'Concluídas'}</p>
