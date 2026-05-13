@@ -12,7 +12,7 @@ export default function FilterPeriod() {
         { label: 'Atrasadas', value: 'late' },
     ]
 
-    const [active, setActive] = useState('today')
+    const [active, setActive] = useState('today') 
 
     function handleActive(value: string) {
         setActive(value)
@@ -20,22 +20,22 @@ export default function FilterPeriod() {
 
     return (
         <div className="flex w-full rounded-3xl border border-(--color-border) justify-around items-center
-                         bg-(--color-bg-task)">
+                         bg-(--color-bg-task) p-2">
         
             {periods.map((item) => (
 
                 <div 
                     onClick={() => handleActive(item.value)}
                     className={`flex w-24 h-10 rounded-3xl text-sm font-medium justify-center items-center
-                                 whitespace-nowrap transition-all active:scale-95
+                                 whitespace-nowrap transition-all active:scale-95 cursor-pointer
                                 ${item.value === active
                                     ? 'bg-(--color-primary) text-(--color-text-primary-white) shadow-md'
                                     : 'bg-(--color-bg-task) text-(--color-text-primary)'
                                 }
                                 `}>
                     <h1 className={`${item.value === active
-                                      ? 'text-(--color-text-primary-white) text-lg font-semibold'
-                                      : 'bg-(--color-bg-task) text-(--color-text-primary) text-md'
+                                      ? 'text-(--color-text-primary-white) font-semibold'
+                                      : 'bg-(--color-bg-task) text-(--color-text-primary) text-sm'
                                     }
                                     `}
                     >

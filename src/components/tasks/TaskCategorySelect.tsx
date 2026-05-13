@@ -3,9 +3,8 @@
 import { useState } from 'react'
 import { taskCategoriesMap } from '@/components/tasks/TaskCategoryMap'
 
-export default function FilterCategory() {
-
-  const [active, setActive] = useState('')
+export default function TaskCategorySelect() {
+  const [active, setActive] = useState('work')
 
   function handleActive(value: string) {
     setActive(value)

@@ -6,6 +6,7 @@ import { Calendar, Clock, FileText } from 'lucide-react'
 
 import { AppShell } from '@/components/AppShell'
 import Header from '@/components/headers/Header'
+import TaskCategorySelect from '@/components/tasks/TaskCategorySelect'
 import { useTasks } from '@/store/useTasks'
 
 type Props = {
@@ -164,10 +165,10 @@ export default function FormTask({ mode, taskId }: Props) {
                 onChange={(e) => setTitle(e.target.value)}
                 onKeyDown={handleEnter}
                 className="
-                  h-14 w-full rounded-3xl
+                  h-12 w-full rounded-3xl
                   bg-(--color-input-bg)
                   px-4
-                  text-lg
+                  text-md
                   shadow-md
                   outline-none
                   transition
@@ -188,6 +189,15 @@ export default function FormTask({ mode, taskId }: Props) {
                   {title.length}/70
                 </span>
               </div>
+            </section>
+
+            <section className="border-b border-(--color-border) pb-5">
+              <div className="mb-3 ml-2">
+                <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
+                  CATEGORIA
+                </span>
+              </div>
+              <TaskCategorySelect />
             </section>
 
   
