@@ -8,6 +8,7 @@ import { AppShell } from '@/components/AppShell'
 import Header from '@/components/headers/Header'
 import TaskCategorySelect from '@/components/tasks/TaskCategorySelect'
 import { useTasks } from '@/store/useTasks'
+import { TaskCategory } from '@/components/tasks/TaskCategoryMap'
 
 type Props = {
   mode: 'create' | 'edit'
@@ -27,6 +28,7 @@ export default function FormTask({ mode, taskId }: Props) {
   )
 
   const [title, setTitle] = useState('')
+  const [category, setCategory] = useState<TaskCategory>('other')
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [notes, setNotes] = useState('')
@@ -47,6 +49,7 @@ export default function FormTask({ mode, taskId }: Props) {
       }
 
       setTitle(task.title || '')
+      setCategory(task.category || 'other')
       setDate(task.date || '')
       setTime(task.time || '')
       setNotes(task.notes || '')
@@ -76,6 +79,7 @@ export default function FormTask({ mode, taskId }: Props) {
   function getPayload() {
     return {
       title: title.trim(),
+      category: category,
       date,
       time,
       notes: notes.trim(),
@@ -165,7 +169,7 @@ export default function FormTask({ mode, taskId }: Props) {
                 onChange={(e) => setTitle(e.target.value)}
                 onKeyDown={handleEnter}
                 className="
-                  h-12 w-full rounded-3xl
+                  h-10 w-full rounded-3xl
                   bg-(--color-input-bg)
                   px-4
                   text-md
@@ -197,7 +201,10 @@ export default function FormTask({ mode, taskId }: Props) {
                   CATEGORIA
                 </span>
               </div>
-              <TaskCategorySelect />
+                  <TaskCategorySelect 
+                    onSelectCategory={ (value: TaskCategory) => setCategory(value) }
+                    editMode={task?.category}
+                  />
             </section>
 
   

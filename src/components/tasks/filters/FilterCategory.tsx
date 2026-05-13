@@ -11,17 +11,18 @@ export default function FilterCategory() {
     setActive(value)
   }
 
+  const categories = Object.values(taskCategoriesMap)
+
   return (
     <div
       className="
         grid grid-cols-4 gap-1
         w-full rounded-3xl
-        border border-(--color-border)
         bg-(--color-bg-task)
         p-2
       "
     >
-      {taskCategoriesMap.map((item) => {
+      {categories.map((item) => {
         const Icon = item.icon
         const isActive = item.id === active
 

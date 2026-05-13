@@ -3,16 +3,15 @@ import { useState } from "react"
 
 
 
-export default function FilterPeriod() {
+export default function TaskPrioritySelect() {
 
-    const periods = [
-        { label: 'Hoje', value: 'today' },
-        { label: 'Semana', value: 'week' },
-        { label: 'Tudo', value: 'all' },
-        { label: 'Atrasadas', value: 'late' },
+    const priority = [
+        { label: 'Baixa', value: 'low', icon: '!' },
+        { label: 'Média', value: 'medium', icon: '!!' },
+        { label: 'Alta', value: 'high', icon: '!!!' },
     ]
 
-    const [active, setActive] = useState('today') 
+    const [active, setActive] = useState('low') 
 
     function handleActive(value: string) {
         setActive(value)
@@ -22,11 +21,11 @@ export default function FilterPeriod() {
         <div className="flex w-full rounded-3xl justify-around items-center
                          bg-(--color-bg-task) p-2">
         
-            {periods.map((item) => (
+            {priority.map((item) => (
 
                 <div 
                     onClick={() => handleActive(item.value)}
-                    className={`flex w-24 h-10 rounded-3xl text-sm font-medium justify-center items-center
+                    className={`flex w-8 h-8 rounded-full font-medium justify-center items-center
                                  whitespace-nowrap transition-all active:scale-95 cursor-pointer
                                 ${item.value === active
                                     ? 'bg-(--color-primary) text-(--color-text-primary-white) shadow-md'
@@ -39,6 +38,7 @@ export default function FilterPeriod() {
                                     }
                                     `}
                     >
+                        {item.icon}
                         {item.label}
                     </h1>
                 </div>

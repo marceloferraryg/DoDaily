@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Task } from '@/types/tasks'
 import { Edit } from 'lucide-react'
 
+import { taskCategoriesMap } from '@/components/tasks/TaskCategoryMap'
+
 type Props = {
   isOpen: boolean
   onClose: () => void
@@ -73,6 +75,14 @@ export function InfoTaskBottom({ isOpen, onClose, onEdit, task }: Props) {
 
   const overlayOpacity = Math.max(0, 0.4 - translateY / 500)
 
+  const category =
+    taskCategoriesMap[task.category] || taskCategoriesMap.other
+
+  const {
+    color,
+    icon: CategoryIcon,
+  } = category
+
   return (
     <div
       onClick={handleClose}
@@ -101,7 +111,18 @@ export function InfoTaskBottom({ isOpen, onClose, onEdit, task }: Props) {
 
         <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-5" />
 
-         <div className="flex justify-center items-center mb-3">
+         <div className="flex justify-center items-center mb-8">
+            <div className="flex text-(--color-text-primary) absolute left-0 ml-3">
+                <button className='w-15 h-15'
+                >
+                  <CategoryIcon size={32} color={color} className="text-(--color-text-primary) mx-auto" />
+                 <span className='text-sm' style={{color: color}}>
+                    {category.name}
+                 </span>
+                </button>
+                 
+          </div>
+            
             <div > 
                 <span
                   className={`px-5 py-1 rounded-3xl text-sm font-semibold tracking-wide
@@ -114,18 +135,20 @@ export function InfoTaskBottom({ isOpen, onClose, onEdit, task }: Props) {
                 </span>
            </div>
            
-           <div className="flex items-center text-(--color-text-primary) absolute right-0">
+           <div className="flex justify-center items-center text-(--color-text-primary) absolute right-0 mr-3">
                 <button
                   onClick={onEdit}
                   className='w-15 h-15 cursor-pointer'
                 >
-                  <Edit size={32} className="text-(--color-text-primary)" />
+                  <Edit size={32} className="text-(--color-text-primary) mx-auto" />
+                 <span className='text-sm'>Editar</span>
                 </button>
+                 
           </div>
         </div>
 
   
-        <h2 className="text-xl font-bold truncate whitespace-pre-wrap break-word leading-7 text-center
+        <h2 className="text-2xl font-bold truncate whitespace-pre-wrap break-word leading-7 text-center
                         text-(--color-text-primary)">
           {task.title}
         </h2>

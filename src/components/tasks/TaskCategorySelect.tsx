@@ -1,26 +1,42 @@
 'use client'
 
 import { useState } from 'react'
-import { taskCategoriesMap } from '@/components/tasks/TaskCategoryMap'
+import {
+  taskCategoriesMap,
+  TaskCategory,
+} from '@/components/tasks/TaskCategoryMap'
 
-export default function TaskCategorySelect() {
-  const [active, setActive] = useState('work')
+type Props = {
+  onSelectCategory: (value: TaskCategory) => void
+  editMode: TaskCategory | undefined
+}
 
-  function handleActive(value: string) {
+export default function TaskCategorySelect({
+  onSelectCategory,
+  editMode,
+}: Props) {
+  const [active, setActive] = useState<TaskCategory>(
+    editMode || 'other'
+  )
+
+  function handleActive(value: TaskCategory) {
     setActive(value)
+    onSelectCategory(value)
   }
+
+  const categories = Object.values(taskCategoriesMap)
 
   return (
     <div
       className="
         grid grid-cols-4 gap-1
         w-full rounded-3xl
-        border border-(--color-border)
         bg-(--color-bg-task)
         p-2
+        shadow-md
       "
     >
-      {taskCategoriesMap.map((item) => {
+      {categories.map((item) => {
         const Icon = item.icon
         const isActive = item.id === active
 
@@ -28,7 +44,9 @@ export default function TaskCategorySelect() {
           <button
             key={item.id}
             type="button"
-            onClick={() => handleActive(item.id)}
+            onClick={() =>
+              handleActive(item.id)
+            }
             className={`
               flex flex-col
               h-12 px-3 rounded-3xl
@@ -44,13 +62,21 @@ export default function TaskCategorySelect() {
           >
             <Icon
               size={20}
-              color={isActive ? '#ffffff' : item.color}
+              color={
+                isActive
+                  ? '#ffffff'
+                  : item.color
+              }
             />
 
             <span
               className={`
                 text-xs font-medium truncate
-                ${isActive ? 'text-white' : ''}
+                ${
+                  isActive
+                    ? 'text-white'
+                    : ''
+                }
               `}
             >
               {item.name}

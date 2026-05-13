@@ -1,11 +1,13 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { TaskCategory } from '@/components/tasks/TaskCategoryMap'
 
 import { v4 as uuid } from 'uuid'
 
 export type Task = {
   id: string
   title: string
+  category: TaskCategory
   done: boolean
   date?: string
   time?: string
@@ -15,6 +17,7 @@ export type Task = {
 
 type NewTask = {
   title: string
+  category: TaskCategory
   date?: string
   time?: string
   notes?: string
@@ -57,6 +60,7 @@ export const useTasks = create<TaskStore>()(
           const newTask: Task = {
             id: uuid(),
             title: task.title.trim(),
+            category: task.category,
             done: false,
             date: task.date || '',
             time: task.time || '',
