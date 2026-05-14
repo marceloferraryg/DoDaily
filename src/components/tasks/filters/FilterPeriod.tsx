@@ -20,13 +20,13 @@ export default function FilterPeriod() {
 
     return (
         <div className="flex w-full rounded-3xl justify-around items-center
-                         bg-(--color-bg-task) p-2">
+                         bg-(--color-bg-task) p-1 shadow-md">
         
             {periods.map((item) => (
 
                 <div 
                     onClick={() => handleActive(item.value)}
-                    className={`flex w-24 h-10 rounded-3xl text-sm font-medium justify-center items-center
+                    className={`flex px-5 py-1 rounded-3xl text-sm font-medium justify-center items-center
                                  whitespace-nowrap transition-all active:scale-95 cursor-pointer
                                 ${item.value === active
                                     ? 'bg-(--color-primary) text-(--color-text-primary-white) shadow-md'

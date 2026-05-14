@@ -10,6 +10,12 @@ import {
 } from 'lucide-react'
 
 export const taskCategoriesMap = {
+  other: {
+            id: 'other',
+            name: 'Outros',
+            icon: MoreHorizontal,
+            color: '#64748B', // slate gray
+         },
   work: {
           id: 'work',
           name: 'Trabalho',
@@ -52,12 +58,7 @@ export const taskCategoriesMap = {
                   icon: Wrench,
                   color: '#A16207', // amber / bronze
                },
-  other: {
-            id: 'other',
-            name: 'Outros',
-            icon: MoreHorizontal,
-            color: '#64748B', // slate gray
-         },
+  
 } as const
 
 export type TaskCategory =

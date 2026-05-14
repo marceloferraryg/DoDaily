@@ -11,7 +11,7 @@ type Props = {
   editMode: TaskCategory | undefined
 }
 
-export default function TaskCategorySelect({
+export default function TaskCategorySelect({ 
   onSelectCategory,
   editMode,
 }: Props) {
@@ -32,7 +32,7 @@ export default function TaskCategorySelect({
         grid grid-cols-4 gap-1
         w-full rounded-3xl
         bg-(--color-bg-task)
-        p-2
+        p-1
         shadow-md
       "
     >
@@ -44,12 +44,10 @@ export default function TaskCategorySelect({
           <button
             key={item.id}
             type="button"
-            onClick={() =>
-              handleActive(item.id)
-            }
+            onClick={() => handleActive(item.id)}
             className={`
               flex flex-col
-              h-12 px-3 rounded-3xl
+              py-1  rounded-3xl
               transition-all active:scale-95
               justify-center items-center
               cursor-pointer

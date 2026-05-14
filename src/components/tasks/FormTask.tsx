@@ -9,6 +9,7 @@ import Header from '@/components/headers/Header'
 import TaskCategorySelect from '@/components/tasks/TaskCategorySelect'
 import { useTasks } from '@/store/useTasks'
 import { TaskCategory } from '@/components/tasks/TaskCategoryMap'
+import { TaskPrioritySelect } from '@/components/tasks/TaskPrioritySelect'
 
 type Props = {
   mode: 'create' | 'edit'
@@ -29,6 +30,7 @@ export default function FormTask({ mode, taskId }: Props) {
 
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState<TaskCategory>('other')
+  const [priority, setPriority] = useState<string>('low')
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [notes, setNotes] = useState('')
@@ -50,6 +52,7 @@ export default function FormTask({ mode, taskId }: Props) {
 
       setTitle(task.title || '')
       setCategory(task.category || 'other')
+      setPriority(task.priority || 'low')
       setDate(task.date || '')
       setTime(task.time || '')
       setNotes(task.notes || '')
@@ -80,6 +83,7 @@ export default function FormTask({ mode, taskId }: Props) {
     return {
       title: title.trim(),
       category: category,
+      priority: priority,
       date,
       time,
       notes: notes.trim(),
@@ -204,6 +208,18 @@ export default function FormTask({ mode, taskId }: Props) {
                   <TaskCategorySelect 
                     onSelectCategory={ (value: TaskCategory) => setCategory(value) }
                     editMode={task?.category}
+                  />
+            </section>
+            
+            <section className="border-b border-(--color-border) pb-5">
+              <div className="mb-3 ml-2">
+                <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
+                  PRIORIDADE
+                </span>
+              </div>
+                  <TaskPrioritySelect 
+                    onSelectPriority={ (value: string) => setPriority(value) }
+                    editMode={task?.priority}
                   />
             </section>
 

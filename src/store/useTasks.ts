@@ -8,6 +8,7 @@ export type Task = {
   id: string
   title: string
   category: TaskCategory
+  priority: string
   done: boolean
   date?: string
   time?: string
@@ -18,6 +19,7 @@ export type Task = {
 type NewTask = {
   title: string
   category: TaskCategory
+  priority: string
   date?: string
   time?: string
   notes?: string
@@ -61,6 +63,7 @@ export const useTasks = create<TaskStore>()(
             id: uuid(),
             title: task.title.trim(),
             category: task.category,
+            priority: task.priority,
             done: false,
             date: task.date || '',
             time: task.time || '',
