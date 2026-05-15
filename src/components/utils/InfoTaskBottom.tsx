@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Task } from '@/types/tasks'
 import { Edit } from 'lucide-react'
 
-import { taskCategoriesMap } from '@/components/tasks/TaskCategoryMap'
+import { taskCategoriesMap } from '@/components/tasks/maps/TaskCategoryMap'
 
 type Props = {
   isOpen: boolean
@@ -86,7 +86,7 @@ export function InfoTaskBottom({ isOpen, onClose, onEdit, task }: Props) {
   return (
     <div
       onClick={handleClose}
-      className="shell-sheet"
+      className="shell-sheet "
       style={{
         backgroundColor: `rgba(0,0,0,${overlayOpacity})`,
         transition: closing ? 'opacity 0.25s ease' : 'none',
@@ -111,7 +111,7 @@ export function InfoTaskBottom({ isOpen, onClose, onEdit, task }: Props) {
 
         <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-5" />
 
-         <div className="flex justify-center items-center mb-8">
+         <div className="flex justify-center items-center mb-12">
             <div className="flex text-(--color-text-primary) absolute left-0 ml-3">
                 <button className='w-15 h-15'
                 >
@@ -153,7 +153,7 @@ export function InfoTaskBottom({ isOpen, onClose, onEdit, task }: Props) {
           {task.title}
         </h2>
 
-        <div className="mt-2 text-sm text-(--color-text-secondary)">
+        <div className="mt-2  text-sm text-(--color-text-secondary)">
 
             {task.date && task.time && (
               <div className="grid grid-cols-[1fr_auto_1fr] items-center">
@@ -183,7 +183,7 @@ export function InfoTaskBottom({ isOpen, onClose, onEdit, task }: Props) {
 
         </div>
 
-        <div className="mt-5 max-h-[50vh] overflow-y-auto text-justify">
+        <div className="mt-12 max-h-[50vh] overflow-y-auto text-justify">
           <p
             className="
               text-(--color-text-secondary)

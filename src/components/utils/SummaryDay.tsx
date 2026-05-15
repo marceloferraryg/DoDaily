@@ -12,10 +12,10 @@ const done = tasks.filter(t => t.done).length
 const pending = tasks.filter(t => !t.done).length
 
   return (
-    <div className="flex flex-col items-center justify-center pb-10 border-b border-(--color-border)
+    <div className="flex flex-col items-center justify-center pb-5 mb-5 -mt-3 border-b border-(--color-border)
                      bg-(--color-bg-body)">
 
-      <h1 className="mb-4 text-(--color-text-primary) font-bold text-2xl">
+      <h1 className="mb-3 text-(--color-text-primary) font-bold text-xl">
         Resumo do dia
       </h1>
 
@@ -23,16 +23,16 @@ const pending = tasks.filter(t => !t.done).length
         
         <div 
             onClick={() => router.push('/tasks')}
-            className="w-40 h-20 bg-(--color-bg-summary-card) rounded-2xl flex flex-col 
+            className="w-40 h-14 bg-(--color-bg-summary-card) rounded-3xl flex flex-col 
                         justify-center items-center shadow-md  hover:scale-[1.03]">
-          <h1 className="text-3xl font-bold text-(--color-primary)">{done}</h1>
-          <p className="text-md text-(--color-text-secondary)">{done === 1 ? 'Concluída' : 'Concluídas'}</p>
+          <h1 className="text-xl font-bold text-(--color-primary)">{done}</h1>
+          <p className="text-sm text-(--color-text-secondary)">{done === 1 ? 'Concluída' : 'Concluídas'}</p>
         </div>
 
-        <div className="w-40 h-20 bg-(--color-bg-summary-card) rounded-2xl flex flex-col 
+        <div className="w-40 h-14 bg-(--color-bg-summary-card) rounded-3xl flex flex-col 
                         justify-center items-center shadow-md  hover:scale-[1.03]">
-          <h1 className="text-3xl font-bold text-(--color-primary)">{pending}</h1>
-          <p className="text-md text-(--color-text-secondary)">{pending === 1 ? 'Pendente' : 'Pendentes'}</p>
+          <h1 className="text-xl font-bold text-(--color-primary)">{pending}</h1>
+          <p className="text-sm text-(--color-text-secondary)">{pending === 1 ? 'Pendente' : 'Pendentes'}</p>
         </div>
 
       </div>

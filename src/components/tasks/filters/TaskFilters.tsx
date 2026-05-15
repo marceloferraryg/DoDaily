@@ -1,6 +1,6 @@
 import  FilterPeriod  from './FilterPeriod'
 import  FilterCategory  from './FilterCategory'
-//import TaskPrioritySelect from '../TaskPrioritySelect'
+import FilterPriority from './FilterPriority'
 
 type Props = {
   period: string
@@ -11,7 +11,7 @@ type Props = {
 
 export default function TaskFilters() {
   return (
-    <div className="flex flex-col w-full p-5 gap-5">
+    <div className="flex flex-col w-full p-5 gap-3">
 
       <section className=''>
         <h3 className="mb-2 text-lg font-bold text-(--color-text-primary)">
@@ -34,7 +34,7 @@ export default function TaskFilters() {
           Prioridade
         </h3>
 
-       {/*  <TaskPrioritySelect />  */}
+       <FilterPriority />
       </section>
 
     </div>

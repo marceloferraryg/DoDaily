@@ -2,7 +2,8 @@
 
 import { Task } from '@/types/tasks'
 import { Check } from 'lucide-react'
-import { taskCategoriesMap } from '@/components/tasks/TaskCategoryMap'
+import { taskCategoriesMap } from '@/components/tasks/maps/TaskCategoryMap'
+import { taskPriorityMap } from '@/components/tasks/maps/TaskPriorityMap'
 
 type PropsTaskCard = {
   task: Task
@@ -19,6 +20,8 @@ export function TaskCard({ task, onShowNotes, }: PropsTaskCard) {
     color,
     icon: CategoryIcon,
   } = category
+
+  const priority = taskPriorityMap[task.priority] || taskPriorityMap.low
 
   return (
     <div
@@ -97,20 +100,21 @@ export function TaskCard({ task, onShowNotes, }: PropsTaskCard) {
 
       <div
         className="
-          flex items-center gap-3
+          flex items-center
           text-(--color-text-muted)
+         
         "
       >
         {task.time ? (
           <div
             className="
-              flex h-full w-14
+              flex h-full w-12
               bg-(--color-bg-task)
               items-center
               transition-colors
             "
           >
-            <span className="text-sm mr-8">
+            <span className="text-sm">
               {task.time}
             </span>
           </div>
@@ -118,6 +122,29 @@ export function TaskCard({ task, onShowNotes, }: PropsTaskCard) {
           <div
             className="
               flex h-full w-14
+              bg-(--color-bg-task)
+              transition-colors
+            "
+          />
+        )}
+
+        {priority.icon ?(
+          <div
+            className="
+              flex h-full w-6
+              bg-(--color-bg-task)
+              items-center
+              transition-colors
+            "
+          >
+            <span className="text-xl text-(--color-text-primary)">
+              {priority.icon}
+            </span>
+          </div>
+        ) : (
+          <div
+            className="
+              flex h-full w-6
               bg-(--color-bg-task)
               transition-colors
             "

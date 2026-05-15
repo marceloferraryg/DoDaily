@@ -2,14 +2,15 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Calendar, Clock, FileText } from 'lucide-react'
+import { Calendar, Clock } from 'lucide-react'
 
 import { AppShell } from '@/components/AppShell'
 import Header from '@/components/headers/Header'
-import TaskCategorySelect from '@/components/tasks/TaskCategorySelect'
+import TaskCategorySelect from '@/components/tasks/selects/TaskCategorySelect'
 import { useTasks } from '@/store/useTasks'
-import { TaskCategory } from '@/components/tasks/TaskCategoryMap'
-import { TaskPrioritySelect } from '@/components/tasks/TaskPrioritySelect'
+import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
+import { TaskPrioritySelect } from '@/components/tasks/selects/TaskPrioritySelect'
+import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
 
 type Props = {
   mode: 'create' | 'edit'
@@ -30,7 +31,7 @@ export default function FormTask({ mode, taskId }: Props) {
 
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState<TaskCategory>('other')
-  const [priority, setPriority] = useState<string>('low')
+  const [priority, setPriority] = useState<TaskPriority>('low')
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [notes, setNotes] = useState('')
@@ -222,7 +223,7 @@ export default function FormTask({ mode, taskId }: Props) {
                 </span>
               </div>
                   <TaskPrioritySelect 
-                    onSelectPriority={ (value: string) => setPriority(value) }
+                    onSelectPriority={ (value: TaskPriority) => setPriority(value) }
                     editMode={task?.priority}
                   />
             </section>

@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { TaskCategory } from '@/components/tasks/TaskCategoryMap'
+import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
+import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
 
 import { v4 as uuid } from 'uuid'
 
@@ -8,7 +9,7 @@ export type Task = {
   id: string
   title: string
   category: TaskCategory
-  priority: string
+  priority: TaskPriority
   done: boolean
   date?: string
   time?: string
@@ -19,7 +20,7 @@ export type Task = {
 type NewTask = {
   title: string
   category: TaskCategory
-  priority: string
+  priority: TaskPriority
   date?: string
   time?: string
   notes?: string

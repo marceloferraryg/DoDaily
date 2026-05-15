@@ -72,7 +72,7 @@ export default function Home() {
         >
           <SummaryDay />
 
-          <div className="mt-2 border-b border-(--color-border) pb-10">
+          <div className="border-b border-(--color-border) pb-10">
             <h1 className="text-2xl font-bold text-(--color-text-primary) mb-5">
               Tarefas de hoje
             </h1>

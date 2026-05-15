@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { taskCategoriesMap } from '@/components/tasks/TaskCategoryMap'
+import { taskCategoriesMap } from '@/components/tasks/maps/TaskCategoryMap'
 
 export default function FilterCategory() {
-
+ 
   const [active, setActive] = useState('')
 
   function handleActive(value: string) {
