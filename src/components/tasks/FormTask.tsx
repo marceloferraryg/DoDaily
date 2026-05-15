@@ -145,25 +145,39 @@ export default function FormTask({ mode, taskId }: Props) {
         <div
           className="
             z-60
-            mt-25
+            mt-20
             flex-1
             overflow-y-auto
             rounded-t-3xl
             bg-(--color-bg-body)
-            pb-32
+            pb-48
             scroll-smooth
           "
         >
-          <div className="space-y-6 p-5">
+          <div className="space-y-4 p-5">
 
    
-            <section className="border-b border-(--color-border) pb-5">
-              <div className="mb-3 ml-2">
-                <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
-                  TÍTULO
-                </span>
-              </div>
+            <section className="border-b border-(--color-border) pb-3">
+              
+              <div className='flex justify-between'>
+                  <div className="mb-1 ml-2">
+                    <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
+                      TÍTULO
+                    </span>
+                  </div>
 
+                  <div className="text-right mr-2">
+                    <span
+                      className={`text-sm ${
+                        title.length > 60
+                          ? 'text-red-500'
+                          : 'text-(--color-text-muted)'
+                      }`}
+                    >
+                      {title.length}/70
+                    </span>
+                  </div>
+              </div>
               <input
                 type="text"
                 autoFocus
@@ -173,7 +187,7 @@ export default function FormTask({ mode, taskId }: Props) {
                 onChange={(e) => setTitle(e.target.value)}
                 onKeyDown={handleEnter}
                 className="
-                  h-10 w-full rounded-3xl
+                  h-8 w-full rounded-3xl
                   bg-(--color-input-bg)
                   px-4
                   text-md
@@ -186,21 +200,11 @@ export default function FormTask({ mode, taskId }: Props) {
                 "
               />
 
-              <div className="mt-2 text-right">
-                <span
-                  className={`text-sm ${
-                    title.length > 60
-                      ? 'text-red-500'
-                      : 'text-(--color-text-muted)'
-                  }`}
-                >
-                  {title.length}/70
-                </span>
-              </div>
+              
             </section>
 
-            <section className="border-b border-(--color-border) pb-5">
-              <div className="mb-3 ml-2">
+            <section className="border-b border-(--color-border) pb-3">
+              <div className="mb-1 ml-2">
                 <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
                   CATEGORIA
                 </span>
@@ -212,7 +216,7 @@ export default function FormTask({ mode, taskId }: Props) {
             </section>
             
             <section className="border-b border-(--color-border) pb-5">
-              <div className="mb-3 ml-2">
+              <div className="mb-1 ml-2">
                 <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
                   PRIORIDADE
                 </span>
@@ -225,7 +229,7 @@ export default function FormTask({ mode, taskId }: Props) {
 
   
             <section className="border-b border-(--color-border) pb-6">
-              <div className="mb-3 ml-2">
+              <div className="mb-1 ml-2">
                 <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
                   AGENDAMENTO
                 </span>
@@ -247,7 +251,7 @@ export default function FormTask({ mode, taskId }: Props) {
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     className="
-                      h-12 w-full rounded-3xl
+                      h-8 w-full rounded-3xl
                       bg-(--color-input-bg)
                       px-4
                       shadow-md
@@ -273,7 +277,7 @@ export default function FormTask({ mode, taskId }: Props) {
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
                     className="
-                      h-12 w-full rounded-3xl
+                      h-8 w-full rounded-3xl
                       bg-(--color-input-bg)
                       px-4
                       shadow-md
@@ -289,11 +293,27 @@ export default function FormTask({ mode, taskId }: Props) {
 
   
             <section>
-              <div className="mb-3 ml-2 flex items-center gap-2">
-                <FileText size={18} />
-                <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
-                  OBSERVAÇÕES
-                </span>
+
+              <div className='flex justify-between'>
+                  <div className="mb-1 ml-2 flex items-center gap-2">
+                      
+                      <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
+                        OBSERVAÇÕES
+                      </span>
+                  </div>
+
+                  <div className="text-right mr-2">
+                      <span
+                        className={`text-sm ${
+                          notes.length > 230
+                            ? 'text-red-500'
+                            : 'text-(--color-text-muted)'
+                        }`}
+                      >
+                        {notes.length}/250
+                      </span>
+                  </div>
+
               </div>
 
               <textarea
@@ -306,7 +326,7 @@ export default function FormTask({ mode, taskId }: Props) {
                   w-full resize-none rounded-3xl
                   bg-(--color-input-bg)
                   px-4 py-4
-                  leading-6
+                  leading-4
                   shadow-md
                   outline-none
                   transition
@@ -316,17 +336,7 @@ export default function FormTask({ mode, taskId }: Props) {
                 "
               />
 
-              <div className="mt-2 text-right">
-                <span
-                  className={`text-sm ${
-                    notes.length > 230
-                      ? 'text-red-500'
-                      : 'text-(--color-text-muted)'
-                  }`}
-                >
-                  {notes.length}/250
-                </span>
-              </div>
+              
             </section>
 
           </div>
@@ -338,7 +348,7 @@ export default function FormTask({ mode, taskId }: Props) {
             onClick={handleSubmit}
             disabled={!canSave}
             className={`
-              h-14 w-full
+              h-16 w-full
               rounded-none
               text-lg font-bold text-white
               transition active:scale-[0.98]

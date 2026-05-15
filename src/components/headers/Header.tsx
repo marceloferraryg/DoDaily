@@ -13,7 +13,7 @@ export default function Header({title, subtitle} : propsHeader) {
 
    return (
   <header className="shell-top">
-    <div className="flex h-30 w-full">
+    <div className="flex h-26 w-full">
       <button
         className="w-24 bg-(--color-primary) flex items-center justify-center pb-5"
         onClick={() => router.push('/')}
@@ -21,7 +21,7 @@ export default function Header({title, subtitle} : propsHeader) {
         <ArrowLeft size={32} color="white" />
       </button>
 
-      <div className="flex flex-1 flex-col justify-center bg-(--color-primary) pb-5">
+      <div className="flex flex-1 flex-col justify-center bg-(--color-primary) pb-6">
         <h2 className="text-3xl font-bold text-(--color-text-primary-white)">
           {title}
         </h2>

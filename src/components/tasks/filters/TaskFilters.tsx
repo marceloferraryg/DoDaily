@@ -1,6 +1,6 @@
 import  FilterPeriod  from './FilterPeriod'
 import  FilterCategory  from './FilterCategory'
-import TaskPrioritySelect from '../TaskPrioritySelect'
+//import TaskPrioritySelect from '../TaskPrioritySelect'
 
 type Props = {
   period: string
@@ -34,7 +34,7 @@ export default function TaskFilters() {
           Prioridade
         </h3>
 
-        <TaskPrioritySelect />
+       {/*  <TaskPrioritySelect />  */}
       </section>
 
     </div>

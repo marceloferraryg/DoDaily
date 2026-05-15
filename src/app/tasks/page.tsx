@@ -37,7 +37,7 @@ return(
             />
 
             <div
-            className=" flex z-60 mt-25 flex-1 overflow-y-auto rounded-t-3xl bg-(--color-bg-body) pb-32 scroll-smooth"
+            className=" flex z-60 mt-20 flex-1 overflow-y-auto rounded-t-3xl bg-(--color-bg-body) pb-32 scroll-smooth"
             >
 
              <TaskFilters />
