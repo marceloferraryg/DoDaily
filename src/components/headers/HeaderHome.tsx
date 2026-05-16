@@ -12,15 +12,15 @@ export function HeaderHome() {
   const Username = 'Marcelo'
 
   return (
-    <div className="flex justify-between bg-(--color-bg-primary) px-5 pt-4 pb-10">
+    <header className="flex justify-between items-center bg-(--color-bg-primary) px-5 pt-4 pb-10">
       
        <div>
-          <h2 className="text-4xl font-bold text-white">
+          <h2 className="text-3xl font-bold text-white">
             Hoje
           </h2>
 
           
-          <p className="text-white/80">
+          <p className="text-white/80 text-sm">
             {today}
           </p>
       </div> 
@@ -38,6 +38,6 @@ export function HeaderHome() {
       </div>
 
      
-    </div>
+    </header>
   )
 }

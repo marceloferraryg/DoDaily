@@ -1,7 +1,9 @@
 'use client'
 
-import { Task } from '@/types/tasks'
 import { Check } from 'lucide-react'
+
+import { Task } from '@/types/tasks'
+
 import { taskCategoriesMap } from '@/components/tasks/maps/TaskCategoryMap'
 import { taskPriorityMap } from '@/components/tasks/maps/TaskPriorityMap'
 
@@ -11,63 +13,78 @@ type PropsTaskCard = {
   onRemove?: () => void
 }
 
-export function TaskCard({ task, onShowNotes, }: PropsTaskCard) {
+export function TaskCard({
+  task,
+  onShowNotes,
+}: PropsTaskCard) {
 
   const category =
-    taskCategoriesMap[task.category] || taskCategoriesMap.other
+    taskCategoriesMap[task.category] ||
+    taskCategoriesMap.other
 
   const {
     color,
     icon: CategoryIcon,
   } = category
 
-  const priority = taskPriorityMap[task.priority] || taskPriorityMap.low
+  const priority =
+    taskPriorityMap[task.priority] ||
+    taskPriorityMap.low
 
   return (
     <div
       className="
-        flex rounded-3xl overflow-hidden shadow-md
-        cursor-pointer active:scale-[0.97]
-        transition-transform hover:scale-[1.03]
+        flex items-stretch
+        rounded-3xl overflow-hidden
+        shadow-md
+        active:scale-[0.98]
+        transition-transform
       "
     >
-      <div className="flex">
+
+      {/* LEFT */}
+      <div className="flex shrink-0">
+
         <div
           className="
-            flex w-8 self-stretch shrink-0
-            justify-center items-center
+            flex w-6
+            items-center justify-center
           "
-          style={{ backgroundColor: color }}
+          style={{
+            backgroundColor: color,
+          }}
         >
           <CategoryIcon
             size={18}
             color="white"
-            className='ml-1'
+            style={{marginLeft: 3}}
           />
         </div>
 
         <div
           className="
-            flex items-center w-full pl-3 pr-5
+            flex items-center justify-center
+            px-3
             bg-(--color-bg-task)
           "
         >
           <div
             className={`
-              flex w-6 h-6
-              justify-center items-center
-              rounded-full
-              border border-(--color-border)
+              flex h-6 w-6
+              items-center justify-center
+              rounded-full border
+              border-(--color-border)
+              transition-colors
               ${
                 task.done
-                  ? 'bg-green-500 border-green-500'
+                  ? 'bg-(--color-success) border-(--color-success)'
                   : ''
               }
             `}
           >
             {task.done && (
               <Check
-                size={18}
+                size={16}
                 color="white"
                 strokeWidth={3}
               />
@@ -76,80 +93,76 @@ export function TaskCard({ task, onShowNotes, }: PropsTaskCard) {
         </div>
       </div>
 
-      <div
+      {/* CENTER */}
+      <button
+        type="button"
         onClick={(e) => {
           e.stopPropagation()
           onShowNotes?.()
         }}
         className="
-          flex items-center gap-3
-          w-full py-2
+          flex flex-1 min-w-0
+          items-center
           bg-(--color-bg-task)
+          py-3
+          text-left
         "
       >
         <p
-          className={`flex-1 truncate min-w-0 ${
-            task.done
-              ? 'line-through text-(--color-text-muted)'
-              : 'text-(--color-text-primary) font-medium'
-          }`}
+          className={`
+            truncate
+            text-sm
+            leading-5
+            ${
+              task.done
+                ? 'line-through text-(--color-text-muted)'
+                : 'font-medium text-(--color-text-primary)'
+            }
+          `}
         >
           {task.title}
         </p>
-      </div>
+      </button>
 
+      {/* RIGHT */}
       <div
         className="
-          flex items-center
-          text-(--color-text-muted)
-         
+          flex shrink-0 items-center gap-2
+          bg-(--color-bg-task)
+          pl-2 pr-3
         "
       >
-        {task.time ? (
-          <div
-            className="
-              flex h-full w-12
-              bg-(--color-bg-task)
-              items-center
-              transition-colors
-            "
-          >
-            <span className="text-sm">
+
+        {/* TIME */}
+        <div className="w-11 text-right">
+          {task.time && (
+            <span
+              className="
+                text-sm
+                text-(--color-text-muted)
+              "
+            >
               {task.time}
             </span>
-          </div>
-        ) : (
-          <div
-            className="
-              flex h-full w-14
-              bg-(--color-bg-task)
-              transition-colors
-            "
-          />
-        )}
+          )}
+        </div>
 
-        {priority.icon ?(
-          <div
+        {/* PRIORITY */}
+        <div
+          className="
+            flex w-5
+            justify-center
+          "
+        >
+          <span
             className="
-              flex h-full w-6
-              bg-(--color-bg-task)
-              items-center
-              transition-colors
+              text-lg font-bold
+              text-(--color-text-primary)
             "
           >
-            <span className="text-xl text-(--color-text-primary)">
-              {priority.icon}
-            </span>
-          </div>
-        ) : (
-          <div
-            className="
-              flex h-full w-6
-              bg-(--color-bg-task)
-              transition-colors
-            "
-          />
-        )}
+            {priority.icon}
+          </span>
+        </div>
       </div>
     </div>
   )

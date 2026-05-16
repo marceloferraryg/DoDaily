@@ -18,6 +18,7 @@ import { Task } from '@/types/tasks'
 import { getTaskGroups, sortTasks } from '@/lib/dateTasks'
 
 export default function Home() {
+  
   const router = useRouter()
 
   const tasks = useTasks((state) => state.tasks)

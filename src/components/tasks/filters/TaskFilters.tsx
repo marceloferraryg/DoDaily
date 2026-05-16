@@ -1,40 +1,77 @@
-import  FilterPeriod  from './FilterPeriod'
-import  FilterCategory  from './FilterCategory'
+'use client'
+
+import FilterPeriod from './FilterPeriod'
+import FilterCategory from './FilterCategory'
 import FilterPriority from './FilterPriority'
 
+import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
+import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
+
+type FilterPeriodType =
+  | 'today'
+  | 'week'
+  | 'all'
+  | 'late'
+
 type Props = {
-  period: string
-  category: string
-  setPeriod: (value: string) => void
-  setCategory: (value: string) => void
+  period: FilterPeriodType
+  onChangePeriod: (
+    value: FilterPeriodType
+  ) => void
+
+  categories: TaskCategory[]
+  onChangeCategories: (
+    value: TaskCategory[]
+  ) => void
+
+  priorities: TaskPriority[]
+  onChangePriorities: (
+    value: TaskPriority[]
+  ) => void
 }
 
-export default function TaskFilters() {
+export default function TaskFilters({
+  period,
+  onChangePeriod,
+  categories,
+  onChangeCategories,
+  priorities,
+  onChangePriorities,
+}: Props) {
   return (
     <div className="flex flex-col w-full p-5 gap-3">
 
-      <section className=''>
+      <section>
         <h3 className="mb-2 text-lg font-bold text-(--color-text-primary)">
           Período
         </h3>
 
-        <FilterPeriod />
+        <FilterPeriod
+          value={period}
+          onChange={onChangePeriod}
+        />
       </section>
 
-      <section className=''>
+      <section>
         <h3 className="mb-2 text-lg font-bold text-(--color-text-primary)">
           Categoria
         </h3>
 
-        <FilterCategory />
+        <FilterCategory
+          value={categories}
+          onChange={onChangeCategories}
+        />
       </section>
-      
-      <section className=''>
+
+      <section>
         <h3 className="mb-2 text-lg font-bold text-(--color-text-primary)">
           Prioridade
         </h3>
 
-       <FilterPriority />
+        <FilterPriority
+          value={priorities}
+          onChange={onChangePriorities}
+        />
       </section>
 
     </div>

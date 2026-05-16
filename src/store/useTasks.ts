@@ -1,26 +1,33 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
-import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
 
 import { v4 as uuid } from 'uuid'
+
+import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
+import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
 
 export type Task = {
   id: string
   title: string
+
   category: TaskCategory
   priority: TaskPriority
+
   done: boolean
+
   date?: string
   time?: string
   notes?: string
+
   createdAt: number
 }
 
 type NewTask = {
   title: string
+
   category: TaskCategory
   priority: TaskPriority
+
   date?: string
   time?: string
   notes?: string
@@ -30,25 +37,47 @@ type TaskStore = {
   tasks: Task[]
 
   addTask: (task: NewTask) => void
-  updateTask: (id: string, data: Partial<Task>) => void
+
+  updateTask: (
+    id: string,
+    data: Partial<Task>,
+  ) => void
+
   toggleTask: (id: string) => void
+
   removeTask: (id: string) => void
-  editTask: (id: string, updates: Partial<Task>) => void
+
+  editTask: (
+    id: string,
+    updates: Partial<Task>,
+  ) => void
 }
 
 function sortTasks(tasks: Task[]) {
   return [...tasks].sort((a, b) => {
-    // concluídas por último
-    if (a.done !== b.done) return a.done ? 1 : -1
+    /**
+     * 1. não concluídas primeiro
+     */
+    if (a.done !== b.done) {
+      return Number(a.done) - Number(b.done)
+    }
 
-    // com hora primeiro
+    /**
+     * 2. tarefas com horário primeiro
+     */
     if (a.time && !b.time) return -1
     if (!a.time && b.time) return 1
 
-    // horário crescente
-    if (a.time && b.time) return a.time.localeCompare(b.time)
+    /**
+     * 3. ordenar horário
+     */
+    if (a.time && b.time) {
+      return a.time.localeCompare(b.time)
+    }
 
-    // mais recentes primeiro
+    /**
+     * 4. mais recentes primeiro
+     */
     return b.createdAt - a.createdAt
   })
 }
@@ -62,36 +91,52 @@ export const useTasks = create<TaskStore>()(
         set((state) => {
           const newTask: Task = {
             id: uuid(),
+
             title: task.title.trim(),
-            category: task.category,
-            priority: task.priority,
+
+            category: task.category || 'other',
+            priority: task.priority || 'low',
+
             done: false,
+
             date: task.date || '',
             time: task.time || '',
             notes: task.notes?.trim() || '',
+
             createdAt: Date.now(),
           }
 
           return {
-            tasks: sortTasks([...state.tasks, newTask]),
+            tasks: sortTasks([
+              ...state.tasks,
+              newTask,
+            ]),
           }
         }),
 
       updateTask: (id, data) =>
-          set(state => ({
-            tasks: state.tasks.map(task =>
-                task.id === id
-                  ? { ...task, ...data }
-                  : task
-            )
-          })),
+        set((state) => ({
+          tasks: sortTasks(
+            state.tasks.map((task) =>
+              task.id === id
+                ? {
+                    ...task,
+                    ...data,
+                  }
+                : task,
+            ),
+          ),
+        })),
 
       toggleTask: (id) =>
         set((state) => ({
           tasks: sortTasks(
             state.tasks.map((task) =>
               task.id === id
-                ? { ...task, done: !task.done }
+                ? {
+                    ...task,
+                    done: !task.done,
+                  }
                 : task,
             ),
           ),
@@ -99,7 +144,9 @@ export const useTasks = create<TaskStore>()(
 
       removeTask: (id) =>
         set((state) => ({
-          tasks: state.tasks.filter((task) => task.id !== id),
+          tasks: state.tasks.filter(
+            (task) => task.id !== id,
+          ),
         })),
 
       editTask: (id, updates) =>
@@ -107,7 +154,10 @@ export const useTasks = create<TaskStore>()(
           tasks: sortTasks(
             state.tasks.map((task) =>
               task.id === id
-                ? { ...task, ...updates }
+                ? {
+                    ...task,
+                    ...updates,
+                  }
                 : task,
             ),
           ),
