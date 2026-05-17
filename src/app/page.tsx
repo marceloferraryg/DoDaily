@@ -4,9 +4,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { AppShell } from '@/components/AppShell'
+
 import { HeaderHome } from '@/components/headers/HeaderHome'
+
 import SummaryDay from '@/components/utils/SummaryDay'
 import { FabButton } from '@/components/utils/FabButton'
+
 import { TaskCard } from '@/components/tasks/TaskCard'
 import { TaskSwipeCard } from '@/components/tasks/TaskSwipeCard'
 
@@ -14,30 +17,73 @@ import { InfoTaskBottom } from '@/components/utils/InfoTaskBottom'
 import { ConfirmBottom } from '@/components/utils/ConfirmBottom'
 
 import { useTasks } from '@/store/useTasks'
+
 import { Task } from '@/types/tasks'
-import { getTaskGroups, sortTasks } from '@/lib/dateTasks'
+
+import {
+  getTaskGroups,
+  sortTasks,
+} from '@/lib/dateTasks'
 
 export default function Home() {
-  
   const router = useRouter()
 
-  const tasks = useTasks((state) => state.tasks)
-  const toggleTask = useTasks((state) => state.toggleTask)
-  const removeTask = useTasks((state) => state.removeTask)
+  const tasks = useTasks(
+    (state) => state.tasks
+  )
+
+  const toggleTask = useTasks(
+    (state) => state.toggleTask
+  )
+
+  const removeTask = useTasks(
+    (state) => state.removeTask
+  )
 
   const {
-  todayTasks,
-  tomorrowTasks,
-  noDateTasks
+    todayTasks,
+    tomorrowTasks,
+    overdueTasks,
+    noDateTasks,
   } = getTaskGroups(tasks)
 
-  const homeToday = sortTasks([...todayTasks, ...noDateTasks])
- 
+  /*
+  ------------------------
+  TASKS DA HOME
+  ------------------------
+  */
 
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null)
+  // Tasks de hoje + tasks sem data
+  const homeToday = sortTasks([
+    ...todayTasks,
+    ...noDateTasks,
+  ])
 
-  const [isInfoOpen, setIsInfoOpen] = useState(false)
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  // Tasks realmente atrasadas + tasks de hoje
+  // que passaram do horário
+ const homeOverdue =
+  sortTasks(overdueTasks)
+
+  /*
+  ------------------------
+  MODALS
+  ------------------------
+  */
+
+  const [selectedTask, setSelectedTask] =
+    useState<Task | null>(null)
+
+  const [isInfoOpen, setIsInfoOpen] =
+    useState(false)
+
+  const [isDeleteOpen, setIsDeleteOpen] =
+    useState(false)
+
+  /*
+  ------------------------
+  ACTIONS
+  ------------------------
+  */
 
   function openInfo(task: Task) {
     setSelectedTask(task)
@@ -53,68 +99,155 @@ export default function Home() {
     if (!selectedTask) return
 
     removeTask(selectedTask.id)
+
     setIsDeleteOpen(false)
     setSelectedTask(null)
   }
 
+  /*
+  ------------------------
+  RENDER TASKS
+  ------------------------
+  */
+
+  function renderTasks(list: Task[]) {
+    return list.map((task) => (
+      <TaskSwipeCard
+        key={task.id}
+        onComplete={() =>
+          toggleTask(task.id)
+        }
+        onRemove={() => openDelete(task)}
+        isDone={task.done}
+      >
+        <TaskCard
+          task={task}
+          onShowNotes={() =>
+            openInfo(task)
+          }
+          onRemove={() =>
+            openDelete(task)
+          }
+        />
+      </TaskSwipeCard>
+    ))
+  }
+
   return (
     <AppShell>
-      <div className="flex flex-col h-screen bg-(--color-bg-body) overflow-hidden">
-
+      <div
+        className="
+          flex flex-col h-screen
+          bg-(--color-bg-body)
+          overflow-hidden
+        "
+      >
         <HeaderHome />
 
         <div
           className="
-            flex flex-1 flex-col p-5
+            flex flex-1 flex-col
+            py-5
             bg-(--color-bg-body)
-            overflow-y-auto scroll-smooth
-            pb-40 rounded-t-3xl -mt-5
+            overflow-y-auto
+            scroll-smooth
+            pb-40
+            rounded-t-3xl
+            -mt-5
           "
         >
           <SummaryDay />
 
-          <div className="border-b border-(--color-border) pb-10">
-            <h1 className="text-2xl font-bold text-(--color-text-primary) mb-5">
-              Tarefas de hoje
-            </h1>
+          {/* ATRASADAS */}
 
-            {homeToday.map((task) => (
-              <TaskSwipeCard
-                key={task.id}
-                onComplete={() => toggleTask(task.id)}
-                onRemove={() => openDelete(task)}
-                isDone={task.done}
+          {homeOverdue.length > 0 && (
+            <section
+              className="
+                pb-8 mb-3
+                bg-red-100/50 px-5 pt-3
+              "
+            >
+              <h1
+                className="
+                  text-lg font-bold
+                  text-red-500
+                  mb-3
+                "
               >
-                <TaskCard
-                  task={task}
-                  onShowNotes={() => openInfo(task)}
-                  onRemove={() => openDelete(task)}
-                />
-              </TaskSwipeCard>
-            ))}
+                Atrasadas
+              </h1>
 
-            
-          </div>
+              <div className="space-y-3">
+                {renderTasks(homeOverdue)}
+              </div>
+            </section>
+          )}
 
-          <div className='mt-2'>
-              <h1 className="text-2xl font-bold text-(--color-text-primary) mb-5">
-              Amanhã
-            </h1>
+          {/* HOJE */}
 
-            {tomorrowTasks.map((task) => (
-              <TaskSwipeCard
-                key={task.id}
-                onComplete={() => toggleTask(task.id)}
-                onRemove={() => openDelete(task)}
-                isDone={task.done}
+          <div className="px-5">
+            <section
+              className="
+                border-b border-(--color-border)
+                pb-8
+              "
+            >
+              <h1
+                className="
+                  text-lg font-bold
+                  text-(--color-text-primary)
+                  mb-3
+                "
               >
-                <TaskCard
-                  task={task}
-                  onShowNotes={() => openInfo(task)}
-                  onRemove={() => openDelete(task)}
-                />
-              </TaskSwipeCard>
-            ))}
+                Tarefas de hoje
+              </h1>
+
+              <div className="space-y-3">
+                {homeToday.length > 0 ? (
+                  renderTasks(homeToday)
+                ) : (
+                  <p
+                    className="
+                      text-(--color-text-muted)
+                      text-sm
+                    "
+                  >
+                    Nenhuma tarefa para hoje
+                  </p>
+                )}
+              </div>
+            </section>
+
+            {/* AMANHÃ */}
+
+            <section className="mt-3">
+              <h1
+                className="
+                  text-lg font-bold
+                  text-(--color-text-primary)
+                  mb-3
+                "
+              >
+                Amanhã
+              </h1>
+
+              <div className="space-y-3">
+                {tomorrowTasks.length > 0 ? (
+                  renderTasks(
+                    sortTasks(tomorrowTasks)
+                  )
+                ) : (
+                  <p
+                    className="
+                      text-(--color-text-muted)
+                      text-sm
+                    "
+                  >
+                    Nenhuma tarefa para amanhã
+                  </p>
+                )}
+              </div>
+            </section>
           </div>
         </div>
 
@@ -124,14 +257,22 @@ export default function Home() {
           <>
             <InfoTaskBottom
               isOpen={isInfoOpen}
-              onClose={() => setIsInfoOpen(false)}
-              onEdit={() => router.push(`/tasks/${selectedTask.id}`)}
+              onClose={() =>
+                setIsInfoOpen(false)
+              }
+              onEdit={() =>
+                router.push(
+                  `/tasks/${selectedTask.id}`
+                )
+              }
               task={selectedTask}
             />
 
             <ConfirmBottom
               isOpen={isDeleteOpen}
-              onClose={() => setIsDeleteOpen(false)}
+              onClose={() =>
+                setIsDeleteOpen(false)
+              }
               onConfirm={confirmDelete}
               task={selectedTask}
               title="Remover tarefa"

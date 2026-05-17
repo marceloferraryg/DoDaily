@@ -1,43 +1,29 @@
 'use client'
 
-type FilterPeriodType =
-  | 'today'
-  | 'week'
-  | 'all'
-  | 'late'
+import {
+  taskPeriodMap,
+  FilterPeriodType,
+} from '../maps/TaskPeriodMap'
 
 type Props = {
   value: FilterPeriodType
-  onChange: ( value: FilterPeriodType ) => void
+  onChange: (
+    value: FilterPeriodType
+  ) => void
 }
 
-export default function FilterPeriod({ value, onChange }: Props) {
-  
-  const periods = [
-    {
-      label: 'Hoje',
-      value: 'today',
-    },
-    {
-      label: 'Semana',
-      value: 'week',
-    },
-    {
-      label: 'Tudo',
-      value: 'all',
-    },
-    {
-      label: 'Atrasadas',
-      value: 'late',
-    },
-  ] as const
+export default function FilterPeriod({
+  value,
+  onChange,
+}: Props) {
+  const periods =
+    Object.values(taskPeriodMap)
 
   return (
     <div
       className="
-        flex w-full
+        flex w-full gap-1
         rounded-3xl
-        justify-around items-center
         bg-(--color-bg-task)
         p-1 shadow-md
       "
@@ -48,19 +34,20 @@ export default function FilterPeriod({ value, onChange }: Props) {
 
         return (
           <button
-            key={item.value}
+            key={item.id}
             type="button"
             onClick={() =>
               onChange(item.value)
             }
             className={`
-              flex px-5 py-1 rounded-3xl
-              text-sm font-medium
-              justify-center items-center
-              whitespace-nowrap
+              flex-1 min-w-0
+              py-2
+              rounded-3xl
+              text-xs font-medium
               transition-all
               active:scale-95
               cursor-pointer
+              truncate
               ${
                 isActive
                   ? 'bg-(--color-primary) text-(--color-text-primary-white) shadow-md'

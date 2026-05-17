@@ -1,26 +1,43 @@
 import { Task } from '@/store/useTasks'
 import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
 import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
+import { FilterPeriodType } from '@/components/tasks/maps/TaskPeriodMap' 
+
 import {
   todayISO,
   tomorrowISO,
 } from '@/lib/dateTasks'
 
-export type FilterPeriod =
-  | 'today'
-  | 'week'
-  | 'all'
-  | 'late'
-
 type Filters = {
-  period: FilterPeriod
+  period: FilterPeriodType
   categories: TaskCategory[]
   priorities: TaskPriority[]
 }
 
-export function filterTasks( tasks: Task[], filters: Filters ) {
- 
+function getNowTime() {
+  const now = new Date()
+
+  const hours = String(now.getHours()).padStart(2, '0')
+  const minutes = String(now.getMinutes()).padStart(2, '0')
+
+  return `${hours}:${minutes}`
+}
+
+export function filterTasks(
+  tasks: Task[],
+  filters: Filters,
+) {
   const today = todayISO()
+  const tomorrow = tomorrowISO()
+
+  const nowTime = getNowTime()
+
+  /*
+  ------------------------
+  WEEK LIMIT
+  amanhã + 6 dias
+  ------------------------
+  */
 
   const weekDate = new Date()
   weekDate.setDate(weekDate.getDate() + 7)
@@ -42,24 +59,58 @@ export function filterTasks( tasks: Task[], filters: Filters ) {
       }
     }
 
+    /*
+    Semana:
+    amanhã até +7 dias
+    (hoje NÃO entra)
+    */
+
     if (filters.period === 'week') {
       if (
         !task.date ||
-        task.date < today ||
+        task.date < tomorrow ||
         task.date > weekISO
       ) {
         return false
       }
     }
 
+    /*
+    Atrasadas:
+    - datas anteriores a hoje
+    - OU hoje com horário já passado
+    */
+
     if (filters.period === 'late') {
-      if (
-        !task.date ||
-        task.date >= today
-      ) {
+      const isPastDate =
+        task.date &&
+        task.date < today
+
+      const isLateToday =
+        task.date === today &&
+        task.time &&
+        task.time < nowTime
+
+      if (!isPastDate && !isLateToday) {
         return false
       }
     }
+
+    /*
+    Sem data:
+    somente tasks sem date
+    */
+
+    if (filters.period === 'nodate') {
+      if (task.date) {
+        return false
+      }
+    }
+
+    /*
+    Todos:
+    não filtra por data
+    */
 
     /*
     ------------------------

@@ -19,12 +19,8 @@ import { Task } from '@/types/tasks'
 
 import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
 import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
+import { FilterPeriodType } from '@/components/tasks/maps/TaskPeriodMap' 
 
-export type FilterPeriod =
-  | 'today'
-  | 'week'
-  | 'all'
-  | 'late'
 
 export default function Tasks() {
   
@@ -40,7 +36,7 @@ export default function Tasks() {
 
   // filtro obrigatório
   const [period, setPeriod] =
-    useState<FilterPeriod>('today')
+    useState<FilterPeriodType>('today')
 
   // filtros opcionais
   const [categories, setCategories] = useState<
@@ -115,7 +111,7 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
             overflow-y-auto
             rounded-t-3xl
             bg-(--color-bg-body)
-            pb-32
+            pb-32 
             scroll-smooth
           "
         >
@@ -128,45 +124,49 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
             onChangePriorities={setPriorities}
           />
 
-         {filteredTasks.map((task) => (
-                       <TaskSwipeCard
-                         key={task.id}
-                         onComplete={() => toggleTask(task.id)}
-                         onRemove={() => openDelete(task)}
-                         isDone={task.done}
-                       >
-                         <TaskCard
-                           task={task}
-                           onShowNotes={() => openInfo(task)}
-                           onRemove={() => openDelete(task)}
-                         />
-                       </TaskSwipeCard>
-                     ))}
+        <div className='flex flex-col border-t border-(--color-border) mx-5 pt-5'>
 
-                     <FabButton />
+          {filteredTasks.map((task) => (
+             <TaskSwipeCard
+                key={task.id}
+                onComplete={() => toggleTask(task.id)}
+                onRemove={() => openDelete(task)}
+                isDone={task.done}
+             >
+                  <TaskCard
+                      task={task}
+                      onShowNotes={() => openInfo(task)}
+                      onRemove={() => openDelete(task)}
+                  />
+             </TaskSwipeCard>
+          ))}
+
+        </div>  
+
+        <FabButton />
+                    
+          {selectedTask && (
+               <>
+                  <InfoTaskBottom
+                      isOpen={isInfoOpen}
+                      onClose={() => setIsInfoOpen(false)}
+                      onEdit={() => router.push(`/tasks/${selectedTask.id}`)}
+                      task={selectedTask}
+                  />
                      
-                             {selectedTask && (
-                               <>
-                                 <InfoTaskBottom
-                                   isOpen={isInfoOpen}
-                                   onClose={() => setIsInfoOpen(false)}
-                                   onEdit={() => router.push(`/tasks/${selectedTask.id}`)}
-                                   task={selectedTask}
-                                 />
-                     
-                                 <ConfirmBottom
-                                   isOpen={isDeleteOpen}
-                                   onClose={() => setIsDeleteOpen(false)}
-                                   onConfirm={confirmDelete}
-                                   task={selectedTask}
-                                   title="Remover tarefa"
-                                   message="Tem certeza que deseja remover esta tarefa?"
-                                   confirmText="Remover"
-                                   cancelText="Cancelar"
-                                   variant="danger"
-                                 />
-                               </>
-                             )}
+                  <ConfirmBottom
+                      isOpen={isDeleteOpen}
+                      onClose={() => setIsDeleteOpen(false)}
+                      onConfirm={confirmDelete}
+                      task={selectedTask}
+                      title="Remover tarefa"
+                      message="Tem certeza que deseja remover esta tarefa?"
+                      confirmText="Remover"
+                      cancelText="Cancelar"
+                      variant="danger"
+                  />
+               </>
+           )}
 
         </div>
       </div>

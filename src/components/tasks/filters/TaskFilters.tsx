@@ -6,12 +6,8 @@ import FilterPriority from './FilterPriority'
 
 import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
 import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
+import { FilterPeriodType } from '@/components/tasks/maps/TaskPeriodMap' 
 
-type FilterPeriodType =
-  | 'today'
-  | 'week'
-  | 'all'
-  | 'late'
 
 type Props = {
   period: FilterPeriodType
