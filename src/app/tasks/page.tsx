@@ -13,13 +13,14 @@ import { TaskCard } from '@/components/tasks/TaskCard'
 import { TaskSwipeCard } from '@/components/tasks/TaskSwipeCard'
 import { InfoTaskBottom } from '@/components/utils/InfoTaskBottom'
 import { ConfirmBottom } from '@/components/utils/ConfirmBottom'
+import { MenuTabBar } from '@/components/utils/MenuTabBar'
 
 import { useTasks } from '@/store/useTasks'
 import { Task } from '@/types/tasks'
 
-import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
-import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
-import { FilterPeriodType } from '@/components/tasks/maps/TaskPeriodMap' 
+import { TaskCategory } from '@/maps/TaskCategoryMap'
+import { TaskPriority } from '@/maps/TaskPriorityMap'
+import { FilterPeriodType } from '@/maps/TaskPeriodMap' 
 
 
 export default function Tasks() {
@@ -144,7 +145,9 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
         </div>  
 
         <FabButton />
-                    
+        
+        <MenuTabBar />
+
           {selectedTask && (
                <>
                   <InfoTaskBottom

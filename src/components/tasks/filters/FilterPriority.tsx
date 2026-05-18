@@ -3,7 +3,7 @@
 import {
   taskPriorityMap,
   TaskPriority,
-} from '@/components/tasks/maps/TaskPriorityMap'
+} from '@/maps/TaskPriorityMap'
 
 type Props = {
   value: TaskPriority[]

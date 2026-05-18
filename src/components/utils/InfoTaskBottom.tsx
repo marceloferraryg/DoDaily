@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Task } from '@/types/tasks'
 import { Edit } from 'lucide-react'
 
-import { taskCategoriesMap } from '@/components/tasks/maps/TaskCategoryMap'
+import { taskCategoriesMap } from '@/maps/TaskCategoryMap'
 
 type Props = {
   isOpen: boolean

@@ -4,8 +4,8 @@ import { Check } from 'lucide-react'
 
 import { Task } from '@/types/tasks'
 
-import { taskCategoriesMap } from '@/components/tasks/maps/TaskCategoryMap'
-import { taskPriorityMap } from '@/components/tasks/maps/TaskPriorityMap'
+import { taskCategoriesMap } from '@/maps/TaskCategoryMap'
+import { taskPriorityMap } from '@/maps/TaskPriorityMap'
 
 type PropsTaskCard = {
   task: Task

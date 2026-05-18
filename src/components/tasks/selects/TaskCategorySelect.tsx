@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { taskCategoriesMap, TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
+import { taskCategoriesMap, TaskCategory } from '@/maps/TaskCategoryMap'
 
 type Props = {
   onSelectCategory: (value: TaskCategory) => void

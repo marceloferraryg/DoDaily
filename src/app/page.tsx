@@ -9,6 +9,7 @@ import { HeaderHome } from '@/components/headers/HeaderHome'
 
 import SummaryDay from '@/components/utils/SummaryDay'
 import { FabButton } from '@/components/utils/FabButton'
+import { MenuTabBar } from '@/components/utils/MenuTabBar'
 
 import { TaskCard } from '@/components/tasks/TaskCard'
 import { TaskSwipeCard } from '@/components/tasks/TaskSwipeCard'
@@ -252,6 +253,8 @@ export default function Home() {
         </div>
 
         <FabButton />
+
+        <MenuTabBar />
 
         {selectedTask && (
           <>

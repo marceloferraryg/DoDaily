@@ -8,9 +8,9 @@ import { AppShell } from '@/components/AppShell'
 import Header from '@/components/headers/Header'
 import TaskCategorySelect from '@/components/tasks/selects/TaskCategorySelect'
 import { useTasks } from '@/store/useTasks'
-import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
+import { TaskCategory } from '@/maps/TaskCategoryMap'
 import { TaskPrioritySelect } from '@/components/tasks/selects/TaskPrioritySelect'
-import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
+import { TaskPriority } from '@/maps/TaskPriorityMap'
 
 type Props = {
   mode: 'create' | 'edit'

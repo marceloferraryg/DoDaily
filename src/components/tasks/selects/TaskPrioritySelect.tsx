@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react"
 
-import { taskPriorityMap, TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
+import { taskPriorityMap, TaskPriority } from '@/maps/TaskPriorityMap'
 
 type Props = {
   onSelectPriority: (value: TaskPriority) => void

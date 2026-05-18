@@ -3,7 +3,7 @@
 import {
   taskPeriodMap,
   FilterPeriodType,
-} from '../maps/TaskPeriodMap'
+} from '../../../maps/TaskPeriodMap'
 
 type Props = {
   value: FilterPeriodType

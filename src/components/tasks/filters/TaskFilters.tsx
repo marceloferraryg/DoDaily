@@ -4,9 +4,9 @@ import FilterPeriod from './FilterPeriod'
 import FilterCategory from './FilterCategory'
 import FilterPriority from './FilterPriority'
 
-import { TaskCategory } from '@/components/tasks/maps/TaskCategoryMap'
-import { TaskPriority } from '@/components/tasks/maps/TaskPriorityMap'
-import { FilterPeriodType } from '@/components/tasks/maps/TaskPeriodMap' 
+import { TaskCategory } from '@/maps/TaskCategoryMap'
+import { TaskPriority } from '@/maps/TaskPriorityMap'
+import { FilterPeriodType } from '@/maps/TaskPeriodMap' 
 
 
 type Props = {

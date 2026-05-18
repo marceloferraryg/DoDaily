@@ -13,8 +13,8 @@ export function FabButton() {
       className="
         group
         absolute
-        bottom-24
-        right-16
+        bottom-28
+        right-12
         z-50
 
         w-16
@@ -29,13 +29,13 @@ export function FabButton() {
 
         flex items-center justify-center
 
-        shadow-[0_10px_30px_rgba(94,45,180,0.35)]
+        shadow-md
 
         transition-all duration-300 ease-out
 
         hover:scale-105
         hover:-translate-y-1
-        hover:shadow-[0_16px_40px_rgba(94,45,180,0.45)]
+        hover:shadow-lg
 
         active:scale-95
       "

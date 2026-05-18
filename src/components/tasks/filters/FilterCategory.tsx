@@ -3,7 +3,7 @@
 import {
   taskCategoriesMap,
   TaskCategory,
-} from '@/components/tasks/maps/TaskCategoryMap'
+} from '@/maps/TaskCategoryMap'
 
 type Props = {
   value: TaskCategory[]
