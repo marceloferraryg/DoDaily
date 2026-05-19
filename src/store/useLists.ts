@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 
 import { v4 as uuid } from 'uuid'
 
-import { List, ListItem, NewList, ListStore } from '@/types/lists'
+import { List, NewList, ListStore } from '@/types/lists'
 
 
 //------------------------------------------

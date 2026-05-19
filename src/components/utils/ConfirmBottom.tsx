@@ -176,7 +176,7 @@ export function ConfirmBottom({
               shadow-sm
             "
           >
-            <p className="text-center font-semibold text-(--color-text-primary) break-words">
+            <p className="text-center font-semibold text-(--color-text-primary) wrap-break-word">
               {task.title}
             </p>
 

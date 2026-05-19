@@ -1,4 +1,4 @@
-import { Task } from '@/store/useTasks'
+import { Task } from '@/types/tasks'
 import { TaskCategory } from '@/maps/TaskCategoryMap'
 import { TaskPriority } from '@/maps/TaskPriorityMap'
 import { FilterPeriodType } from '@/maps/TaskPeriodMap' 

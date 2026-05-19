@@ -1,4 +1,4 @@
-import { Task } from '@/store/useTasks'
+import { Task } from '@/types/tasks'
 
 /*
 -----------------------------------
