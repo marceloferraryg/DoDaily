@@ -1,12 +1,10 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-
 import { useTasks } from '@/store/useTasks'
 import { todayISO } from '@/lib/dateTasks'
 
 export default function SummaryDay() {
-  const router = useRouter()
+
 
   const tasks = useTasks(
     (state) => state.tasks
@@ -47,9 +45,6 @@ export default function SummaryDay() {
 
       <div className="flex justify-center gap-5">
         <div
-          onClick={() =>
-            router.push('/tasks')
-          }
           className="
             w-40 h-14
             bg-(--color-bg-summary-card)
@@ -59,7 +54,6 @@ export default function SummaryDay() {
             shadow-md
             hover:scale-[1.03]
             transition-transform
-            cursor-pointer
           "
         >
           <h1

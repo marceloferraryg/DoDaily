@@ -26,10 +26,11 @@ export function MenuTabBar() {
       className="
         absolute bottom-0 left-0 right-0
         z-100
-        mx-5 mb-5
+        mx-5 
+       mb-[calc(env(safe-area-inset-bottom)+20px)]
         flex items-center justify-around
         rounded-3xl
-        bg-(--color-input-bg)/80 backdrop-blur-md
+        bg-(--color-input-bg)/10 backdrop-blur-sm
         p-2
         shadow-[0_3px_10px_rgba(94,45,180,0.35)]
       "
@@ -52,6 +53,8 @@ export function MenuTabBar() {
               items-center justify-center
               transition-all
               active:scale-95
+              hover:scale-105
+              
               ${
                 isActive
                   ? 'text-(--color-primary)'
@@ -64,6 +67,7 @@ export function MenuTabBar() {
               strokeWidth={
                 isActive ? 3 : 1.8
               }
+              
             />
 
             <span

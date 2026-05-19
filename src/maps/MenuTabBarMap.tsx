@@ -20,7 +20,7 @@ export const menuTabBarMap = {
          },         
   list: {
             id: 'list',
-            name: 'Lista',
+            name: 'Listas',
             href: '/list',
             icon: ShoppingCart,
          },

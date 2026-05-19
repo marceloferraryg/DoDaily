@@ -3,55 +3,11 @@ import { persist } from 'zustand/middleware'
 
 import { v4 as uuid } from 'uuid'
 
-import { TaskCategory } from '@/maps/TaskCategoryMap'
-import { TaskPriority } from '@/maps/TaskPriorityMap'
+import { Task, TaskStore } from '@/types/tasks'
 
-export type Task = {
-  id: string
-  title: string
 
-  category: TaskCategory
-  priority: TaskPriority
-
-  done: boolean
-
-  date?: string
-  time?: string
-  notes?: string
-
-  createdAt: number
-}
-
-type NewTask = {
-  title: string
-
-  category: TaskCategory
-  priority: TaskPriority
-
-  date?: string
-  time?: string
-  notes?: string
-}
-
-type TaskStore = {
-  tasks: Task[]
-
-  addTask: (task: NewTask) => void
-
-  updateTask: (
-    id: string,
-    data: Partial<Task>,
-  ) => void
-
-  toggleTask: (id: string) => void
-
-  removeTask: (id: string) => void
-
-  editTask: (
-    id: string,
-    updates: Partial<Task>,
-  ) => void
-}
+//------------------------------------------
+//-------- SORT TASKS ----------------------
 
 function sortTasks(tasks: Task[]) {
   return [...tasks].sort((a, b) => {
@@ -81,6 +37,9 @@ function sortTasks(tasks: Task[]) {
     return b.createdAt - a.createdAt
   })
 }
+
+//------------------------------------------
+//-------- USE TASKS PERSIST----------------
 
 export const useTasks = create<TaskStore>()(
   persist(
