@@ -46,7 +46,7 @@ export type ListItem = {
 
   sortOrder: number
 
-  priority?: TaskPriority
+  priority?: 'low' | 'medium' | 'high'
 
   quantity?: string
 
