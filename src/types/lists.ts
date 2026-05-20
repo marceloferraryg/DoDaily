@@ -92,6 +92,7 @@ export type ListStore = {
 //-------- LISTTYPES -----------------------
 
 export type ListType =
+  | 'default'
   | 'checklist'
   | 'notes'
   | 'shopping'

@@ -9,7 +9,7 @@ export function HeaderHome() {
 })
 
 
-  const Username = 'Marcelo'
+  const Username = 'Usuário'
 
   return (
     <header className="flex justify-between items-center bg-(--color-bg-primary) px-5 pt-4 pb-10">

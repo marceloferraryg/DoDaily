@@ -140,6 +140,7 @@ export default function FormTask({ mode, taskId }: Props) {
         <Header
           title={pageTitle}
           subtitle={pageSubtitle}
+          page='formNewTask'
         />
 
     
@@ -349,7 +350,7 @@ export default function FormTask({ mode, taskId }: Props) {
             onClick={handleSubmit}
             disabled={!canSave}
             className={`
-              h-16 w-full
+              h-18 w-full
               rounded-none
               text-lg font-bold text-white
               transition active:scale-[0.98]

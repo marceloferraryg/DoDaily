@@ -104,6 +104,7 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
         <Header
           title="Minhas Tarefas"
           subtitle={`${totalTasks} tarefas`}
+          page='tasksPage'
         />
 
         <div

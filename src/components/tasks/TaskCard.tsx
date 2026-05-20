@@ -13,10 +13,7 @@ type PropsTaskCard = {
   onRemove?: () => void
 }
 
-export function TaskCard({
-  task,
-  onShowNotes,
-}: PropsTaskCard) {
+export function TaskCard({ task, onShowNotes }: PropsTaskCard) {
 
   const category =
     taskCategoriesMap[task.category] ||
