@@ -128,26 +128,47 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
 
         <div className='flex flex-col border-t border-(--color-border) mx-5 pt-5'>
 
-          {filteredTasks.map((task) => (
-             <TaskSwipeCard
-                key={task.id}
-                onComplete={() => toggleTask(task.id)}
-                onRemove={() => openDelete(task)}
-                isDone={task.done}
-             >
-                  <TaskCard
-                      task={task}
-                      onShowNotes={() => openInfo(task)}
+
+          {filteredTasks.length === 0 ? ( 
+                    <div className="z-60
+                    flex flex-col w-full
+                    rounded-t-3xl
+                    bg-(--color-bg-body)
+                    p-8
+                    justify-center items-center 
+                    text-center
+                    gap-3 ">
+                        <span className="block text-md font-semibold">
+                            Nenhuma tarefa encontrada!
+                        </span>
+
+                        <span className="block text-sm text-(--color-text-secondary)">
+                            Selecione outra opção de filtro 
+                            ou remova algum para encontrar suas tarefas.
+                        </span>
+
+                        
+
+                    </div>
+                       
+            ) : (
+
+                filteredTasks.map((task) => (
+                  <TaskSwipeCard
+                      key={task.id}
+                      onComplete={() => toggleTask(task.id)}
                       onRemove={() => openDelete(task)}
-                  />
-             </TaskSwipeCard>
-          ))}
+                      isDone={task.done}
+                  >
+                        <TaskCard
+                            task={task}
+                            onShowNotes={() => openInfo(task)}
+                            onRemove={() => openDelete(task)}
+                        />
+                  </TaskSwipeCard>
+                )))}
 
         </div>  
-
-        <FabButton />
-        
-        <MenuTabBar />
 
           {selectedTask && (
                <>
@@ -173,6 +194,11 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
            )}
 
         </div>
+
+        <FabButton />
+        
+        <MenuTabBar />
+
       </div>
     </AppShell>
   )

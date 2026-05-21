@@ -15,7 +15,7 @@ export function FabButton() {
         absolute
         bottom-28
         right-12
-        z-50
+        z-70
 
         w-16
         h-16

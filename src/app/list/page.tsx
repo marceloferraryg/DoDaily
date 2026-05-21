@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { Plus } from 'lucide-react'
 
 import { MenuTabBar } from '@/components/utils/MenuTabBar'
 import { AppShell } from '@/components/AppShell'
@@ -17,26 +16,11 @@ import { useLists } from '@/store/useLists'
 
 export default function ListPage() {
 
-    const [loading] = useState(false)
+ 
     const router = useRouter();
 
     const lists = useLists((state) => state.lists);
 
-    if (loading) {
-        return (
-        <AppShell>
-            <div className="flex h-screen items-center justify-center">
-            <div className="text-(--color-text-secondary)">
-                Carregando tarefa...
-            </div>
-            </div>
-        </AppShell>
-        )
-    }
-
-    function handleNewList() {
-        router.push('/list/new')
-    }
     
     return (
     <AppShell>
@@ -54,54 +38,73 @@ export default function ListPage() {
                 page="listPage"
             />
 
-        <div className="
-               grid grid-cols-2
-               z-60 mt-20
-               overflow-y-auto
-               rounded-t-3xl
-               bg-(--color-bg-body)
-               pb-32 p-5
-               scroll-smooth
-               justify-center
-               
-            "
-        >
-               
-        
+            {lists.length === 0 ? ( 
+                    <div className="z-60 mt-20
+                    flex flex-col h-full w-full
+                    rounded-t-3xl
+                    bg-(--color-bg-body)
+                    p-12
+                    justify-center items-center 
+                    text-center
+                    gap-3 ">
+                        <span className="block text-md font-semibold">
+                            Nenhuma lista ainda!
+                        </span>
 
-            <button 
-                className='absolute cursor-pointer flex justify-center items-center top-5 right-3
-                            w-32 h-10 '
-                onClick={handleNewList}
-            >
-                <Plus size={20} color='white'/>
-                <span className="ml-1 text-sm text-white">Nova lista</span>
-            </button>
+                        <span className="block text-sm text-(--color-text-secondary)">
+                            Crie listas para organizar
+                            compras, ideias, viagens e muito mais!
+                        </span>
 
-          
+                        <button
+                            className="
+                            cursor-pointer
+                                mt-5 px-4 py-3
+                                bg-(--color-primary)
+                                text-white
+                                rounded-3xl
+                                text-sm font-medium
+                            "
+                            onClick={() => router.push('/list/new')}
+                        >
+                            Criar minha primeira lista
+                        </button>
 
-                {lists.length === 0 && (
-                    <div className="flex h-full w-full flex-col items-center justify-center text-center 
-                                    text-(--color-text-secondary) p-5">
-                        Você ainda não tem nenhuma lista. Clique no botão acima para criar uma nova lista.
                     </div>
-                )}
-                {lists.length > 0 && (
-                    lists.map((list) => (
-                        <ListCard 
-                            key={list.id}   
-                            list={list}
-                        />
-                    ))
-                )}
-                
-           
-            
+                       
+            ) : (
 
-             <MenuTabBar />
+                <div className="
+                    grid grid-cols-[repeat(auto-fit,minmax(180px,180px))]
+                    justify-center
+                    z-60 mt-20
+                    overflow-y-auto
+                    rounded-t-3xl
+                    bg-(--color-bg-body)
+                    pb-32 p-5
+                    scroll-smooth
+                    content-start
+                    gap-5
+                    "
+                >
+                    
+                        {lists.map((list) => (
+                                <ListCard 
+                                    key={list.id}   
+                                    list={list}
+                                />
+                            ))
+                        }
+                         
 
-        </div>
+                </div>
+            )
+            }
+
+        <MenuTabBar />
+
       </div>
+        
     </AppShell>
     )
 }

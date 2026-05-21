@@ -1,7 +1,7 @@
-import { useState } from 'react'
+
 import { useRouter } from 'next/navigation'
 
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Plus } from "lucide-react"
 
 
 type propsHeader = {
@@ -60,7 +60,24 @@ export default function Header({title, subtitle, page} : propsHeader) {
           {subtitle}
         </p>
       </div>
+
+      {actualPage === 'listPage' && (
+         
+       <div className='w-32 bg-(--color-primary) flex items-center justify-center pb-5 pr-8'>  
+          <button 
+                className='cursor-pointer flex justify-center items-center w-38 h-14 '
+                onClick={() => router.push('/list/new')}
+          >
+                <Plus size={24} color='white' strokeWidth={3}/>
+                <span className="ml-1 text-sm text-white">Nova lista</span>
+          </button>
+       </div>
+    )} 
+       
     </div>
+
+      
+
   </header>
 )
 } 

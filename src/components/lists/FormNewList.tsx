@@ -172,19 +172,19 @@ export default function FormNewList({ mode, listId }: Props) {
                   <div className="text-right mr-2">
                     <span
                       className={`text-sm ${
-                        title.length > 40
+                        title.length > 30
                           ? 'text-red-500'
                           : 'text-(--color-text-muted)'
                       }`}
                     >
-                      {title.length}/50
+                      {title.length}/40
                     </span>
                   </div>
               </div>
               <input
                 type="text"
                 autoFocus
-                maxLength={50}
+                maxLength={40}
                 value={title}
                 placeholder="Ex: Comprar no mercado"
                 onChange={(e) => setTitle(e.target.value)}
