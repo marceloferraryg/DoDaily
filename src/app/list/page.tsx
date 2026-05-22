@@ -14,7 +14,7 @@ import { useLists } from '@/store/useLists'
 
 
 
-export default function ListPage() {
+export default function ListsPage() {
 
  
     const router = useRouter();
@@ -75,7 +75,7 @@ export default function ListPage() {
             ) : (
 
                 <div className="
-                    grid grid-cols-[repeat(auto-fit,minmax(180px,180px))]
+                    grid grid-cols-[repeat(auto-fit,minmax(160px,160px))]
                     justify-center
                     z-60 mt-20
                     overflow-y-auto
@@ -101,9 +101,9 @@ export default function ListPage() {
             )
             }
 
-        <MenuTabBar />
-
       </div>
+
+       <MenuTabBar />
         
     </AppShell>
     )

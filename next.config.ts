@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   // 👇 necessário para acessar no celular (dev)
-  allowedDevOrigins: ['192.168.0.127'],
+  allowedDevOrigins: ['192.168.1.109'],
 
   // 👇 resolve conflito Turbopack x Webpack na build (Vercel)
   turbopack: {},

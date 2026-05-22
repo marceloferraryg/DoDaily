@@ -27,7 +27,7 @@ export function MenuTabBar() {
         absolute bottom-0 left-0 right-0
         z-100
         mx-5 
-       mb-[calc(env(safe-area-inset-bottom)+20px)]
+        mb-[calc(env(safe-area-inset-bottom)+20px)]
         flex items-center justify-around
         rounded-3xl
         bg-(--color-input-bg)/10 backdrop-blur-sm

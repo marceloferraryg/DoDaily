@@ -3,7 +3,11 @@ import { persist } from 'zustand/middleware'
 
 import { v4 as uuid } from 'uuid'
 
-import { List, NewList, ListStore } from '@/types/lists'
+import {
+  List,
+  NewList,
+  ListStore,
+} from '@/types/lists'
 
 
 //------------------------------------------
@@ -12,17 +16,26 @@ import { List, NewList, ListStore } from '@/types/lists'
 export const useLists = create<ListStore>()(
   persist(
     (set, get) => ({
-      lists: [],
-      listItems: [],
 
-      createList: (newList: NewList) => {
-        const now = new Date().toISOString()
+      lists: [],
+
+      //------------------------------------------
+      //-------- CREATE LIST ---------------------
+
+      createList: (
+        newList: NewList
+      ) => {
+
+        const now =
+          new Date().toISOString()
 
         const list: List = {
           id: uuid(),
 
-          title: newList.title,
-          description: newList.description,
+          title: newList.title.trim(),
+
+          description:
+            newList.description,
 
           icon: newList.icon,
           color: newList.color,
@@ -35,98 +48,125 @@ export const useLists = create<ListStore>()(
           pinned: false,
           archived: false,
 
-          itemsCount: 0,
-          completedItemsCount: 0,
-
-          sortOrder: get().lists.length,
+          sortOrder:
+            get().lists.length,
         }
 
         set((state) => ({
-          lists: [...state.lists, list],
+          lists: [
+            ...state.lists,
+            list,
+          ],
         }))
       },
 
       //------------------------------------------
-      // UPDATE LIST
-      //------------------------------------------
+      //-------- UPDATE LIST ---------------------
 
-      updateList: ( listId: string, updates: Partial<List> ) => {
+      updateList: (
+        listId,
+        updates
+      ) => {
+
         set((state) => ({
-          lists: state.lists.map((list) => {
-            if (list.id !== listId) {
-              return list
-            }
+          lists: state.lists.map(
+            (list) => {
 
-            return {
-              ...list,
-              ...updates,
-              updatedAt: new Date().toISOString(),
+              if (
+                list.id !== listId
+              ) {
+                return list
+              }
+
+              return {
+                ...list,
+                ...updates,
+
+                updatedAt:
+                  new Date().toISOString(),
+              }
             }
-          }),
+          ),
         }))
       },
 
       //------------------------------------------
-      // DELETE LIST
-      //------------------------------------------
+      //-------- DELETE LIST ---------------------
 
-      deleteList: (listId: string) => {
+      deleteList: (
+        listId
+      ) => {
+
         set((state) => ({
           lists: state.lists.filter(
-            (list) => list.id !== listId
-          ),
-
-          listItems: state.listItems.filter(
-            (item) => item.listId !== listId
+            (list) =>
+              list.id !== listId
           ),
         }))
       },
 
       //------------------------------------------
-      // TOGGLE PINNED
-      //------------------------------------------
+      //-------- TOGGLE PINNED -------------------
 
-      togglePinned: (listId: string) => {
+      togglePinned: (
+        listId
+      ) => {
+
         set((state) => ({
-          lists: state.lists.map((list) => {
-            if (list.id !== listId) {
-              return list
-            }
+          lists: state.lists.map(
+            (list) => {
 
-            return {
-              ...list,
-              pinned: !list.pinned,
-              updatedAt: new Date().toISOString(),
+              if (
+                list.id !== listId
+              ) {
+                return list
+              }
+
+              return {
+                ...list,
+
+                pinned:
+                  !list.pinned,
+
+                updatedAt:
+                  new Date().toISOString(),
+              }
             }
-          }),
+          ),
         }))
       },
 
       //------------------------------------------
-      // ARCHIVE LIST
-      //------------------------------------------
+      //-------- ARCHIVE LIST --------------------
 
-      archiveList: (listId: string) => {
+      archiveList: (
+        listId
+      ) => {
+
         set((state) => ({
-          lists: state.lists.map((list) => {
-            if (list.id !== listId) {
-              return list
-            }
+          lists: state.lists.map(
+            (list) => {
 
-            return {
-              ...list,
-              archived: true,
-              updatedAt: new Date().toISOString(),
+              if (
+                list.id !== listId
+              ) {
+                return list
+              }
+
+              return {
+                ...list,
+
+                archived: true,
+
+                updatedAt:
+                  new Date().toISOString(),
+              }
             }
-          }),
+          ),
         }))
       },
+
     }),
-
-    //------------------------------------------
-    // PERSIST
-    //------------------------------------------
-
     {
       name: 'dodaily-lists-v1',
     }

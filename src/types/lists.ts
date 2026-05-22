@@ -1,8 +1,13 @@
+//------------------------------------------
+//-------- LIST TYPES ----------------------
+
+export type ListType =
+  | 'checklist'
+  | 'notes'
 
 
 //------------------------------------------
 //-------- LIST ----------------------------
-
 
 export type List = {
   id: string
@@ -21,37 +26,9 @@ export type List = {
   pinned: boolean
   archived: boolean
 
-  itemsCount: number
-  completedItemsCount: number
-
   sortOrder: number
 }
 
-//------------------------------------------
-//-------- LIST ITEMS ----------------------
-
-export type ListItem = {
-  id: string
-
-  listId: string
-
-  title: string
-  description?: string
-
-  done: boolean
-
-  createdAt: string
-  updatedAt: string
-  completedAt?: string
-
-  sortOrder: number
-
-  priority?: 'low' | 'medium' | 'high'
-
-  quantity?: string
-
-  notes?: string
-}
 
 //------------------------------------------
 //-------- NEW LIST ------------------------
@@ -67,32 +44,31 @@ export type NewList = {
   type: ListType
 }
 
+
 //------------------------------------------
-//-------- LISTSTORE -----------------------
+//-------- LIST STORE ----------------------
 
 export type ListStore = {
   lists: List[]
-  listItems: ListItem[]
 
-  createList: (newList: NewList) => void
+  createList: (
+    newList: NewList
+  ) => void
 
   updateList: (
     listId: string,
     updates: Partial<List>
   ) => void
 
-  deleteList: (listId: string) => void
+  deleteList: (
+    listId: string
+  ) => void
 
-  togglePinned: (listId: string) => void
+  togglePinned: (
+    listId: string
+  ) => void
 
-  archiveList: (listId: string) => void
+  archiveList: (
+    listId: string
+  ) => void
 }
-
-//------------------------------------------
-//-------- LISTTYPES -----------------------
-
-export type ListType =
-  | 'default'
-  | 'checklist'
-  | 'notes'
-  | 'shopping'
