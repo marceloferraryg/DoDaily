@@ -8,7 +8,6 @@ import { AppShell } from '@/components/AppShell'
 import Header from '@/components/headers/Header'
 
 import { useLists } from '@/store/useLists'
-import { ListType } from '@/types/lists'
 
 type Props = {
   mode: 'create' | 'edit'
@@ -31,7 +30,6 @@ export default function FormNewList({ mode, listId }: Props) {
     const [description, setDescription] = useState('')
     const [icon, setIcon] = useState('')
     const [color, setColor] = useState('')
-    const [type, setType] = useState<ListType>('default')
 
     const [loading, setLoading] = useState(mode === 'edit')
     const [saving, setSaving] = useState(false)
@@ -55,7 +53,6 @@ export default function FormNewList({ mode, listId }: Props) {
         setDescription(list.description || '')
         setIcon(list.icon || '')
         setColor(list.color || '')
-        setType(list.type)
        
         setLoading(false)
     } else {
@@ -88,7 +85,6 @@ export default function FormNewList({ mode, listId }: Props) {
         description: description.trim(),
         icon,
         color,
-        type
     }
   }
 
@@ -189,6 +185,10 @@ export default function FormNewList({ mode, listId }: Props) {
                 placeholder="Ex: Comprar no mercado"
                 onChange={(e) => setTitle(e.target.value)}
                 onKeyDown={handleEnter}
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck={false}
+                enterKeyHint="done"
                 className="
                   h-8 w-full rounded-3xl
                   bg-(--color-input-bg)

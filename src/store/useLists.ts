@@ -40,8 +40,6 @@ export const useLists = create<ListStore>()(
           icon: newList.icon,
           color: newList.color,
 
-          type: newList.type,
-
           createdAt: now,
           updatedAt: now,
 

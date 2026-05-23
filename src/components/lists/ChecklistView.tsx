@@ -1,14 +1,17 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import {
   ArrowLeft,
   Pin,
   Trash2,
+  Edit,
 } from 'lucide-react'
 
 import AddItemsBar from './AddItemsBar'
+import { ConfirmBottom } from '@/components/utils/ConfirmBottom'
 
 import { useLists } from '@/store/useLists'
 import { useListItems } from '@/store/useItemList'
@@ -21,16 +24,25 @@ type ChecklistViewProps = {
 export default function ChecklistView({ list }: ChecklistViewProps) {
 
   const router = useRouter()
+
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+   const [selectedList, setSelectedList] = useState<List | null>(null)
     
  const deleteList = useLists(
   (state) => state.deleteList
 )
+
 
 const removeItemsByListId =
   useListItems(
     (state) =>
       state.removeItemsByListId
   )
+
+   function openDelete(list: List) {
+      setSelectedList(list)
+      setIsDeleteOpen(true)
+    }
 
 function handleDelete() {
 
@@ -89,7 +101,7 @@ function handleDelete() {
         <div className="flex items-center gap-1">
 
           <button
-            onClick={handleDelete}
+            onClick={() => openDelete(list)}
             className="
               flex h-12 w-12
               items-center justify-center
@@ -126,6 +138,25 @@ function handleDelete() {
 
             </button>
           )}
+
+          <button
+              onClick={() => router.push(`/list/edit/${list.id}`)}
+              className="
+                flex h-12 w-12
+                items-center justify-center
+
+                rounded-full
+
+                transition-all
+                active:scale-[0.96]
+              "
+            >
+                <Edit
+                    size={22}
+                    className="text-(--color-text-primary)"
+                />
+
+            </button>
 
         </div>
       </div>
@@ -174,6 +205,22 @@ function handleDelete() {
                 listId={list.id}    
             />
 
+             <ConfirmBottom
+                        isOpen={isDeleteOpen}
+                        onClose={() => setIsDeleteOpen(false)}
+                        onConfirm={handleDelete}
+                        task={undefined}
+                        list={selectedList || undefined}
+                        title="Remover lista"
+                        message="Tem certeza que deseja remover esta lista?"
+                        confirmText="Remover"
+                        cancelText="Cancelar"
+                        variant="danger"
+                    />
+
     </div>
+
+    
   )
+  
 }

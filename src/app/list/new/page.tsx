@@ -8,7 +8,7 @@ export default function CreateNewList() {
         
             <FormNewList 
                 mode="create" 
-            /> 
+            />  
        
     )
 }

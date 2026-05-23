@@ -11,7 +11,7 @@ interface PageProps {
   }>
 }
 
-export default function ListView({ params }: PageProps) {
+export default function ListView({ params }: PageProps) { 
 
     const { id } = use(params)
 

@@ -1,9 +1,3 @@
-//------------------------------------------
-//-------- LIST TYPES ----------------------
-
-export type ListType =
-  | 'checklist'
-  | 'notes'
 
 
 //------------------------------------------
@@ -17,8 +11,6 @@ export type List = {
 
   icon?: string
   color?: string
-
-  type: ListType
 
   createdAt: string
   updatedAt: string
@@ -41,7 +33,6 @@ export type NewList = {
   icon?: string
   color?: string
 
-  type: ListType
 }
 
 

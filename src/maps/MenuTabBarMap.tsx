@@ -2,6 +2,7 @@ import {
     Home,
     CheckSquare,
     ShoppingCart,
+    NotepadText ,
     User,   
 } from 'lucide-react'
 
@@ -23,6 +24,12 @@ export const menuTabBarMap = {
             name: 'Listas',
             href: '/list',
             icon: ShoppingCart,
+         },
+  notes: {
+            id: 'notes',
+            name: 'Notas',
+            href: '/notes',
+            icon: NotepadText ,
          },
   profile: {
             id: 'profile',

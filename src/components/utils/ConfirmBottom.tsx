@@ -3,12 +3,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { AlertTriangle, Trash2 } from 'lucide-react'
 import { Task } from '@/types/tasks'
+import { List } from '@/types/lists'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
   onConfirm: () => void
   task?: Task
+  list?: List
 
   title?: string
   message?: string
@@ -32,6 +34,7 @@ export function ConfirmBottom({
   onClose,
   onConfirm,
   task,
+  list,
   title,
   message,
   confirmText,
@@ -209,6 +212,22 @@ export function ConfirmBottom({
                 )}
               </div>
             )}
+          </div>
+        )}
+
+         {list && (
+          <div
+            className="
+              mt-5 rounded-3xl
+              border border-(--color-border)
+              bg-(--color-bg-body)
+              px-4 py-4
+              shadow-sm
+            "
+          >
+            <p className="text-center font-semibold text-(--color-text-primary) wrap-break-word">
+              {list.title}
+            </p>
           </div>
         )}
 

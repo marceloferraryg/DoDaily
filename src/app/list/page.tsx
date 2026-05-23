@@ -90,7 +90,7 @@ export default function ListsPage() {
                     
                         {lists.map((list) => (
                                 <ListCard 
-                                    key={list.id}   
+                                    key={list.id}    
                                     list={list}
                                 />
                             ))
