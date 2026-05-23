@@ -12,7 +12,7 @@ export function HeaderHome() {
   const Username = 'Usuário'
 
   return (
-    <header className="flex justify-between items-center bg-(--color-bg-primary) px-5 pt-4 pb-10">
+    <header className="flex justify-between items-center bg-(--color-bg-primary) px-5 pt-4 pb-10 shell-top">
       
        <div>
           <h2 className="text-3xl font-bold text-white">

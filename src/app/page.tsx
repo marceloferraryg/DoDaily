@@ -154,7 +154,9 @@ export default function Home() {
             scroll-smooth
             pb-40
             rounded-t-3xl
-            -mt-5
+            mt-24
+            z-100
+            
           "
         >
           <SummaryDay />

@@ -19,7 +19,7 @@ function pushPage(page: string) {
     case 'tasksPage':      
       return '/'
     case 'formNewTask':
-      return '/'
+      return '/' 
     default:      return '/'
   } 
 }

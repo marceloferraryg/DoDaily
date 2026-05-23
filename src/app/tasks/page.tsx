@@ -92,7 +92,7 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
     setSelectedTask(null)
   }
 
-  return (
+  return ( 
     <AppShell>
       <div
         className="
