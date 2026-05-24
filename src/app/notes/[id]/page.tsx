@@ -3,7 +3,9 @@
 import {
   useEffect,
   useState,
+  useRef,
 } from 'react'
+
 
 import { use } from 'react'
 import { ConfirmBottom } from '@/components/utils/ConfirmBottom'
@@ -33,6 +35,9 @@ export default function NoteView({ params }: PageProps) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [selectedNote, setSelectedNote] = useState<Note | null>(null)
 
+  const textareaRef =
+  useRef<HTMLTextAreaElement | null>(null)
+
  const { id } = use(params)
 
   const note = useNotes(
@@ -55,6 +60,22 @@ export default function NoteView({ params }: PageProps) {
   setContent(note.content)
 
 }, [note])
+
+//------------------------------------------
+// AUTO FOCUS
+//------------------------------------------
+
+useEffect(() => {
+
+  const timeout = setTimeout(() => {
+
+    textareaRef.current?.focus()
+
+  }, 100)
+
+  return () => clearTimeout(timeout)
+
+}, [])
 
 
   //------------------------------------------
@@ -265,6 +286,7 @@ useEffect(() => {
               setContent(e.target.value)
             }
             autoFocus
+            ref={textareaRef}
             spellCheck={false}
             className="
               h-full w-full
