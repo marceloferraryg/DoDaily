@@ -15,10 +15,10 @@ export function FabButton() {
         absolute
         bottom-28
         right-12
-        z-70
+        z-110
 
         w-16
-        h-16
+        h-16 
         rounded-full
 
         bg-(--color-primary)/95
