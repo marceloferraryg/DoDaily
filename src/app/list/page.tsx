@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 
@@ -8,7 +7,6 @@ import { MenuTabBar } from '@/components/utils/MenuTabBar'
 import { AppShell } from '@/components/AppShell'
 import Header from '@/components/headers/Header'
 import ListCard from '@/components/lists/ListCard'
-import { List } from '@/types/lists'
 import { useLists } from '@/store/useLists'
 
 

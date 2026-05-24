@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { AppShell } from '../AppShell'
 
@@ -13,9 +13,10 @@ import {
 
 import AddItemsBar from './AddItemsBar'
 import { ConfirmBottom } from '@/components/utils/ConfirmBottom'
+import ItemsListCard from './ItemsListCard'
 
 import { useLists } from '@/store/useLists'
-import { useListItems } from '@/store/useItemList'
+import { useItemList } from '@/store/useItemList'
 import { List } from '@/types/lists'
 
 type ChecklistViewProps = {
@@ -27,15 +28,24 @@ export default function ChecklistView({ list }: ChecklistViewProps) {
   const router = useRouter()
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
-   const [selectedList, setSelectedList] = useState<List | null>(null)
+  const [selectedList, setSelectedList] = useState<List | null>(null)
     
  const deleteList = useLists(
   (state) => state.deleteList
 )
 
+const listItems = useItemList(
+  (state) => state.listItems
+)
+
+const items = useMemo(() => {
+  return listItems.filter(
+    (item) => item.listId === list.id
+  )
+}, [listItems, list.id])
 
 const removeItemsByListId =
-  useListItems(
+  useItemList(
     (state) =>
       state.removeItemsByListId
   )
@@ -164,7 +174,7 @@ function handleDelete() {
           </div>
 
 
-          <div className="px-6 pt-2 pb-4">
+          <div className="px-6 pt-2 pb-8">
 
             <h1
               className="
@@ -192,19 +202,14 @@ function handleDelete() {
             "
           >
 
-            <div className="flex flex-col gap-4">
-
-              <p className="text-(--color-text-secondary)">
-                itens aqui
-              </p>
-
-            </div>
+            <ItemsListCard items={items} /> 
 
           </div>
 
 
                 <AddItemsBar 
-                    listId={list.id}    
+                    listId={list.id}   
+                    listEmpty={items.length === 0}  
                 />
 
                 <ConfirmBottom

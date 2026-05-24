@@ -30,7 +30,7 @@ export type ListItem = {
 
   quantity?: string
 
-  notes?: string
+  notes?: string 
 }
 
 

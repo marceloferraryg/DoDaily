@@ -12,7 +12,7 @@ import {
 //------------------------------------------
 //-------- USE LIST ITEMS ------------------
 
-export const useListItems =
+export const useItemList =
   create<ListItemsStore>()(
     persist(
       (set, get) => ({

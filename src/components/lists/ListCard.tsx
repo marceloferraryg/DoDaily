@@ -1,67 +1,226 @@
+'use client'
 
-import { Trash2 } from "lucide-react"
-import { List } from "@/types/lists"
-import { useRouter } from "next/navigation"
+import { useMemo } from 'react'
+import { useRouter } from 'next/navigation'
+
+import { List } from '@/types/lists'
+
+import { useItemList } from '@/store/useItemList'
 
 type PropsListCard = {
-    list: List
+  list: List
 }
 
+export default function ListCard({ list }: PropsListCard) {
 
-export default function ListCard({list}: PropsListCard) {
+  const router = useRouter()
 
-    const router = useRouter()
-    return (
-        <div
-            onClick={() => router.push(`/list/${list.id}`)}
-            className="
-                relative
-                flex flex-col
-                w-full
-                min-h-48
-                overflow-hidden
-                rounded-3xl
-                bg-(--color-bg-task)
-                p-3
-                shadow-sm
-                transition-all
-                active:scale-[0.985]
-                cursor-pointer
-            "
-            >
-           <div
-                className="
-                    flex
-                    min-h-12
-                    items-center
-                    justify-center
-                    border-b
-                    border-(--color-border)
-                    px-2
-                    pb-2
-                "
-                >
-                 <span className="text-sm font-medium text-center line-clamp-2 leading-4 
-                                    text-(--color-text-primary)">
-                    {list.title}
-                 </span> 
-           </div>
+  //------------------------------------------
+  // ITEMS
+  //------------------------------------------
 
-           <div className="flex flex-col pt-2 w-full h-full">
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-                <span className="text-sm text-(--color-text-muted)">item 01</span>
-              
-           </div>
+  const listItems = useItemList(
+    (state) => state.listItems
+  )
 
-           
-        </div>
+  const items = useMemo(() => {
+    return listItems.filter(
+      (item) => item.listId === list.id
     )
+  }, [listItems, list.id])
+
+  //------------------------------------------
+  // PREVIEW
+  //------------------------------------------
+
+  const pendingItems = items.filter(
+  (item) => !item.done
+)
+
+const previewItems =
+  pendingItems.slice(0, 5)
+
+const remainingCount =
+  items.length -
+  previewItems.length
+
+  return (
+
+    <button
+      onClick={() =>
+        router.push(`/list/${list.id}`)
+      }
+      className="
+
+        flex h-64 w-full
+        flex-col
+
+        overflow-hidden
+
+        rounded-3xl
+
+        bg-(--color-bg-task)
+
+        p-4
+
+        shadow-sm
+
+        transition-all
+        active:scale-[0.95]
+      "
+    >
+
+      {/* HEADER */}
+
+      <div
+        className="
+          flex min-h-12
+          items-center
+
+          border-b
+          border-(--color-border)
+
+          pb-3
+        "
+      >
+
+        <span
+          className="
+            line-clamp-2
+
+            text-left
+            text-[15px]
+            font-semibold
+            leading-5
+
+            text-(--color-text-primary)
+          "
+        >
+          {list.title}
+        </span>
+
+      </div>
+
+     {/* ITEMS */}
+
+<div
+  className="
+    mt-3
+
+    flex flex-1
+    flex-col
+
+    overflow-hidden
+  "
+>
+
+  {/* EMPTY */}
+
+  {previewItems.length === 0 && (
+
+    <div
+      className="
+        flex flex-1
+        items-center
+        justify-center
+      "
+    >
+
+      <span
+        className="
+          text-center
+          text-sm italic
+
+          text-(--color-text-muted)
+        "
+      >
+        Nenhum item ainda
+      </span>
+
+    </div>
+
+  )}
+
+  {/* PREVIEW ITEMS */}
+
+  {previewItems.length > 0 && (
+
+    <div
+      className="
+        flex flex-1
+        flex-col
+        gap-2
+      "
+    >
+
+      {previewItems.map((item) => (
+
+        <div
+          key={item.id}
+          className="
+            flex items-center
+            gap-2
+          "
+        >
+
+          <div
+            className="
+              h-1.5 w-1.5
+              shrink-0
+              rounded-full
+              bg-(--color-text-muted)
+            "
+          />
+
+          <span
+            className="
+              line-clamp-1
+
+              text-sm
+              leading-5
+
+              text-(--color-text-secondary)
+            "
+          >
+            {item.title}
+          </span>
+
+        </div>
+
+      ))}
+
+    </div>
+
+  )}
+
+  {/* REMAINING */}
+
+  {remainingCount > 0 && (
+
+    <div
+      className="
+        mt-auto
+        pt-3
+      "
+    >
+
+      <span
+        className="
+          text-xs
+          font-medium
+
+          text-(--color-text-muted)
+        "
+      >
+        +{remainingCount} itens
+      </span>
+
+    </div>
+
+  )}
+
+</div>
+
+    </button>
+  )
 }
