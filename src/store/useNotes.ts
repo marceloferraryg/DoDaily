@@ -1,6 +1,5 @@
-'use client'
-
 import { create } from 'zustand'
+
 import { persist } from 'zustand/middleware'
 
 import { v4 as uuid } from 'uuid'
@@ -19,24 +18,13 @@ export const useNotes =
 
     persist(
 
-      (set, get) => ({
+      (set) => ({
 
         //------------------------------------------
         // STATE
         //------------------------------------------
 
         notes: [],
-
-        hasHydrated: false,
-
-        setHasHydrated: (
-          state
-        ) => {
-
-          set({
-            hasHydrated: state,
-          })
-        },
 
         //------------------------------------------
         // CREATE NOTE
@@ -49,7 +37,7 @@ export const useNotes =
           const now =
             new Date().toISOString()
 
-          const note: Note = {
+          const newNote: Note = {
             id,
 
             content: '',
@@ -63,7 +51,7 @@ export const useNotes =
 
           set((state) => ({
             notes: [
-              note,
+              newNote,
               ...state.notes,
             ],
           }))
@@ -82,27 +70,26 @@ export const useNotes =
 
           set((state) => ({
 
-            notes:
-              state.notes.map(
-                (note) => {
+            notes: state.notes.map(
+              (note) => {
 
-                  if (
-                    note.id !== noteId
-                  ) {
-                    return note
-                  }
-
-                  return {
-
-                    ...note,
-
-                    ...updates,
-
-                    updatedAt:
-                      new Date().toISOString(),
-                  }
+                if (
+                  note.id !== noteId
+                ) {
+                  return note
                 }
-              ),
+
+                return {
+
+                  ...note,
+
+                  ...updates,
+
+                  updatedAt:
+                    new Date().toISOString(),
+                }
+              }
+            ),
 
           }))
         },
@@ -127,7 +114,7 @@ export const useNotes =
         },
 
         //------------------------------------------
-        // TOGGLE PIN
+        // TOGGLE PINNED
         //------------------------------------------
 
         togglePinned: (
@@ -136,28 +123,61 @@ export const useNotes =
 
           set((state) => ({
 
-            notes:
-              state.notes.map(
-                (note) => {
+            notes: state.notes.map(
+              (note) => {
 
-                  if (
-                    note.id !== noteId
-                  ) {
-                    return note
-                  }
-
-                  return {
-
-                    ...note,
-
-                    pinned:
-                      !note.pinned,
-
-                    updatedAt:
-                      new Date().toISOString(),
-                  }
+                if (
+                  note.id !== noteId
+                ) {
+                  return note
                 }
-              ),
+
+                return {
+
+                  ...note,
+
+                  pinned:
+                    !note.pinned,
+
+                  updatedAt:
+                    new Date().toISOString(),
+                }
+              }
+            ),
+
+          }))
+        },
+
+        //------------------------------------------
+        // ARCHIVE NOTE
+        //------------------------------------------
+
+        archiveNote: (
+          noteId
+        ) => {
+
+          set((state) => ({
+
+            notes: state.notes.map(
+              (note) => {
+
+                if (
+                  note.id !== noteId
+                ) {
+                  return note
+                }
+
+                return {
+
+                  ...note,
+
+                  archived: true,
+
+                  updatedAt:
+                    new Date().toISOString(),
+                }
+              }
+            ),
 
           }))
         },
@@ -170,16 +190,6 @@ export const useNotes =
 
       {
         name: 'dodaily-notes-v1',
-
-        onRehydrateStorage: () => {
-
-          return (state) => {
-
-            state?.setHasHydrated(
-              true
-            )
-          }
-        },
       }
 
     )

@@ -184,6 +184,8 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
                       onClose={() => setIsDeleteOpen(false)}
                       onConfirm={confirmDelete}
                       task={selectedTask}
+                      list={undefined}
+                      note={undefined}
                       title="Remover tarefa"
                       message="Tem certeza que deseja remover esta tarefa?"
                       confirmText="Remover"

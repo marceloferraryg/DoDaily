@@ -2,280 +2,152 @@
 
 import {
   useEffect,
-  useMemo,
   useState,
 } from 'react'
 
+import { use } from 'react'
+import { ConfirmBottom } from '@/components/utils/ConfirmBottom'
 import { useRouter } from 'next/navigation'
 
 import {
   ArrowLeft,
-  Trash2,
-  Pin,
+  Trash2, 
 } from 'lucide-react'
 
 import { AppShell } from '@/components/AppShell'
 
 import { useNotes } from '@/store/useNotes'
+import { Note } from '@/types/notes'
 
-type Props = {
-  noteId: string
+interface PageProps {
+  params: Promise<{
+    id: string
+  }>
 }
 
-export default function NoteView({
-  noteId,
-}: Props) {
+export default function NoteView({ params }: PageProps) {
 
   const router = useRouter()
+  const [content, setContent] = useState('')
+
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  const [selectedNote, setSelectedNote] = useState<Note | null>(null)
+
+ const { id } = use(params)
+
+  const note = useNotes(
+  (state) =>
+    state.notes.find(
+      (note) => note.id === id
+    )
+)
+
 
   //------------------------------------------
-  // STORE
+  // GET CONTENT
   //------------------------------------------
+ useEffect(() => {
 
-  const notes = useNotes(
-    (state) => state.notes
-  )
+  if (!note) {
+    return
+  }
 
-  const hasHydrated = useNotes(
-    (state) => state.hasHydrated
-  )
+  setContent(note.content)
 
-  const updateNote = useNotes(
-    (state) => state.updateNote
-  )
+}, [note])
 
+
+  //------------------------------------------
+  // USENOTES
+  //------------------------------------------
   const deleteNote = useNotes(
     (state) => state.deleteNote
   )
 
-  const togglePinned = useNotes(
-    (state) => state.togglePinned
-  )
+  const update = useNotes(
+  (state) => state.updateNote
+)
+
 
   //------------------------------------------
-  // NOTE
+  // UPDATE 0,5 SECONDS
   //------------------------------------------
+   useEffect(() => {
 
-  const note = useMemo(() => {
+      if (!id || !note) {
+        return
+      }
 
-    return notes.find(
-      (item) => item.id === noteId
-    )
+      if (content === note.content) {
+        return
+      }
 
-  }, [notes, noteId])
+      const timeout = setTimeout(() => {
+
+        update(id, {
+          content,
+        })
+
+      }, 500)
+
+      return () => {
+        clearTimeout(timeout)
+      }
+
+    }, [
+      content,
+      id,
+      note,
+      update,
+    ])
+
 
   //------------------------------------------
-  // LOCAL STATE
+  // DELETE
   //------------------------------------------
+  function openDelete(note: Note) {
+        setSelectedNote(note)
+        setIsDeleteOpen(true)
+      }
+  
+  function handleDelete(){
+    deleteNote(id)
 
-  const [content, setContent] =
-    useState('')
+    router.replace('/notes')
+  }
 
-  //------------------------------------------
-  // LOAD CONTENT
-  //------------------------------------------
-
-  useEffect(() => {
-
-    if (!note) {
-      return
-    }
-
-    setContent(note.content)
-
-  }, [note])
 
   //------------------------------------------
-  // NOTE NOT FOUND
+  // BACK AND UPDATE
   //------------------------------------------
+ function handleBack() {
 
-  useEffect(() => {
+  if (!content.trim()) {
 
-    if (!hasHydrated) {
-      return
-    }
-
-    if (note) {
-      return
-    }
+    deleteNote(id)
 
     router.replace('/notes')
 
-  }, [
-    hasHydrated,
-    note,
-    router,
-  ])
+    return
+  }
 
-  //------------------------------------------
-  // AUTO SAVE
-  //------------------------------------------
-
-  useEffect(() => {
-
-    if (!hasHydrated) {
-      return
-    }
-
-    if (!note) {
-      return
-    }
-
-    if (content === note.content) {
-      return
-    }
-
-    const timeout =
-      setTimeout(() => {
-
-        updateNote(
-          note.id,
-          {
-            content,
-          }
-        )
-
-      }, 300)
-
-    return () =>
-      clearTimeout(timeout)
-
-  }, [
-    hasHydrated,
+  update(id, {
     content,
-    note,
-    updateNote,
-  ])
+  })
 
+  router.replace('/notes')
+}
+
+ //------------------------------------------
+  // BACK IF ID INVALID
   //------------------------------------------
-  // BACK
-  //------------------------------------------
-
-  function handleBack() {
-
-    if (!note) {
-
-      router.push('/notes')
-
-      return
-    }
-
-    //------------------------------------------
-    // DELETE EMPTY NOTE
-    //------------------------------------------
-
-    if (!content.trim()) {
-
-      deleteNote(note.id)
-
-      router.push('/notes')
-
-      return
-    }
-
-    router.push('/notes')
-  }
-
-  //------------------------------------------
-  // DELETE NOTE
-  //------------------------------------------
-
-  function handleDelete() {
-
-    if (!note) {
-      return
-    }
-
-    deleteNote(note.id)
-
-    router.push('/notes')
-  }
-
-  //------------------------------------------
-  // TITLE
-  //------------------------------------------
-
-  const previewTitle =
-    content
-      .split('\n')
-      .find((line) =>
-        line.trim()
-      )
-      ?.trim()
-
-  //------------------------------------------
-  // LOADING
-  //------------------------------------------
-
-  if (!hasHydrated) {
-
-    return (
-
-      <AppShell>
-
-        <div
-          className="
-            flex h-dvh
-            w-full
-            items-center
-            justify-center
-
-            bg-(--color-bg-body)
-          "
-        >
-
-          <span
-            className="
-              text-sm
-              text-(--color-text-secondary)
-            "
-          >
-            Carregando...
-          </span>
-
-        </div>
-
-      </AppShell>
-
-    )
-  }
-
-  //------------------------------------------
-  // NOTE NOT FOUND
-  //------------------------------------------
+useEffect(() => {
 
   if (!note) {
-
-    return (
-
-      <AppShell>
-
-        <div
-          className="
-            flex h-dvh
-            w-full
-            items-center
-            justify-center
-
-            bg-(--color-bg-body)
-          "
-        >
-
-          <span
-            className="
-              text-sm
-              text-(--color-text-secondary)
-            "
-          >
-            Abrindo nota...
-          </span>
-
-        </div>
-
-      </AppShell>
-
-    )
+    router.replace('/notes')
   }
+
+}, [note, router])
 
   //------------------------------------------
   // RENDER
@@ -298,16 +170,14 @@ export default function NoteView({
 
         <div
           className="
-            sticky top-0 z-50
+            absolute top-0 left-0 z-50
 
             flex h-16 w-full
             items-center justify-between
 
-            bg-(--color-bg-body)/80
+            bg-transparent
 
-            px-2
-
-            backdrop-blur-xl
+            px-2 pl-5
 
             pt-[env(safe-area-inset-top)]
           "
@@ -322,7 +192,7 @@ export default function NoteView({
               items-center justify-center
 
               rounded-full
-
+              bg-white
               transition-all
               active:scale-[0.96]
             "
@@ -337,84 +207,28 @@ export default function NoteView({
 
           </button>
 
-          {/* TITLE */}
-
-          <div
-            className="
-              flex flex-1
-              items-center
-              justify-center
-
-              px-4
-            "
-          >
-
-            <span
-              className="
-                line-clamp-1
-
-                text-sm
-                font-medium
-
-                text-(--color-text-secondary)
-              "
-            >
-              {previewTitle || 'Nova nota'}
-            </span>
-
-          </div>
+         
 
           {/* ACTIONS */}
 
           <div
             className="
               flex items-center
-              gap-1
+              gap-1 pr-3
             "
           >
-
-            {/* PIN */}
-
-            <button
-              onClick={() =>
-                togglePinned(note.id)
-              }
-              className="
-                flex h-12 w-12
-                items-center justify-center
-
-                rounded-full
-
-                transition-all
-                active:scale-[0.96]
-              "
-            >
-
-              <Pin
-                size={22}
-                className={`
-                  transition-colors
-
-                  ${
-                    note.pinned
-                      ? 'text-(--color-primary)'
-                      : 'text-(--color-text-secondary)'
-                  }
-                `}
-              />
-
-            </button>
 
             {/* DELETE */}
 
             <button
-              onClick={handleDelete}
+              onClick={() => note && openDelete(note)}
+              disabled={!note}
               className="
-                flex h-12 w-12
+                flex  h-12 w-12
                 items-center justify-center
-
+               bg-white
                 rounded-full
-
+                
                 transition-all
                 active:scale-[0.96]
               "
@@ -435,30 +249,23 @@ export default function NoteView({
 
         {/* TEXTAREA */}
 
-        <div
+       <div
           className="
             flex flex-1
 
             px-5
+
             pb-[calc(env(safe-area-inset-bottom)+20px)]
           "
         >
 
           <textarea
             value={content}
-
             onChange={(e) =>
-              setContent(
-                e.target.value
-              )
+              setContent(e.target.value)
             }
-
-            placeholder="Comece a escrever..."
-
             autoFocus
-
             spellCheck={false}
-
             className="
               h-full w-full
 
@@ -467,7 +274,8 @@ export default function NoteView({
               border-none
               bg-transparent
 
-              pt-4
+              pt-24
+              pb-24
 
               text-[16px]
               leading-7
@@ -481,6 +289,24 @@ export default function NoteView({
           />
 
         </div>
+
+        <div className='bg-transparent w-full h-16' />
+
+        
+
+         <ConfirmBottom
+            isOpen={isDeleteOpen}
+            onClose={() => setIsDeleteOpen(false)}
+            onConfirm={handleDelete}
+            task={undefined}
+            list={undefined}
+            note={selectedNote || undefined}
+            title="Excluir nota"
+            message="Tem certeza que deseja excluir esta nota?"
+            confirmText="Excluir"
+            cancelText="Cancelar"
+            variant="danger"
+         />
 
       </div>
 

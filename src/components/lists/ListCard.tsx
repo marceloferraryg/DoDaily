@@ -52,7 +52,7 @@ const remainingCount =
       }
       className="
 
-        flex h-64 w-full
+        flex h-68 w-full
         flex-col
 
         overflow-hidden
@@ -67,6 +67,8 @@ const remainingCount =
 
         transition-all
         active:scale-[0.95]
+
+        cursor-pointer
       "
     >
 

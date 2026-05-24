@@ -21,17 +21,7 @@ export type Note = {
 export type NotesStore = {
 
   //------------------------------------------
-  // HYDRATION
-  //------------------------------------------
-
-  hasHydrated: boolean
-
-  setHasHydrated: (
-    value: boolean
-  ) => void
-
-  //------------------------------------------
-  // DATA
+  // STATE
   //------------------------------------------
 
   notes: Note[]
@@ -52,6 +42,10 @@ export type NotesStore = {
   ) => void
 
   togglePinned: (
+    noteId: string
+  ) => void
+
+  archiveNote: (
     noteId: string
   ) => void
 }

@@ -24,6 +24,10 @@ export default function NotesPage() {
     (state) => state.createNote
   )
 
+  const deleteNote = useNotes(
+    (state) => state.deleteNote
+  )
+
   //------------------------------------------
   // CREATE NOTE
   //------------------------------------------
@@ -39,6 +43,20 @@ export default function NotesPage() {
   })
 }
 
+ //------------------------------------------
+  // FORMAT DATE
+  //------------------------------------------
+function formatDateBR(date: string) {
+
+  return new Date(date).toLocaleDateString(
+    'pt-BR',
+    {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    }
+  )
+}
   //------------------------------------------
   // RENDER
   //------------------------------------------
@@ -131,13 +149,12 @@ export default function NotesPage() {
 
           <div
             className="
-              grid
-              grid-cols-[repeat(auto-fit,minmax(160px,160px))]
+              flex flex-col
 
               content-start
               justify-center
 
-              gap-5
+              gap-3
 
               overflow-y-auto
 
@@ -146,7 +163,7 @@ export default function NotesPage() {
               bg-(--color-bg-body)
 
               p-5
-              pb-32
+              pb-24
 
               scroll-smooth
 
@@ -163,10 +180,10 @@ export default function NotesPage() {
                   .split('\n')[0]
                   .trim()
 
-              const preview =
-                note.content
-                  .replace(/\n/g, ' ')
-                  .trim()
+              const title =
+                firstLine.length > 30
+                  ? `${firstLine.slice(0, 40)}...`
+                  : firstLine
 
               return (
 
@@ -180,24 +197,28 @@ export default function NotesPage() {
                   }
 
                   className="
-                    flex min-h-48
-                    w-40
+                    flex h-16
+                    w-full
                     flex-col
 
+                    justify-center 
+                    
                     overflow-hidden
 
                     rounded-3xl
 
                     bg-(--color-bg-task)
 
-                    p-4
+                    px-5 py-2 gap-1
 
                     text-left
 
                     shadow-sm
 
                     transition-all
-                    active:scale-[0.985]
+                    active:scale-[0.95]
+
+                    cursor-pointer
                   "
                 >
 
@@ -214,26 +235,14 @@ export default function NotesPage() {
                       text-(--color-text-primary)
                     "
                   >
-                    {firstLine ||
+                    {title ||
                       'Nova nota'}
                   </span>
 
-                  {/* PREVIEW */}
-
                   <span
-                    className="
-                      mt-3
-
-                      line-clamp-6
-
-                      text-sm
-                      leading-5
-
-                      text-(--color-text-secondary)
-                    "
+                    className='text-xs text-(--color-text-muted)'
                   >
-                    {preview ||
-                      'Sem conteúdo'}
+                    {formatDateBR(note.updatedAt)}
                   </span>
 
                 </button>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AlertTriangle, Trash2 } from 'lucide-react'
 import { Task } from '@/types/tasks'
 import { List } from '@/types/lists'
+import { Note } from '@/types/notes'
 
 type Props = {
   isOpen: boolean
@@ -11,7 +12,7 @@ type Props = {
   onConfirm: () => void
   task?: Task
   list?: List
-
+  note?: Note
   title?: string
   message?: string
   confirmText?: string
@@ -35,6 +36,7 @@ export function ConfirmBottom({
   onConfirm,
   task,
   list,
+  note,
   title,
   message,
   confirmText,
@@ -230,7 +232,24 @@ export function ConfirmBottom({
             </p>
           </div>
         )}
-
+        
+        {note && (
+          <div
+            className="
+              mt-5 rounded-3xl
+              border border-(--color-border)
+              bg-(--color-bg-body)
+              px-4 py-4
+              shadow-sm
+            "
+          >
+           <p className="text-center font-semibold text-(--color-text-primary) wrap-break-word">
+              {note.content
+                  .split('\n')[0]
+                  .trim()}
+            </p>
+          </div>
+        )}
   
         <div className="mt-6 grid grid-cols-2 gap-3 mb-5">
           <button

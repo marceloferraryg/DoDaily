@@ -68,26 +68,28 @@ function handleDelete() {
     <AppShell>
         <div
           className="
-            flex min-h-screen
+          relative
+            flex h-dvh
             w-full flex-col
+
             bg-(--color-bg-body)
-          "
+            "
         >
 
+             {/* HEADER */}
+
             <div
-                className="
-                sticky top-0 z-50
+               className="
+                  absolute top-0 left-0 z-50
 
-                flex h-16 w-full
-                items-center justify-between
+                  flex h-16 w-full
+                  items-center justify-between
 
-                bg-(--color-bg-body)/80
+                  bg-transparent
 
-                px-2
+                  px-2 pl-5
 
-                backdrop-blur-sm
-
-                pt-[env(safe-area-inset-top)]
+                  pt-[env(safe-area-inset-top)]
                 "
             >
 
@@ -96,7 +98,7 @@ function handleDelete() {
                     className="
                         flex h-12 w-12
                         items-center justify-center
-
+                          bg-white
                         rounded-full
 
                         transition-all
@@ -110,14 +112,14 @@ function handleDelete() {
                     </button>
 
 
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-3 pr-3">
 
               <button
                 onClick={() => openDelete(list)}
                 className="
                   flex h-12 w-12
                   items-center justify-center
-
+                  bg-white
                   rounded-full
 
                   transition-all
@@ -136,7 +138,7 @@ function handleDelete() {
                   className="
                     flex h-12 w-12
                     items-center justify-center
-
+                      bg-white
                     rounded-full
 
                     transition-all
@@ -156,7 +158,7 @@ function handleDelete() {
                   className="
                     flex h-12 w-12
                     items-center justify-center
-
+                      bg-white
                     rounded-full
 
                     transition-all
@@ -174,7 +176,21 @@ function handleDelete() {
           </div>
 
 
-          <div className="px-6 pt-2 pb-8">
+          
+
+
+          <div
+            className="
+              flex flex-1 flex-col
+
+              overflow-y-auto
+
+              px-6
+              pb-36
+            "
+          >
+
+            <div className=" pt-18 pb-8">
 
             <h1
               className="
@@ -189,18 +205,6 @@ function handleDelete() {
             </h1>
 
           </div>
-
-
-          <div
-            className="
-              flex flex-1 flex-col
-
-              overflow-y-auto
-
-              px-6
-              pb-36
-            "
-          >
 
             <ItemsListCard items={items} /> 
 
@@ -218,6 +222,7 @@ function handleDelete() {
                             onConfirm={handleDelete}
                             task={undefined}
                             list={selectedList || undefined}
+                            note={undefined}
                             title="Remover lista"
                             message="Tem certeza que deseja remover esta lista?"
                             confirmText="Remover"
