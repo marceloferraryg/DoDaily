@@ -69,9 +69,13 @@ useEffect(() => {
 
   const timeout = setTimeout(() => {
 
-    textareaRef.current?.focus()
+    requestAnimationFrame(() => {
+     textareaRef.current?.focus()
+    })
 
-  }, 100)
+  
+
+  }, 500)
 
   return () => clearTimeout(timeout)
 
