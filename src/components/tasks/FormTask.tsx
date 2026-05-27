@@ -164,7 +164,7 @@ export default function FormTask({ mode, taskId }: Props) {
               <div className='flex justify-between'>
                   <div className="mb-1 ml-2">
                     <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
-                      TÍTULO
+                      Título
                     </span>
                   </div>
 
@@ -208,7 +208,7 @@ export default function FormTask({ mode, taskId }: Props) {
             <section className="border-b border-(--color-border) pb-3">
               <div className="mb-1 ml-2">
                 <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
-                  CATEGORIA
+                  Categoria
                 </span>
               </div>
                   <TaskCategorySelect 
@@ -220,7 +220,7 @@ export default function FormTask({ mode, taskId }: Props) {
             <section className="border-b border-(--color-border) pb-5">
               <div className="mb-1 ml-2">
                 <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
-                  PRIORIDADE
+                  Prioridade
                 </span>
               </div>
                   <TaskPrioritySelect 
@@ -233,7 +233,7 @@ export default function FormTask({ mode, taskId }: Props) {
             <section className="border-b border-(--color-border) pb-6">
               <div className="mb-1 ml-2">
                 <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
-                  AGENDAMENTO
+                  Agendamento
                 </span>
               </div>
 
@@ -300,7 +300,7 @@ export default function FormTask({ mode, taskId }: Props) {
                   <div className="mb-1 ml-2 flex items-center gap-2">
                       
                       <span className="text-sm font-bold tracking-wide text-(--color-text-secondary)">
-                        OBSERVAÇÕES
+                        Observações
                       </span>
                   </div>
 

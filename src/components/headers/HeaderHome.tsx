@@ -23,10 +23,6 @@ const user = useUser((state) => state.user)
   (state) => state.setTheme
 )
 
-function changeTheme() {
-  setTheme('ocean')
-}
-
   return (
 
     <header className="flex justify-between items-center bg-(--color-bg-primary) px-5 pt-4 pb-10 shell-top">
@@ -43,10 +39,12 @@ function changeTheme() {
       </div> 
 
       <div className="flex flex-col items-center justify-center">
+          
           <button 
-          onClick={changeTheme}
-          className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-            <span className="text-sm text-gray-600">foto</span>
+          className="w-10 h-10 rounded-full bg-(--color-bg-body) flex items-center justify-center">
+            <span className="text-lg text-(--color-primary)">
+              {user?.name[0].toUpperCase() || "Foto"}
+            </span>
           </button>
 
           <div>
@@ -54,6 +52,7 @@ function changeTheme() {
               Olá, {Username}
             </h1>
           </div>
+      
       </div>
 
      

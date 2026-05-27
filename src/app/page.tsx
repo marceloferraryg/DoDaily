@@ -211,7 +211,7 @@ const isDisabled =
       <input 
         type="text"
         autoFocus
-        maxLength={30}
+        maxLength={20}
         value={newUser}
         placeholder="Seu primeiro nome"
         onChange={(e) => setNewUser(e.target.value)}

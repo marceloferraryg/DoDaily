@@ -3,7 +3,13 @@ export type User = {
 
   name: string
 
+  email?: string
+
   avatar?: string
+
+  theme: string 
+
+  bio: string
 
   createdAt: string
 }

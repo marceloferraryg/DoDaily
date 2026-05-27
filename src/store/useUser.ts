@@ -37,6 +37,10 @@ export const useUser =
 
             name,
 
+            theme: 'default',
+
+            bio: '',
+
             createdAt: now,
 
           }
