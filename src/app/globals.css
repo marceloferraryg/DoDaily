@@ -1,10 +1,12 @@
+
 @import 'tailwindcss';
 
 /* =========================
-    COLORS
+    LIGHT THEME
 ========================= */
 
-:root {
+:root,
+.theme-light {
   --color-bg-body: #f2f2f9;
   --color-bg-primary: #5e2db4;
   --color-primary: #5e2db4;
@@ -31,6 +33,76 @@
 }
 
 /* =========================
+    DARK THEME
+========================= */
+
+.theme-dark {
+
+  --color-bg-body: #0f1115;
+
+  --color-bg-primary: #7c3aed;
+  --color-primary: #7c3aed;
+
+  --color-bg-task: #1a1d24;
+  --color-bg-summary-card: #24153d;
+  --color-input-bg: #1f2937;
+
+  --color-border: #2d3748;
+
+  --color-text-primary: #f3f4f6;
+  --color-text-primary-white: #ffffff;
+
+  --color-text-secondary: #cbd5e1;
+  --color-text-secondary-white: #f1f5f9;
+
+  --color-text-muted: #6b7280;
+
+  --color-hover-btn: #8b5cf6;
+
+  --color-task-done: #123524;
+  --color-task-pending: #3b2f12;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+}
+
+/* =========================
+    OCEAN THEME
+========================= */
+
+.theme-ocean {
+
+  --color-bg-body: #eaf6ff;
+
+  --color-bg-primary: #0284c7;
+  --color-primary: #0284c7;
+
+  --color-bg-task: #ffffff;
+  --color-bg-summary-card: #dbeafe;
+  --color-input-bg: #ffffff;
+
+  --color-border: #bae6fd;
+
+  --color-text-primary: #082f49;
+  --color-text-primary-white: #ffffff;
+
+  --color-text-secondary: #0c4a6e;
+  --color-text-secondary-white: #f0f9ff;
+
+  --color-text-muted: #64748b;
+
+  --color-hover-btn: #0369a1;
+
+  --color-task-done: #d1fae5;
+  --color-task-pending: #fef9c3;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+}
+
+/* =========================
     BASE STYLES
 ========================= */
 
@@ -40,18 +112,16 @@ html {
 
 body {
   background: var(--color-bg-body);
+
   color: var(--color-text-primary);
+
   font-family: var(--font-sans);
+
   -webkit-font-smoothing: antialiased;
-}
 
-*::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-* {
-  scrollbar-width: none;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 

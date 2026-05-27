@@ -1,4 +1,7 @@
 
+import { useTheme } from "@/store/useTheme"
+import { useUser } from "@/store/useUser"
+
 
 export function HeaderHome() {
 
@@ -9,9 +12,23 @@ export function HeaderHome() {
 })
 
 
-  const Username = 'Usuário'
+const user = useUser((state) => state.user)
+
+  const Username = user?.name
+
+  
+
+
+  const setTheme = useTheme(
+  (state) => state.setTheme
+)
+
+function changeTheme() {
+  setTheme('ocean')
+}
 
   return (
+
     <header className="flex justify-between items-center bg-(--color-bg-primary) px-5 pt-4 pb-10 shell-top">
       
        <div>
@@ -26,9 +43,11 @@ export function HeaderHome() {
       </div> 
 
       <div className="flex flex-col items-center justify-center">
-          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+          <button 
+          onClick={changeTheme}
+          className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
             <span className="text-sm text-gray-600">foto</span>
-          </div>
+          </button>
 
           <div>
             <h1 className="font-bold text-md text-white">

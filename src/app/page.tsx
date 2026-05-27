@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+
+import Image from 'next/image'
 
 import { AppShell } from '@/components/AppShell'
 
@@ -20,6 +22,9 @@ import { ConfirmBottom } from '@/components/utils/ConfirmBottom'
 import { useTasks } from '@/store/useTasks'
 
 import { Task } from '@/types/tasks'
+
+import { useUser } from '@/store/useUser'
+
 
 import {
   getTaskGroups,
@@ -47,6 +52,8 @@ export default function Home() {
     overdueTasks,
     noDateTasks,
   } = getTaskGroups(tasks)
+
+  const [newUser, setNewUser] = useState<string>('')
 
   /*
   ------------------------
@@ -134,9 +141,161 @@ export default function Home() {
     ))
   }
 
+   /*
+  ------------------------
+  USER
+  ------------------------
+  */
+
+  const user = useUser(
+  (state) => state.user
+)
+
+const createUser = useUser(
+  (state) => state.createUser
+)
+
+function handleEnter(
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      handleSubmit()
+    }
+  }
+
+  async function handleSubmit() {
+
+  const formattedName =
+    newUser.trim()
+
+  if (!formattedName) {
+    return
+  }
+
+  createUser(formattedName)
+}
+  
+const isDisabled =
+  newUser.trim().length === 0
+
   return (
     <AppShell>
-      <div
+
+
+    {user === null ? (
+
+
+    <div 
+      className=' flex flex-col h-screen w-full
+                  bg-(--color-bg-body)
+                  justify-center items-center
+                  '>
+
+
+        <Image
+          src="/images/logoDoDaily.png"
+          alt="Logo"
+          width={100}
+          height={100}
+        />
+
+      <h1 className='text-lg font-bold text-(--color-text-primary) mt-8'> 
+        Bem-vindo ao DoDaily
+      </h1>
+
+      <span className='text-md text-(--color-text-secondary) mt-5'>
+        Me diga, qual seu primeiro nome?
+      </span>
+
+      <input 
+        type="text"
+        autoFocus
+        maxLength={30}
+        value={newUser}
+        placeholder="Seu primeiro nome"
+        onChange={(e) => setNewUser(e.target.value)}
+        onKeyDown={handleEnter}
+        className="
+                  mt-3
+
+                  h-12
+                  w-72
+
+                  rounded-3xl
+
+                  border
+                  border-(--color-border)
+                  bg-(--color-input-bg)
+
+                  px-4
+
+                  text-base
+
+                  outline-none
+
+                  transition-all
+
+                  focus:border-(--color-primary)
+                  focus:ring-4
+                  focus:ring-(--color-primary)/10
+                "
+                    
+        
+                    
+      />
+
+      
+
+      <span
+        className="
+          mt-2
+
+          max-w-72
+
+          text-center
+          text-sm
+          leading-6
+
+          text-(--color-text-muted)
+        "
+      >
+        Seu nome será usado para personalizar
+        sua experiência dentro do app.
+      </span>
+
+      <button 
+           onClick={handleSubmit}
+            disabled={isDisabled}
+            className={`
+              mt-5
+
+              rounded-3xl
+
+              px-5 py-3
+
+              text-white
+              text-sm
+              font-medium
+
+              transition-all
+
+              ${
+                isDisabled
+                  ? 'bg-(--color-border) opacity-60'
+                  : 'bg-(--color-primary) active:scale-[0.98]'
+              }
+            `}   
+      >
+            
+        Continuar
+      </button>
+
+    </div>
+    
+  
+    ) : (
+    <div
         className="
           flex flex-col h-screen
           bg-(--color-bg-body)
@@ -289,6 +448,10 @@ export default function Home() {
           </>
         )}
       </div>
+    )}
+
+
+      
     </AppShell>
   )
 }
