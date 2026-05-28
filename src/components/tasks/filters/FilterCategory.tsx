@@ -59,7 +59,7 @@ export default function FilterCategory({ value, onChange }: Props) {
               cursor-pointer
               ${
                 isActive
-                  ? 'bg-(--color-primary) text-white shadow-md'
+                  ? ' bg-linear-to-b from-(--color-primary) to-(--color-hover-btn) text-white shadow-md'
                   : 'bg-(--color-input-bg)'
               }
             `}

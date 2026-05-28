@@ -68,7 +68,7 @@ export default function SummaryDay() {
           <p
             className="
               text-sm
-              text-(--color-text-secondary)
+              text-(--color-primary)
             "
           >
             {done === 1
@@ -101,7 +101,7 @@ export default function SummaryDay() {
           <p
             className="
               text-sm
-              text-(--color-text-secondary)
+              text-(--color-primary)
             "
           >
             {pending === 1

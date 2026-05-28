@@ -1,78 +1,452 @@
+'use client'
 
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+import { Check } from 'lucide-react'
 
 import { themeColorsMap } from '@/maps/ThemeMap'
-import { useState } from 'react'
 
+import {
+  ThemeColor,
+  ThemeMode,
+  useTheme,
+} from '@/store/useTheme'
 
-export default function FormTheme(){
+type Props = {
+  back: () => void
+}
 
-    const themes = Object.values(themeColorsMap)
+export default function FormTheme({ back } : Props) {
 
-    const [isActive, setIsActive] = useState('lavander')
+  const router = useRouter()
 
-    const themeMap = [
-        {id: 'ligth', name: 'Claro', color: '#ffffff'},
-        {id: 'dark', name: 'Escuro', color: '#010101'}, 
-    ]
+  //------------------------------------------
+  // STORE
+  //------------------------------------------
 
+  const currentTheme = useTheme(
+    (state) => state.theme
+  )
 
-    function handleSubmit(themeId : string) {
-        setIsActive(themeId)
-    }
+  const currentMode = useTheme(
+    (state) => state.mode
+  )
 
-    return(
-        <div className='flex flex-col w-full p-5 gap-8 items-center'>
-             <h1 className="text-md text-(--color-text-primary)">
-                    Escolha o tema de cores para o app
-             </h1>
-            
-            <div className="grid grid-cols-2 gap-5 justify-center items-center">
-                {themeMap.map((theme) => (
-                    <button 
-                            key={theme.id}
-                            onClick={() => handleSubmit(theme.id)}
-                            className={`flex w-36 h-12 rounded-3xl cursor-pointer
-                                        justify-center items-center shadow-md
-                                        ${isActive === theme.id ?
-                                            'border-4 border-black' : ''
-                                        }
-                                        `}
-                             style={{background: theme.color}}
-                        >
-                            <span className={`font-semibold text-sm
-                                                ${theme.id === 'ligth' ? 
-                                                    'text-black' : 'text-white'}`}>
-                                {theme.name}
-                            </span>
-                        </button>
-                ))}
-            </div>
+  const setTheme = useTheme(
+    (state) => state.setTheme
+  )
 
-            <h1 className='mt-8'>
-                Escolha uma cor
-            </h1>
-            
-            <div className="grid grid-cols-2 gap-5 justify-center items-center">
+  const setMode = useTheme(
+    (state) => state.setMode
+  )
 
-                {themes.map((theme) => (
-                    <button 
-                        key={theme.id}
-                        onClick={() => handleSubmit(theme.id)}
-                        className={`flex w-36 h-12 rounded-3xl cursor-pointer
-                                    justify-center items-center shadow-md
-                                    ${isActive === theme.id ?
-                                        'border-4 border-black' : ''
-                                    }
-                                    `}
-                        style={{background: theme.color}}
-                    >
-                        <span className='text-white font-semibold text-sm'>
-                            {theme.name}
-                        </span>
-                    </button>
-                ))}
+  //------------------------------------------
+  // LOCAL STATE
+  //------------------------------------------
 
-            </div>
-        </div>
+  const [selectedTheme, setSelectedTheme] =
+    useState<ThemeColor>(
+      currentTheme
     )
+
+  const [selectedMode, setSelectedMode] =
+    useState<ThemeMode>(
+      currentMode
+    )
+
+  //------------------------------------------
+  // THEMES
+  //------------------------------------------
+
+  const themes =
+    Object.values(themeColorsMap)
+
+  //------------------------------------------
+  // LIVE PREVIEW
+  //------------------------------------------
+
+  useEffect(() => {
+
+    setTheme(selectedTheme)
+    setMode(selectedMode)
+
+  }, [
+    selectedTheme,
+    selectedMode,
+    setTheme,
+    setMode,
+  ])
+
+  //------------------------------------------
+  // SAVE
+  //------------------------------------------
+
+  function handleSave() {
+
+    setTheme(selectedTheme)
+    setMode(selectedMode)
+
+    back()
+  }
+
+  //------------------------------------------
+  // RENDER
+  //------------------------------------------
+
+  return (
+
+    <div
+      className="
+            flex flex-col
+            w-full
+            px-5
+           
+            pb-32
+      "
+    >
+
+      {/* TITLE */}
+
+      <div
+        className="
+          mb-8
+        "
+      >
+
+        <p
+          className="
+            text-sm
+
+            text-(--color-text-secondary)
+          "
+        >
+          Personalize as cores e o modo do app
+        </p>
+
+      </div>
+
+      {/* MODE */}
+
+      <div
+        className="
+          flex flex-col
+          gap-4
+          justify-center items-center
+          w-full
+        "
+      >
+
+        <span
+          className="
+            text-sm
+            font-semibold
+
+            text-(--color-text-primary)
+          "
+        >
+          Modo
+        </span>
+
+        <div
+          className="
+            grid grid-cols-2
+            gap-5
+            w-full
+            px-5
+          "
+        >
+
+          {/* LIGHT */}
+
+          <button
+            onClick={() =>
+              setSelectedMode(
+                'light'
+              )
+            }
+            className={`
+              relative flex 
+              h-24
+              flex-col
+
+              overflow-hidden
+
+              rounded-3xl
+
+              border
+
+              transition-all
+
+              ${
+                selectedMode ===
+                'light'
+                  ? 'border-(--color-primary) ring-2 ring-(--color-primary)'
+                  : 'border-(--color-border)'
+              }
+            `}
+          >
+
+            <div
+              className="
+                flex flex-1
+
+                bg-[#f8fafc]
+              "
+            />
+
+            <div
+              className="
+                flex h-10
+                items-center
+                justify-center
+
+                bg-white
+              "
+            >
+
+              <span
+                className="
+                  text-sm
+                  font-medium
+                  text-black
+                "
+              >
+                Claro
+              </span>
+
+            </div>
+
+            {selectedMode ===
+              'light' && (
+
+              <div
+                className="
+                  absolute right-3 top-3
+
+                  flex h-6 w-6
+                  items-center justify-center
+
+                  rounded-full
+
+                  bg-(--color-primary)
+
+                  text-white
+                "
+              >
+
+                <Check size={14} />
+
+              </div>
+
+            )}
+
+          </button>
+
+          {/* DARK */}
+
+          <button
+            onClick={() =>
+              setSelectedMode(
+                'dark'
+              )
+            }
+            className={`
+              relative flex h-24
+              flex-col
+
+              overflow-hidden
+
+              rounded-3xl
+
+              border
+
+              transition-all
+
+              ${
+                selectedMode ===
+                'dark'
+                  ? 'border-(--color-primary) ring-2 ring-(--color-primary)'
+                  : 'border-(--color-border)'
+              }
+            `}
+          >
+
+            <div
+              className="
+                flex flex-1
+
+                bg-[#0f172a]
+              "
+            />
+
+            <div
+              className="
+                flex h-10
+                items-center
+                justify-center
+
+                bg-[#111827]
+              "
+            >
+
+              <span
+                className="
+                  text-sm
+                  font-medium
+                  text-white
+                "
+              >
+                Escuro
+              </span>
+
+            </div>
+
+            {selectedMode ===
+              'dark' && (
+
+              <div
+                className="
+                  absolute right-3 top-3
+
+                  flex h-6 w-6
+                  items-center justify-center
+
+                  rounded-full
+
+                  bg-(--color-primary)
+
+                  text-white
+                "
+              >
+
+                <Check size={14} />
+
+              </div>
+
+            )}
+
+          </button>
+
+        </div>
+
+      </div>
+
+      {/* COLORS */}
+
+      <div
+        className="
+          mt-10
+          justify-center items-center
+          flex flex-col
+          gap-4
+        "
+      >
+
+        <span
+          className="
+            text-sm
+            font-semibold
+            text-left
+            text-(--color-text-primary)
+          "
+        >
+          Cor principal
+        </span>
+
+        <div
+          className="
+            grid grid-cols-3
+            gap-4
+          "
+        >
+
+          {themes.map((theme) => (
+
+            <button
+              key={theme.id}
+
+              onClick={() =>
+                setSelectedTheme(
+                  theme.id
+                )
+              }
+
+              className={`
+                relative flex
+                w-20 h-20
+                items-center
+                justify-center
+
+                rounded-3xl
+
+                transition-all
+                active:scale-95
+
+                ${
+                  selectedTheme ===
+                  theme.id
+                    ? 'scale-105 ring-4 ring-(--color-border)'
+                    : ''
+                }
+              `}
+
+              style={{
+                background:
+                  theme.color,
+              }}
+            >
+
+              {selectedTheme ===
+                theme.id && (
+
+                <Check
+                  size={32}
+                  className="
+                    text-white
+                  "
+                />
+
+              )}
+
+            </button>
+
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* SAVE BUTTON */}
+
+      <button
+        onClick={handleSave}
+        className="
+          mt-12
+
+          flex h-14
+          w-full
+          items-center justify-center
+
+          rounded-3xl
+
+          bg-linear-to-b 
+          from-(--color-primary) 
+          to-(--color-hover-btn)
+
+          text-sm
+          font-semibold
+          text-white
+
+          shadow-md
+
+          transition-all
+          active:scale-[0.98]
+        "
+      >
+        Salvar aparência
+      </button>
+
+    </div>
+  )
 }

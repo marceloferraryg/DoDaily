@@ -35,7 +35,7 @@ export function TaskPrioritySelect({ onSelectPriority, editMode }: Props) {
                         className={`flex px-5 rounded-full font-medium justify-center items-center
                                     whitespace-nowrap transition-all active:scale-95 cursor-pointer
                                     ${isActive 
-                                        ? 'bg-(--color-primary) text-(--color-text-primary-white) shadow-md'
+                                        ? ' bg-linear-to-b from-(--color-primary) to-(--color-hover-btn) text-(--color-text-primary-white) shadow-md'
                                         : 'bg-(--color-bg-task) text-(--color-text-primary)'
                                     }
                                     `}>

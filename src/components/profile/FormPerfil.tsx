@@ -7,10 +7,11 @@ import { useUser } from "@/store/useUser"
 
 type Props = {
     user: User
+    back: () => void
 }
 
 
-export default function FormPerfil( { user }: Props ) {
+export default function FormPerfil( { user, back }: Props ) {
 
 const [name, setName] = useState<string>('')
 const [email, setEmail] = useState<string>('')
@@ -55,12 +56,13 @@ const canSave = useMemo(() => {
       }) 
     } finally {
         setSaving(false)
+        back()
     }
    
   }
 
     return (
-        <div className="flex flex-col w-full p-5  gap-5">
+        <div className="flex flex-col w-full gap-5"> 
             
             <section>
                 
@@ -147,13 +149,27 @@ const canSave = useMemo(() => {
             onClick={handleSubmit}
             disabled={!canSave}
             className={`
-              h-12 w-full
-              rounded-3xl
-              text-lg font-bold text-white
-              transition active:scale-[0.98]
+                flex h-14
+                w-full
+                items-center justify-center
+
+                rounded-3xl
+
+                bg-linear-to-b 
+                from-(--color-primary) 
+                to-(--color-hover-btn)
+
+                text-sm
+                font-semibold
+                text-white
+
+                shadow-md
+
+                transition-all
+                active:scale-[0.98]
               ${
                 canSave
-                  ? 'bg-(--color-primary) shadow-[0_10px_30px_rgba(94,45,180,0.35)]'
+                  ? 'bg-linear-to-b from-(--color-primary) to-(--color-hover-btn) shadow-[0_10px_30px_rgba(94,45,180,0.35)]'
                   : 'bg-gray-400'
               }
             `}

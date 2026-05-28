@@ -40,6 +40,9 @@ export default function RootLayout({
         className="
           min-h-full
           flex flex-col
+          h-dvh
+          overflow-hidden
+          
         "
       >
 

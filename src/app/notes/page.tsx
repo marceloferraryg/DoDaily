@@ -84,19 +84,26 @@ function formatDateBR(date: string) {
 
           <div
             className="
-              z-60 mt-20
+              flex flex-col
+              w-full h-full
 
-              flex h-full w-full
-              flex-col
-              items-center justify-center
+              items-center
+              justify-center
+              text-center
 
               gap-3
 
+              overflow-y-auto
+
+              rounded-t-3xl
+
               bg-(--color-bg-body)
 
-              p-12
+              p-10
 
-              text-center
+              scroll-smooth
+
+              z-60 mt-20
             "
           >
 
@@ -128,7 +135,9 @@ function formatDateBR(date: string) {
 
                 rounded-3xl
 
-                bg-(--color-primary)
+               bg-linear-to-b 
+               from-(--color-primary) 
+               to-(--color-hover-btn)
 
                 px-4 py-3
 

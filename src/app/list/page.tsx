@@ -58,7 +58,11 @@ export default function ListsPage() {
                             className="
                             cursor-pointer
                                 mt-5 px-4 py-3
-                                bg-(--color-primary)
+
+                                bg-linear-to-b 
+                                from-(--color-primary) 
+                                to-(--color-hover-btn)
+                                
                                 text-white
                                 rounded-3xl
                                 text-sm font-medium

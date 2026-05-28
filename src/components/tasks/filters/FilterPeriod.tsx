@@ -50,7 +50,7 @@ export default function FilterPeriod({
               truncate
               ${
                 isActive
-                  ? 'bg-(--color-primary) text-(--color-text-primary-white) shadow-md'
+                  ? ' bg-linear-to-b from-(--color-primary) to-(--color-hover-btn) text-(--color-text-primary-white) shadow-md'
                   : 'bg-(--color-bg-task) text-(--color-text-primary)'
               }
             `}

@@ -4,28 +4,25 @@
 /* =========================
     LIGHT THEME
 ========================= */
-
 :root,
 .theme-light {
-  --color-bg-body: #f2f2f9;
-  --color-bg-primary: #5e2db4;
-  --color-primary: #5e2db4;
 
+  --color-bg-body: #f2f2f9;
+  --color-bg-card: #ffffff;
   --color-bg-task: #ffffff;
-  --color-bg-summary-card: #e8dafc;
   --color-input-bg: #ffffff;
+
   --color-border: #d1d5db;
 
   --color-text-primary: #111827;
-  --color-text-primary-white: #ffffff;
-  --color-text-secondary: #464e5e;
-  --color-text-secondary-white: #f1f1f1;
+  --color-text-secondary: #4b5563;
   --color-text-muted: #9ca3af;
-
-  --color-hover-btn: #7134da;
+  --color-text-primary-white: #ffffff;
+  --color-text-secondary-white: #d9d9d9;
 
   --color-task-done: #d1fae5;
   --color-task-pending: #fef3c7;
+  --color-overdue-task: #fad7d7a4;
 
   --color-success: #22c55e;
   --color-warning: #f59e0b;
@@ -39,68 +36,211 @@
 .theme-dark {
 
   --color-bg-body: #0f1115;
-
-  --color-bg-primary: #7c3aed;
-  --color-primary: #7c3aed;
-
-  --color-bg-task: #1a1d24;
+  --color-bg-task: #1f2937;
+  --color-bg-card: #1f2937;
   --color-bg-summary-card: #24153d;
   --color-input-bg: #1f2937;
 
   --color-border: #2d3748;
 
   --color-text-primary: #f3f4f6;
-  --color-text-primary-white: #ffffff;
-
   --color-text-secondary: #cbd5e1;
-  --color-text-secondary-white: #f1f5f9;
-
   --color-text-muted: #6b7280;
-
-  --color-hover-btn: #8b5cf6;
+  --color-text-primary-white: #ffffff;
+  --color-text-secondary-white: #d9d9d9;
 
   --color-task-done: #123524;
   --color-task-pending: #3b2f12;
+  --color-overdue-task: #fd5d5d2d;
 
   --color-success: #22c55e;
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
 }
 
+
 /* =========================
-    OCEAN THEME
+    LAVENDER
+========================= */
+
+.theme-lavender {
+
+  --color-bg-primary: #5e2db4;
+  --color-primary: #5e2db4;
+  --color-bg-summary-card: #e8dafc;
+
+  --color-hover-btn: #7134da;
+}
+
+/* =========================
+    OCEAN
 ========================= */
 
 .theme-ocean {
 
-  --color-bg-body: #eaf6ff;
-
   --color-bg-primary: #0284c7;
   --color-primary: #0284c7;
-
-  --color-bg-task: #ffffff;
   --color-bg-summary-card: #dbeafe;
-  --color-input-bg: #ffffff;
-
-  --color-border: #bae6fd;
-
-  --color-text-primary: #082f49;
-  --color-text-primary-white: #ffffff;
-
-  --color-text-secondary: #0c4a6e;
-  --color-text-secondary-white: #f0f9ff;
-
-  --color-text-muted: #64748b;
 
   --color-hover-btn: #0369a1;
-
-  --color-task-done: #d1fae5;
-  --color-task-pending: #fef9c3;
-
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
 }
+
+/* =========================
+    EMERALD
+========================= */
+
+.theme-emerald {
+
+  --color-bg-primary: #059669;
+  --color-primary: #059669;
+  --color-bg-summary-card: #d1fae5;
+
+  --color-hover-btn: #047857;
+}
+
+/* =========================
+    CORAL
+========================= */
+
+.theme-coral {
+
+  --color-bg-primary: #f97316;
+  --color-primary: #f97316;
+  --color-bg-summary-card: #ffedd5;
+
+  --color-hover-btn: #ea580c;
+}
+
+/* =========================
+    SAKURA
+========================= */
+
+.theme-sakura {
+
+  --color-bg-primary: #ec4899;
+  --color-primary: #ec4899;
+  --color-bg-summary-card: #fce7f3;
+
+  --color-hover-btn: #db2777;
+}
+
+/* =========================
+    MIDNIGHT
+========================= */
+
+.theme-midnight {
+
+  --color-bg-primary: #1e293b;
+  --color-primary: #1e293b;
+  --color-bg-summary-card: #e0e7ff;
+
+  --color-hover-btn: #334155;
+}
+
+/* =========================
+    FOREST
+========================= */
+
+.theme-forest {
+
+  --color-bg-primary: #166534;
+  --color-primary: #166534;
+  --color-bg-summary-card: #dcfce7;
+
+  --color-hover-btn: #15803d;
+}
+
+/* =========================
+    ROSE
+========================= */
+
+.theme-rose {
+
+  --color-bg-primary: #e11d48;
+  --color-primary: #e11d48;
+  --color-bg-summary-card: #ffe4e6;
+
+  --color-hover-btn: #be123c;
+}
+
+/* =========================
+    GOLD
+========================= */
+
+.theme-gold {
+
+  --color-bg-primary: #ca8a04;
+  --color-primary: #ca8a04;
+  --color-bg-summary-card: #fef9c3;
+
+  --color-hover-btn: #a16207;
+}
+
+/* =========================
+    SKY
+========================= */
+
+.theme-sky {
+
+  --color-bg-primary: #0ea5e9;
+  --color-primary: #0ea5e9;
+  --color-bg-summary-card: #e0f2fe;
+
+  --color-hover-btn: #0284c7;
+}
+
+/* =========================
+    CHERRY
+========================= */
+
+.theme-cherry {
+
+  --color-bg-primary: #be123c;
+  --color-primary: #be123c;
+  --color-bg-summary-card: #ffe4e6;
+
+  --color-hover-btn: #9f1239;
+}
+
+/* =========================
+    COFFEE
+========================= */
+
+.theme-coffee {
+
+  --color-bg-primary: #6f4e37;
+  --color-primary: #6f4e37;
+  --color-bg-summary-card: #ede0d4;
+
+  --color-hover-btn: #5b3d2b;
+}
+
+/* =========================
+    STORM
+========================= */
+
+.theme-storm {
+
+  --color-bg-primary: #475569;
+  --color-primary: #475569;
+  --color-bg-summary-card: #e2e8f0;
+
+  --color-hover-btn: #334155;
+}
+
+/* =========================
+    RUBY
+========================= */
+
+.theme-ruby {
+
+  --color-bg-primary: #b91c1c;
+  --color-primary: #b91c1c;
+  --color-bg-summary-card: #fee2e2;
+
+  --color-hover-btn: #991b1b;
+}
+
 
 /* =========================
     BASE STYLES
@@ -108,6 +248,7 @@
 
 html {
   -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
 }
 
 body {
@@ -122,6 +263,29 @@ body {
   transition:
     background 0.25s ease,
     color 0.25s ease;
+
+    overflow: hidden;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+/* =========================
+    HIDE SCROLLBAR
+========================= */
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 
@@ -178,12 +342,14 @@ body {
   transform: translateX(-50%);
   width: 100%;
   max-width: 430px;
+   overflow: hidden;
   z-index: 60;
 }
 
 @media (min-width: 768px) {
   .shell-top {
     max-width: 600px;
+     overflow: hidden;
   }
 }
 
@@ -191,6 +357,7 @@ body {
 @media (min-width: 1280px) {
   .shell-top {
     max-width: 800px;
+     overflow: hidden;
   }
 }
 
@@ -207,6 +374,7 @@ body {
   right: 0;
 
   overflow-y: auto;
+   overflow: hidden;
   background: var(--color-bg-body);
 
   border-top-left-radius: 28px;
@@ -228,6 +396,7 @@ body {
   transform: translateX(-50%);
   width: 100%;
   max-width: 430px;
+   overflow: hidden;
   z-index: 60;
 
 }
@@ -258,11 +427,12 @@ body {
   justify-content: center;
 
   padding: 0px;
+   overflow: hidden;
 
   backdrop-filter: blur(8px);
   background: rgba(0, 0, 0, 0.35);
 
-  z-index: 100;
+  z-index: 120;
 }
 
 .shell-sheet-content {
@@ -271,9 +441,10 @@ body {
 
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
+   overflow: hidden;
 
   box-shadow: 0 -10px 30px rgba(0,0,0,.12);
-  background: white;
+  background: var(--color-bg-body);
 }
 
 @media (min-width: 768px) {

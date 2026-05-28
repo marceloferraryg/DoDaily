@@ -88,7 +88,9 @@ function handleEnter(
 
           rounded-full
 
-          bg-(--color-primary)
+           bg-linear-to-b
+            from-(--color-primary)
+            to-(--color-hover-btn)
 
           shadow-md
 

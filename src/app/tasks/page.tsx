@@ -96,7 +96,7 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
     <AppShell>
       <div
         className="
-          relative flex h-screen w-full
+          relative flex h-dvh w-full
           flex-col overflow-hidden
           bg-(--color-bg-body)
         "

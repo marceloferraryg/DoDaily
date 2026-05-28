@@ -25,7 +25,13 @@ const user = useUser((state) => state.user)
 
   return (
 
-    <header className="flex justify-between items-center bg-(--color-bg-primary) px-5 pt-4 pb-10 shell-top">
+    <header className="flex justify-between items-center 
+                       px-5 pt-4 pb-10 shell-top
+                        
+                        bg-linear-to-b
+                        from-(--color-primary)
+                        to-(--color-hover-btn)
+                       ">
       
        <div>
           <h2 className="text-3xl font-bold text-white">

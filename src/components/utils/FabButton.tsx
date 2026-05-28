@@ -21,7 +21,9 @@ export function FabButton() {
         h-16 
         rounded-full
 
-        bg-(--color-primary)/95
+         bg-linear-to-b
+            from-(--color-primary)
+            to-(--color-hover-btn)
         backdrop-blur-md
         border border-white/20
 

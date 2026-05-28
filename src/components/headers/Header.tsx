@@ -98,7 +98,9 @@ export default function Header({
               flex w-8
               items-center justify-center
 
-              bg-(--color-primary)
+               bg-linear-to-b
+            from-(--color-primary)
+            to-(--color-hover-btn)
 
               pb-5
             "
@@ -112,7 +114,9 @@ export default function Header({
               flex w-24
               items-center justify-center
 
-              bg-(--color-primary)
+               bg-linear-to-b
+            from-(--color-primary)
+            to-(--color-hover-btn)
 
               pb-5
 
@@ -137,7 +141,9 @@ export default function Header({
             flex flex-1
             flex-col justify-center
 
-            bg-(--color-primary)
+             bg-linear-to-b
+            from-(--color-primary)
+            to-(--color-hover-btn)
 
             pb-6
           "
@@ -179,7 +185,9 @@ export default function Header({
               flex w-32
               items-center justify-center
 
-              bg-(--color-primary)
+               bg-linear-to-b
+            from-(--color-primary)
+            to-(--color-hover-btn)
 
               pb-5 pr-8
             "
@@ -225,7 +233,9 @@ export default function Header({
               flex w-32
               items-center justify-center
 
-              bg-(--color-primary)
+              bg-linear-to-b
+            from-(--color-primary)
+            to-(--color-hover-btn)
 
               pb-5 pr-8
             "

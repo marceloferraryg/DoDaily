@@ -326,7 +326,7 @@ const isDisabled =
             <section
               className="
                 pb-8 mb-3
-                bg-red-100/50 px-5 pt-3
+                bg-(--color-overdue-task) px-5 pt-3
               "
             >
               <h1

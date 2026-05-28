@@ -217,7 +217,7 @@ useEffect(() => {
               items-center justify-center
 
               rounded-full
-              bg-white
+              bg-(--color-bg-card)
               transition-all
               active:scale-[0.96]
             "
@@ -251,7 +251,7 @@ useEffect(() => {
               className="
                 flex  h-12 w-12
                 items-center justify-center
-               bg-white
+                bg-(--color-bg-card)
                 rounded-full
                 
                 transition-all

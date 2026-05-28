@@ -50,7 +50,7 @@ export default function TaskCategorySelect({
               cursor-pointer
               ${
                 isActive
-                  ? 'bg-(--color-primary) text-white shadow-md'
+                  ? ' bg-linear-to-b from-(--color-primary) to-(--color-hover-btn) text-white shadow-md'
                   : 'bg-(--color-input-bg) text-(--color-text-primary)'
               }
             `}
