@@ -60,7 +60,7 @@ const canSave = useMemo(() => {
   }
 
     return (
-        <div className="flex flex-col w-full p-5 bg-(--color-bg-body) gap-5">
+        <div className="flex flex-col w-full p-5  gap-5">
             
             <section>
                 
