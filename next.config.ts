@@ -13,10 +13,14 @@ const withPWA = withPWAInit({
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
-  // 👇 necessário para acessar no celular (dev)
-  allowedDevOrigins: ['192.168.1.106'],
+  allowedDevOrigins: [
+    '192.168.1.106',
+  ],
 
-  // 👇 resolve conflito Turbopack x Webpack na build (Vercel)
+  compress: true,
+
+  poweredByHeader: false,
+
   turbopack: {},
 }
 
