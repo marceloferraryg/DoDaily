@@ -78,6 +78,44 @@ export function ThemeProvider({
   ])
 
   //------------------------------------------
+  // UPDATE BROWSER / PWA COLOR
+  //------------------------------------------
+
+  useEffect(() => {
+
+    const metaThemeColor =
+      document.querySelector(
+        'meta[name="theme-color"]'
+      )
+
+    if (!metaThemeColor) {
+      return
+    }
+
+    const color =
+      getComputedStyle(
+        document.body
+      )
+        .getPropertyValue(
+          '--color-primary'
+        )
+        .trim()
+
+    if (color) {
+
+      metaThemeColor.setAttribute(
+        'content',
+        color
+      )
+
+    }
+
+  }, [
+    mode,
+    theme,
+  ])
+
+  //------------------------------------------
   // RENDER
   //------------------------------------------
 

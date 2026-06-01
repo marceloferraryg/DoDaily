@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import { Inter } from 'next/font/google'
 
@@ -14,9 +14,28 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'DoDaily',
-  description:
-    'Organize sua rotina diária',
+  description: 'Organize sua rotina diária',
+
   manifest: '/manifest.json',
+
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'DoDaily',
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#5e2db4',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 export default function RootLayout({
