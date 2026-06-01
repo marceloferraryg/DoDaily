@@ -102,7 +102,7 @@ export default function FormTheme({ back } : Props) {
             w-full
             px-5
            
-            pb-32
+            pb-24 
       "
     >
 
@@ -434,7 +434,7 @@ export default function FormTheme({ back } : Props) {
           from-(--color-primary) 
           to-(--color-hover-btn)
 
-          text-sm
+          text-md
           font-semibold
           text-white
 

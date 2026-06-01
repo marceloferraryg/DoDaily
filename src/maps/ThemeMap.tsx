@@ -9,46 +9,20 @@ type ThemeItem = {
 export const themeColorsMap:
   Record<ThemeColor, ThemeItem> = {
 
-  lavender: {
-    id: 'lavender',
-    color: '#5e2db4',
-    name: 'Lavanda',
+  //------------------------------------------
+  // RED / PINK
+  //------------------------------------------
+
+  cherry: {
+    id: 'cherry',
+    color: '#dc2626',
+    name: 'Cherry',
   },
 
-  ocean: {
-    id: 'ocean',
-    color: '#0284c7',
-    name: 'Oceano',
-  },
-
-  emerald: {
-    id: 'emerald',
-    color: '#059669',
-    name: 'Esmeralda',
-  },
-
-  coral: {
-    id: 'coral',
-    color: '#f97316',
-    name: 'Coral',
-  },
-
-  sakura: {
-    id: 'sakura',
-    color: '#db2777',
-    name: 'Sakura',
-  },
-
-  midnight: {
-    id: 'midnight',
-    color: '#1e293b',
-    name: 'Midnight',
-  },
-
-  forest: {
-    id: 'forest',
-    color: '#166534',
-    name: 'Forest',
+  ruby: {
+    id: 'ruby',
+    color: '#be123c',
+    name: 'Ruby',
   },
 
   rose: {
@@ -57,22 +31,26 @@ export const themeColorsMap:
     name: 'Rose',
   },
 
+  sakura: {
+    id: 'sakura',
+    color: '#db2777',
+    name: 'Sakura',
+  },
+
+  //------------------------------------------
+  // ORANGE / GOLD
+  //------------------------------------------
+
+  coral: {
+    id: 'coral',
+    color: '#f97316',
+    name: 'Coral',
+  },
+
   gold: {
     id: 'gold',
     color: '#ca8a04',
     name: 'Gold',
-  },
-
-  sky: {
-    id: 'sky',
-    color: '#0ea5e9',
-    name: 'Sky',
-  },
-
-  cherry: {
-    id: 'cherry',
-    color: '#dc2626',
-    name: 'Cherry',
   },
 
   coffee: {
@@ -81,16 +59,62 @@ export const themeColorsMap:
     name: 'Coffee',
   },
 
+  //------------------------------------------
+  // GREEN
+  //------------------------------------------
+
+  emerald: {
+    id: 'emerald',
+    color: '#059669',
+    name: 'Esmeralda',
+  },
+
+  forest: {
+    id: 'forest',
+    color: '#166534',
+    name: 'Forest',
+  },
+
+  //------------------------------------------
+  // BLUE
+  //------------------------------------------
+
+  sky: {
+    id: 'sky',
+    color: '#0ea5e9',
+    name: 'Sky',
+  },
+
+  ocean: {
+    id: 'ocean',
+    color: '#0284c7',
+    name: 'Oceano',
+  },
+
+  //------------------------------------------
+  // PURPLE
+  //------------------------------------------
+
+  lavender: {
+    id: 'lavender',
+    color: '#5e2db4',
+    name: 'Lavanda',
+  },
+
+  //------------------------------------------
+  // DARK / NEUTRAL
+  //------------------------------------------
+
   storm: {
     id: 'storm',
     color: '#475569',
     name: 'Storm',
   },
 
-  ruby: {
-    id: 'ruby',
-    color: '#be123c',
-    name: 'Ruby',
+  midnight: {
+    id: 'midnight',
+    color: '#1e293b',
+    name: 'Midnight',
   },
 
 }

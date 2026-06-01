@@ -119,7 +119,7 @@ export default function Profile() {
         <div
           className="
             relative flex
-            h-72
+            h-60
             w-full
             flex-col
             items-center
@@ -137,7 +137,7 @@ export default function Profile() {
 
           <div
             className="
-              flex h-32 w-32
+              flex h-28 w-28
               items-center justify-center
 
               rounded-full
@@ -170,7 +170,7 @@ export default function Profile() {
 
           <h1
             className="
-              mt-4
+              mt-3
 
               text-2xl
               font-bold
@@ -187,31 +187,15 @@ export default function Profile() {
 
             <span
               className="
-                mt-1
+                text-sm mb-3
 
-                text-sm
-
-                text-white/80
+                text-(--color-text-secondary-white)
               "
             >
               {user.email}
             </span>
 
           )}
-
-          {/* SUBTITLE */}
-
-          <span
-            className="
-              mt-3
-
-              text-xs
-
-              text-white/70
-            "
-          >
-            Organize sua rotina diária
-          </span>
 
         </div>
 
@@ -222,7 +206,7 @@ export default function Profile() {
             absolute
             inset-x-0
             bottom-0
-            top-60
+            top-54
 
             flex flex-col
 
