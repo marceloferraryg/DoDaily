@@ -3,7 +3,7 @@ import {
     CheckSquare,
     ShoppingCart,
     NotepadText ,
-    User,   
+    Settings,   
 } from 'lucide-react'
 
 export const menuTabBarMap = {
@@ -31,11 +31,11 @@ export const menuTabBarMap = {
             href: '/notes',
             icon: NotepadText ,
          },
-  profile: {
-            id: 'profile',
-            name: 'Perfil',
-            href: '/profile',
-            icon: User,
+  settings: {
+            id: 'settings',
+            name: 'Ajustes',
+            href: '/settings',
+            icon: Settings,
          },
 
 

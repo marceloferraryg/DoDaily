@@ -7,14 +7,16 @@ import {
   ArrowRight,
   Palette,
   User,
+  Download,
 } from 'lucide-react'
 
 import { AppShell } from '@/components/AppShell'
 
 import { MenuTabBar } from '@/components/utils/MenuTabBar'
 
-import FormPerfil from '@/components/profile/FormPerfil'
-import FormTheme from '@/components/profile/FormTheme'
+import FormPerfil from '@/components/settings/FormPerfil'
+import FormTheme from '@/components/settings/FormTheme'
+import FormInstallation from '@/components/settings/FormInstallation'
 
 import { useUser } from '@/store/useUser'
 
@@ -22,6 +24,7 @@ type ActiveForm =
   | 'menu'
   | 'profile'
   | 'theme'
+  | 'installation'
 
 export default function Profile() {
 
@@ -64,6 +67,12 @@ export default function Profile() {
       title: 'Aparência',
       icon: Palette,
     },
+
+    {
+      id: 'installation' as ActiveForm,
+      title: 'Instalação',
+      icon: Download,
+    },
   ]
 
   //------------------------------------------
@@ -87,6 +96,9 @@ export default function Profile() {
 
       case 'theme':
         return 'Aparência'
+      
+      case 'installation':
+        return 'Instalação'
 
       default:
         return ''
@@ -232,6 +244,10 @@ export default function Profile() {
 
                 flex items-center
                 gap-4
+
+                border-b border-(--color-border)
+
+                pb-4
               "
             >
 
@@ -400,6 +416,14 @@ export default function Profile() {
           {activeForm === 'theme' && (
 
             <FormTheme
+              back={handleBack}
+            />
+
+          )}
+
+          {activeForm === 'installation' && (
+
+            <FormInstallation 
               back={handleBack}
             />
 

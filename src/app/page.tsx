@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 import Image from 'next/image'
@@ -12,6 +12,7 @@ import { HeaderHome } from '@/components/headers/HeaderHome'
 import SummaryDay from '@/components/utils/SummaryDay'
 import { FabButton } from '@/components/utils/FabButton'
 import { MenuTabBar } from '@/components/utils/MenuTabBar'
+import InstallBanner from '@/components/utils/InstallBanner'
 
 import { TaskCard } from '@/components/tasks/TaskCard'
 import { TaskSwipeCard } from '@/components/tasks/TaskSwipeCard'
@@ -33,6 +34,8 @@ import {
 
 export default function Home() {
   const router = useRouter()
+
+  const [showBanner, setShowBanner] = useState(false)
 
   const tasks = useTasks(
     (state) => state.tasks
@@ -179,6 +182,23 @@ function handleEnter(
 const isDisabled =
   newUser.trim().length === 0
 
+ /*
+  ------------------------
+  INSTALL BANNER
+  ------------------------
+  */
+
+  useEffect(() => {
+
+  const timer =
+    setTimeout(() => {
+      setShowBanner(true)
+    }, 3000)
+
+    clearTimeout(timer)
+
+}, [])
+
   return (
     <AppShell>
 
@@ -318,6 +338,9 @@ const isDisabled =
             
           "
         >
+
+        {showBanner && <InstallBanner />}
+
           <SummaryDay />
 
           {/* ATRASADAS */}
