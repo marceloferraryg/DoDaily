@@ -182,6 +182,7 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
                         <TaskCard
                             task={task}
                             onShowNotes={() => openInfo(task)}
+                            onRemove={() => openDelete(task)}
                            
                         />
                   </TaskSwipeCard>

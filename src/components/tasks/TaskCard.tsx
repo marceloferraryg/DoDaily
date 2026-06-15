@@ -10,6 +10,7 @@ import { taskPriorityMap } from '@/maps/TaskPriorityMap'
 type PropsTaskCard = {
   task: Task
   onShowNotes?: () => void
+  onRemove?: () => void
 }
 
 export function TaskCard({ task, onShowNotes }: PropsTaskCard) {
