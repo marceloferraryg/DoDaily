@@ -22,6 +22,8 @@ import { TaskCategory } from '@/maps/TaskCategoryMap'
 import { TaskPriority } from '@/maps/TaskPriorityMap'
 import { FilterPeriodType } from '@/maps/TaskPeriodMap' 
 
+import incrementUserActions from '@/hooks/useIncrementUserActions'
+
 
 export default function Tasks() {
   
@@ -84,12 +86,29 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
     setIsDeleteOpen(true)
   }
 
-  function confirmDelete() {
+  async function confirmDelete() {
     if (!selectedTask) return
 
-    removeTask(selectedTask.id)
-    setIsDeleteOpen(false)
-    setSelectedTask(null)
+    try {
+      incrementUserActions()
+      removeTask(selectedTask.id)
+      setIsDeleteOpen(false)
+      setSelectedTask(null)
+      
+    } catch (error) {
+      console.error('Error removing task:', error)
+    }
+    
+  }
+
+  async function handleToggleTask(task: Task) {
+    try {
+       incrementUserActions()
+      toggleTask(task.id)
+     
+    } catch (error) {
+      console.error('Error toggling task done:', error)
+    }
   }
 
   return ( 
@@ -156,14 +175,14 @@ const [isInfoOpen, setIsInfoOpen] = useState(false)
                 filteredTasks.map((task) => (
                   <TaskSwipeCard
                       key={task.id}
-                      onComplete={() => toggleTask(task.id)}
+                      onComplete={async () => await handleToggleTask(task)}
                       onRemove={() => openDelete(task)}
                       isDone={task.done}
                   >
                         <TaskCard
                             task={task}
                             onShowNotes={() => openInfo(task)}
-                            onRemove={() => openDelete(task)}
+                           
                         />
                   </TaskSwipeCard>
                 )))}

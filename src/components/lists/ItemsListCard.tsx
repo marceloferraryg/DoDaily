@@ -14,6 +14,7 @@ import {
 import { useItemList } from '@/store/useItemList'
 
 import { ListItem } from '@/types/itemsList'
+import incrementUserActions from '@/hooks/useIncrementUserActions'
 
 type Props = {
   items: ListItem[]
@@ -123,11 +124,30 @@ export default function ItemsListCard({
     // DELETE
     //------------------------------------------
 
-    function handleDelete() {
+    async function handleDelete() {
 
-      removeItem(item.id)
+      try {
+        await removeItem(item.id)
+        setActiveItemId(null)
+        incrementUserActions()
+      } catch (error) {
+        console.error('Error deleting item:', error)
+      }
+    }
 
-      setActiveItemId(null)
+    //------------------------------------------
+    // TOGGLE DONE
+    //------------------------------------------
+
+    async function handleToggleDone() {
+
+      try {
+        toggleItemDone(item.id)
+        incrementUserActions()
+      } catch (error) {
+        console.error('Error toggling item done:', error)
+      }
+
     }
 
     //------------------------------------------
@@ -174,29 +194,22 @@ export default function ItemsListCard({
         {/* CHECK BUTTON */}
 
         <button
-          onClick={() =>
-            toggleItemDone(item.id)
-          }
+          onClick={handleToggleDone}
           className={`
             flex h-6 w-6
             shrink-0
             items-center justify-center
 
             rounded-full
-            border
+            
 
             transition-all
             active:scale-95
 
             ${
               item.done
-                ? `
-                  border-(--color-success)
-                  bg-(--color-success)
-                `
-                : `
-                  border-(--color-border)
-                `
+                  ? ''
+                  : 'border border-(--color-border)'
             }
           `}
         >
@@ -204,9 +217,9 @@ export default function ItemsListCard({
           {item.done && (
 
             <Check
-              size={16}
-              color="white"
+              size={24}
               strokeWidth={3}
+              className="text-(--color-success)"
             />
 
           )}

@@ -12,6 +12,8 @@ import { TaskCategory } from '@/maps/TaskCategoryMap'
 import { TaskPrioritySelect } from '@/components/tasks/selects/TaskPrioritySelect'
 import { TaskPriority } from '@/maps/TaskPriorityMap'
 
+import incrementUserActions from '@/hooks/useIncrementUserActions'
+
 type Props = {
   mode: 'create' | 'edit'
   taskId?: string
@@ -105,6 +107,7 @@ export default function FormTask({ mode, taskId }: Props) {
         updateTask(taskId, payload)
       }
 
+      incrementUserActions()
       router.push('/')
     } finally {
       setSaving(false)

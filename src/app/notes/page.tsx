@@ -7,6 +7,7 @@ import Header from '@/components/headers/Header'
 import { MenuTabBar } from '@/components/utils/MenuTabBar'
 
 import { useNotes } from '@/store/useNotes'
+import incrementUserActions from '@/hooks/useIncrementUserActions'
 
 export default function NotesPage() {
 
@@ -38,6 +39,7 @@ export default function NotesPage() {
 
   requestAnimationFrame(() => {
 
+    incrementUserActions()
     router.push(`/notes/${id}`)
 
   })

@@ -26,7 +26,7 @@ type ActiveForm =
   | 'theme'
   | 'installation'
 
-export default function Profile() {
+export default function Settings() {
 
   //------------------------------------------
   // STORE

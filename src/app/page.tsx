@@ -35,8 +35,6 @@ import {
 export default function Home() {
   const router = useRouter()
 
-  const [showBanner, setShowBanner] = useState(false)
-
   const tasks = useTasks(
     (state) => state.tasks
   )
@@ -188,17 +186,7 @@ const isDisabled =
   ------------------------
   */
 
-  useEffect(() => {
-
-  const timer =
-    setTimeout(() => {
-      setShowBanner(true)
-    }, 3000)
-
-    clearTimeout(timer)
-
-}, [])
-
+  
   return (
     <AppShell>
 
@@ -339,7 +327,7 @@ const isDisabled =
           "
         >
 
-        {showBanner && <InstallBanner />}
+        <InstallBanner />
 
           <SummaryDay />
 

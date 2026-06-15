@@ -10,7 +10,6 @@ import { taskPriorityMap } from '@/maps/TaskPriorityMap'
 type PropsTaskCard = {
   task: Task
   onShowNotes?: () => void
-  onRemove?: () => void
 }
 
 export function TaskCard({ task, onShowNotes }: PropsTaskCard) {
@@ -69,21 +68,21 @@ export function TaskCard({ task, onShowNotes }: PropsTaskCard) {
             className={`
               flex h-6 w-6
               items-center justify-center
-              rounded-full border
-              border-(--color-border)
+              rounded-full
+             
               transition-colors
               ${
                 task.done
-                  ? 'bg-(--color-success) border-(--color-success)'
-                  : ''
+                  ? ''
+                  : 'border border-(--color-border)'
               }
             `}
           >
             {task.done && (
               <Check
-                size={16}
-                color="white"
+                size={24}
                 strokeWidth={3}
+                className="text-(--color-success)"
               />
             )}
           </div>

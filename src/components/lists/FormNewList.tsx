@@ -9,6 +9,8 @@ import Header from '@/components/headers/Header'
 
 import { useLists } from '@/store/useLists'
 
+import incrementUserActions from '@/hooks/useIncrementUserActions'
+
 type Props = {
   mode: 'create' | 'edit'
   listId?: string
@@ -101,10 +103,11 @@ export default function FormNewList({ mode, listId }: Props) {
       } else if (listId) {
         updateList(listId, payload)
       }
-
+      
+      incrementUserActions()
       router.push('/list')
     } finally {
-      setSaving(false)
+      setSaving(false)   
     }
   }
 

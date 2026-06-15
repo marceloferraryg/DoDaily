@@ -18,222 +18,181 @@ import ItemsListCard from './ItemsListCard'
 import { useLists } from '@/store/useLists'
 import { useItemList } from '@/store/useItemList'
 import { List } from '@/types/lists'
+import incrementUserActions from '@/hooks/useIncrementUserActions'
 
 type ChecklistViewProps = {
   list: List
 }
 
 export default function ChecklistView({ list }: ChecklistViewProps) {
-
   const router = useRouter()
-
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [selectedList, setSelectedList] = useState<List | null>(null)
     
- const deleteList = useLists(
-  (state) => state.deleteList
-)
+  const deleteList = useLists((state) => state.deleteList)
+  const listItems = useItemList((state) => state.listItems)
 
-const listItems = useItemList(
-  (state) => state.listItems
-)
+  const items = useMemo(() => {
+    return listItems.filter((item) => item.listId === list.id)
+  }, [listItems, list.id])
 
-const items = useMemo(() => {
-  return listItems.filter(
-    (item) => item.listId === list.id
-  )
-}, [listItems, list.id])
+  const removeItemsByListId = useItemList((state) => state.removeItemsByListId)
 
-const removeItemsByListId =
-  useItemList(
-    (state) =>
-      state.removeItemsByListId
-  )
+  function openDelete(list: List) {
+    setSelectedList(list)
+    setIsDeleteOpen(true)
+  }
 
-   function openDelete(list: List) {
-      setSelectedList(list)
-      setIsDeleteOpen(true)
+  async function handleDelete() {
+    try {
+      removeItemsByListId(list.id)
+      deleteList(list.id)
+      incrementUserActions()
+      router.push('/list')
+    } catch (error) {
+      console.error('Error deleting list:', error)
     }
-
-function handleDelete() {
-
-  removeItemsByListId(list.id)
-
-  deleteList(list.id)
-
-  router.push('/list')
-}
+  }
 
   return (
     <AppShell>
+      {/* ALTERAÇÃO 1: Mudamos de 'h-dvh' para 'h-screen' (ou 'h-[100vh]'). 
+        Isso impede que o container mude de tamanho de forma agressiva quando o teclado abre.
+        Adicionamos 'overflow-hidden' para segurar a estrutura rígida.
+      */}
+      <div
+        className="
+          relative
+          flex h-screen w-full flex-col
+          bg-(--color-bg-body)
+          overflow-hidden
+        "
+      >
+        {/* HEADER */}
         <div
           className="
-          relative
-            flex h-dvh
-            w-full flex-col
-
-            bg-(--color-bg-body)
-            "
+            absolute top-0 left-0 z-50
+            flex h-16 w-full
+            items-center justify-between
+            bg-(--color-bg-body) /* Dica: Colocar a cor de fundo aqui evita que os itens passem por baixo transparentes */
+            px-2 pl-5
+            pt-[env(safe-area-inset-top)]
+          "
         >
+          <button
+            onClick={() => router.push('/list')}
+            className="
+              flex h-12 w-12
+              items-center justify-center
+              bg-(--color-bg-card)
+              rounded-full
+              transition-all
+              active:scale-[0.96]
+            "
+          >
+            <ArrowLeft size={28} className="text-(--color-text-primary)" />
+          </button>
 
-             {/* HEADER */}
-
-            <div
-               className="
-                  absolute top-0 left-0 z-50
-
-                  flex h-16 w-full
-                  items-center justify-between
-
-                  bg-transparent
-
-                  px-2 pl-5
-
-                  pt-[env(safe-area-inset-top)]
-                "
+          <div className="flex items-center gap-3 pr-3">
+            <button
+              onClick={() => openDelete(list)}
+              className="
+                flex h-12 w-12
+                items-center justify-center
+                bg-(--color-bg-card)
+                rounded-full
+                transition-all
+                active:scale-[0.96]
+              "
             >
+              <Trash2 size={22} className="text-(--color-danger)" />
+            </button>
 
-                    <button
-                    onClick={() => router.push('/list')}
-                    className="
-                        flex h-12 w-12
-                        items-center justify-center
-                        bg-(--color-bg-card)
-                        rounded-full
-
-                        transition-all
-                        active:scale-[0.96]
-                    "
-                    >
-                    <ArrowLeft
-                        size={28}
-                        className="text-(--color-text-primary)"
-                    />
-                    </button>
-
-
-            <div className="flex items-center gap-3 pr-3">
-
+            {list.pinned && (
               <button
-                onClick={() => openDelete(list)}
                 className="
                   flex h-12 w-12
                   items-center justify-center
                   bg-(--color-bg-card)
                   rounded-full
-
                   transition-all
                   active:scale-[0.96]
                 "
               >
-                    <Trash2
-                    size={22}
-                    className="text-(--color-danger)"
-                    />
-
+                <Pin size={22} className="text-(--color-text-primary)" />
               </button>
+            )}
 
-              {list.pinned && (
-                <button
-                  className="
-                    flex h-12 w-12
-                    items-center justify-center
-                    bg-(--color-bg-card)
-                    rounded-full
-
-                    transition-all
-                    active:scale-[0.96]
-                  "
-                >
-                    <Pin
-                        size={22}
-                        className="text-(--color-text-primary)"
-                    />
-
-                </button>
-              )}
-
-              <button
-                  onClick={() => router.push(`/list/edit/${list.id}`)}
-                  className="
-                    flex h-12 w-12
-                    items-center justify-center
-                    bg-(--color-bg-card)
-                    rounded-full
-
-                    transition-all
-                    active:scale-[0.96]
-                  "
-                >
-                    <Edit
-                        size={22}
-                        className="text-(--color-text-primary)"
-                    />
-
-                </button>
-
-            </div>
+            <button
+              onClick={() => router.push(`/list/edit/${list.id}`)}
+              className="
+                flex h-12 w-12
+                items-center justify-center
+                bg-(--color-bg-card)
+                rounded-full
+                transition-all
+                active:scale-[0.96]
+              "
+            >
+              <Edit size={22} className="text-(--color-text-primary)" />
+            </button>
           </div>
+        </div>
 
-
-          
-
-
-          <div
-            className="
-              flex flex-1 flex-col
-
-              overflow-y-auto
-
-              px-6
-              pb-36
-            "
-          >
-
-            <div className=" pt-18 pb-8">
-
+        {/* CONTAINER DOS ITENS
+          Mantemos o flex-1 e o overflow-y-auto para ele controlar a rolagem interna dele.
+          Adicionado o padding-top de 16 (pt-16) para compensar o header fixo.
+        */}
+        <div
+          className="
+            flex flex-1 flex-col
+            overflow-y-auto
+            px-6
+            pt-16
+            pb-32 
+          "
+        >
+          <div className="pt-6 pb-4">
             <h1
               className="
                 text-2xl
                 font-bold
                 leading-tight
-
                 text-(--color-text-primary)
               "
             >
               {list.title}
             </h1>
-
           </div>
 
-            <ItemsListCard items={items} /> 
-
-          </div>
-
-
-                <AddItemsBar 
-                    listId={list.id}   
-                    listEmpty={items.length === 0}  
-                />
-
-                <ConfirmBottom
-                            isOpen={isDeleteOpen}
-                            onClose={() => setIsDeleteOpen(false)}
-                            onConfirm={handleDelete}
-                            task={undefined}
-                            list={selectedList || undefined}
-                            note={undefined}
-                            title="Remover lista"
-                            message="Tem certeza que deseja remover esta lista?"
-                            confirmText="Remover"
-                            cancelText="Cancelar"
-                            variant="danger"
-                        />
-
+          <ItemsListCard items={items} /> 
         </div>
-    </AppShell>
 
-    
+        {/* BARRA DE ADICIONAR ITEM
+          Geralmente esses componentes ficam melhores se fixados na base usando 'absolute' ou 'sticky'
+          para garantir que fiquem colados acima do teclado sem deformar o resto do layout.
+        */}
+        <div className="w-full bg-(--color-bg-body) pb-[env(safe-area-inset-bottom)]">
+          <AddItemsBar 
+            listId={list.id}   
+            listEmpty={items.length === 0}   
+          />
+        </div>
+
+        <ConfirmBottom
+          isOpen={isDeleteOpen}
+          onClose={() => setIsDeleteOpen(false)}
+          onConfirm={handleDelete}
+          task={undefined}
+          list={selectedList || undefined}
+          note={undefined}
+          title="Remover lista"
+          message="Tem certeza que deseja remover esta lista?"
+          confirmText="Remover"
+          cancelText="Cancelar"
+          variant="danger"
+        />
+      </div>
+    </AppShell>
   )
-  
 }

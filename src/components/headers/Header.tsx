@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 
 import { useNotes } from '@/store/useNotes'
+import incrementUserActions from '@/hooks/useIncrementUserActions'
 
 type HeaderProps = {
   title: string
@@ -68,12 +69,13 @@ export default function Header({
   }
 
   function handleNewList() {
-
+    incrementUserActions()
     router.push('/list/new')
   }
 
   function handleNewNote() {
-
+    
+    incrementUserActions()
     const noteId = createNote()
 
     router.push(`/notes/${noteId}`)
