@@ -27,12 +27,12 @@ export function MenuTabBar() {
         absolute bottom-0 left-0 right-0
         z-100
         mx-5 
-        mb-[calc(env(safe-area-inset-bottom)+20px)]
+        mb-[calc(env(safe-area-inset-bottom)+8px)]
         flex items-center justify-around
         rounded-3xl
         bg-(--color-input-bg)/10 backdrop-blur-sm
         p-2
-        shadow-[0_3px_10px_rgba(94,45,180,0.35)]
+        shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]
       "
     >
       {menuTabs.map((tab) => {

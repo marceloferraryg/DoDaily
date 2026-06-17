@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Plus } from 'lucide-react'
 
 import { useItemList } from '@/store/useItemList'
@@ -29,20 +29,41 @@ export default function AddItemsBar({ listId, listEmpty }: { listId: string; lis
     }
   }
 
+
+  useEffect(() => {
+  if (!window.visualViewport) return
+
+  const handleResize = () => {
+    console.log(
+      'Viewport:',
+      window.visualViewport?.height
+    )
+  }
+
+  window.visualViewport.addEventListener(
+    'resize',
+    handleResize
+  )
+
+  return () => {
+    window.visualViewport?.removeEventListener(
+      'resize',
+      handleResize
+    )
+  }
+}, [])
+
   return (
-    /* ALTERAÇÃO AQUI: 
-      - Removemos o absolute, bottom-0, left-0, right-0.
-      - Removemos o cálculo agressivo de margin-bottom (mb-).
-      - Deixamos a largura total com w-full e adicionamos pb-4 (ou pb-2) apenas para distanciar do limite do container.
-    */
+  
     <div
       className="
-        w-full
-        z-50
-        px-5
-        pb-5
+        absolute bottom-0 left-0 right-0
         flex items-center
-        p-2
+        mb-[calc(env(safe-area-inset-bottom)+8px)]
+        
+        w-full
+        z-100
+        p-5
       "
     >
       <div className="mr-2 flex-1">
@@ -63,15 +84,17 @@ export default function AddItemsBar({ listId, listEmpty }: { listId: string; lis
             border-none
             bg-(--color-input-bg)
             px-4
-            text-base
+            text-[16px]
             text-(--color-text-primary)
-            shadow-sm
+            shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]
             outline-none
             transition-all
             placeholder:text-(--color-text-muted)
             focus:ring-2
             focus:ring-(--color-primary)/20
           "
+
+         
         />
       </div>
 

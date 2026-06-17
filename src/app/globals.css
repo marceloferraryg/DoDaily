@@ -344,23 +344,25 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 430px;
-   overflow: hidden;
+  max-width: 100%; 
+  overflow: hidden;
   z-index: 60;
 }
 
 @media (min-width: 768px) {
   .shell-top {
-    max-width: 600px;
-     overflow: hidden;
+    max-width: 600px; 
+    
+    min-width: unset; 
+    overflow: hidden;
   }
 }
 
 
 @media (min-width: 1280px) {
   .shell-top {
-    max-width: 800px;
-     overflow: hidden;
+    max-width: 720px; 
+    overflow: hidden;
   }
 }
 
@@ -389,75 +391,90 @@ body {
 
   
 
-/* =========================
-   BUTTON SHEET
-========================= */
+/* ==========================================================================
+   BUTTON SHEET (Barras de botões/ações fixas no rodapé)
+   ========================================================================== */
 .shell-button {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 430px;
-   overflow: hidden;
+  max-width: 100%;
+  overflow: hidden;
   z-index: 60;
-
 }
 
 @media (min-width: 768px) {
   .shell-button {
-    max-width: 600px;
+    max-width: 600px;  
+  }
+}
+
+
+@media (min-width: 1280px) {
+  .shell-button {
+    max-width: 720px; 
+  }
+}
+
+
+/* ==========================================================================
+   BOTTOM SHEET / MODAL OVERLAY
+   ========================================================================== */
+.shell-sheet {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 120;
+}
+
+@media (min-width: 768px) {
+  .shell-sheet {
+    /* Centraliza o overlay sobre o AppShell */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 100vh;
   }
 }
 
 @media (min-width: 1280px) {
-  .shell-button {
-    max-width: 800px;
+  .shell-sheet {
+    width: 720px;
+    height: 100vh;
   }
 }
 
-/* =========================
-   BOTTOM SHEET
-========================= */
 
-
-.shell-sheet {
-  position: fixed;
-  inset: 0;
-
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-
-  padding: 0px;
-   overflow: hidden;
-
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.35);
-
-  z-index: 120;
-}
-
+/* ==========================================================================
+   BOTTOM SHEET CONTENT
+   ========================================================================== */
 .shell-sheet-content {
   width: 100%;
-  max-width: 430px;
-
+  max-width: 100%;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-   overflow: hidden;
-
+  overflow: hidden;
   box-shadow: 0 -10px 30px rgba(0,0,0,.12);
   background: var(--color-bg-body);
 }
 
 @media (min-width: 768px) {
-  .shell-bottom {
+  .shell-sheet-content {
     max-width: 600px;
   }
 }
 
 @media (min-width: 1280px) {
-  .shell-bottom {
-    max-width: 800px;
+  .shell-sheet-content {
+    max-width: 720px;
   }
 }

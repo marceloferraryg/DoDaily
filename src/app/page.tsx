@@ -206,6 +206,7 @@ const isDisabled =
           alt="Logo"
           width={100}
           height={100}
+          loading="eager"
         />
 
       <h1 className='text-lg font-bold text-(--color-text-primary) mt-8'> 

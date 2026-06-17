@@ -10,29 +10,31 @@ export function AppShell({ children }: Props) {
   return (
     <div
       className="
-        min-h-screen
+        w-full h-dvh
         bg-(--color-bg-body)
         flex items-center justify-center
+        overflow-hidden
       "
     >
       <main
         className="
         relative
           w-full
-          max-w-107.5
-          min-h-screen
+         
+          h-dvh 
           bg-(--color-bg-body)
           overflow-hidden
           shadow-2xl
-        
 
-
-          md:rounded-4xl
-          md:max-w-150
           
+          md:rounded-3xl
+          md:h-screen
+          md:max-w-150
+          md:border
+          md:border-(--color-input-bg)/50 /* Uma bordinha sutil se o fundo for igual */
 
-          xl:max-w-200
-
+          xl:max-w-180
+          xl:h-screen
         "
       >
         {children}
