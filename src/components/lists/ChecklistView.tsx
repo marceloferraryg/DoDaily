@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { AppShell } from '../AppShell'
 
@@ -25,6 +25,7 @@ type ChecklistViewProps = {
 }
 
 export default function ChecklistView({ list }: ChecklistViewProps) {
+  
   const router = useRouter()
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [selectedList, setSelectedList] = useState<List | null>(null)
@@ -53,6 +54,9 @@ export default function ChecklistView({ list }: ChecklistViewProps) {
       console.error('Error deleting list:', error)
     }
   }
+
+  
+
 
   return (
     <AppShell>
@@ -158,8 +162,6 @@ export default function ChecklistView({ list }: ChecklistViewProps) {
             >
               {list.title}
             </h1>
-
-           
 
           </div>                           
 

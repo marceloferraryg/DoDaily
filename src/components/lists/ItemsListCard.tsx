@@ -182,7 +182,7 @@ export default function ItemsListCard({
 
                 scale-[1.02]
 
-                bg-white
+                bg-(--color-bg-card)
 
                 shadow-2xl
               `
@@ -312,7 +312,7 @@ export default function ItemsListCard({
               border
               border-(--color-border)
 
-              bg-white
+              bg-(--color-bg-card) 
 
               shadow-md
             "

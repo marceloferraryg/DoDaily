@@ -6,6 +6,7 @@ import { Plus } from 'lucide-react'
 import { useItemList } from '@/store/useItemList'
 import incrementUserActions from '@/hooks/useIncrementUserActions'
 
+
 export default function AddItemsBar({
   listId,
   listEmpty,
@@ -13,55 +14,100 @@ export default function AddItemsBar({
   listId: string
   listEmpty: boolean
 }) {
+
   const [itemTitle, setItemTitle] = useState<string>('')
   const [keyboardHeight, setKeyboardHeight] = useState(0)
 
-  const addItem = useItemList((state) => state.addItem)
+
+  const addItem =
+    useItemList(
+      (state) => state.addItem
+    )
+
 
 
   async function handleAddItem() {
+
     if (itemTitle.trim() === '') return
 
+
     try {
-      addItem(listId, itemTitle)
+
+      addItem(
+        listId,
+        itemTitle
+      )
+
       setItemTitle('')
+
       incrementUserActions()
+
+
     } catch (error) {
-      console.error('Error adding item:', error)
+
+      console.error(
+        'Error adding item:',
+        error
+      )
+
     }
+
   }
+
+
 
 
   function handleEnter(
     e: React.KeyboardEvent<HTMLInputElement>
   ) {
+
     if (e.key === 'Enter') {
+
       e.preventDefault()
+
       handleAddItem()
+
     }
+
   }
 
 
+
+
+
   //------------------------------------------
-  // KEYBOARD HANDLING IOS
+  // KEYBOARD HANDLING IOS + ANDROID
   //------------------------------------------
 
   useEffect(() => {
-    const viewport = window.visualViewport
+
+
+    const viewport =
+      window.visualViewport
+
 
     if (!viewport) return
 
 
+
     const updateKeyboard = () => {
-     const keyboard =
-  document.documentElement.clientHeight -
-  viewport.height
+
+
+      const keyboard =
+        document.documentElement.clientHeight -
+        viewport.height
+
 
 
       setKeyboardHeight(
-        keyboard > 0 ? keyboard : 0
+        keyboard > 0
+          ? keyboard
+          : 0
       )
+
+
     }
+
 
 
     viewport.addEventListener(
@@ -69,102 +115,141 @@ export default function AddItemsBar({
       updateKeyboard
     )
 
+
     viewport.addEventListener(
       'scroll',
       updateKeyboard
     )
 
 
+
     updateKeyboard()
 
 
+
     return () => {
-        viewport.removeEventListener(
-          'resize',
-          updateKeyboard
-        )
-        viewport.removeEventListener(
-          'scroll',
-          updateKeyboard
-        )
+
+
+      viewport.removeEventListener(
+        'resize',
+        updateKeyboard
+      )
+
+
+      viewport.removeEventListener(
+        'scroll',
+        updateKeyboard
+      )
+
+
     }
+
 
   }, [])
 
 
-
   //------------------------------------------
-  // LOCK SAFARI AUTO SCROLL
+  // LOCK AUTO SCROLL MOBILE
   //------------------------------------------
 
   function lockScroll() {
 
+
     document.documentElement.scrollTop = 0
 
+
     window.scrollTo({
+
       top: 0,
+
       left: 0,
+
       behavior: 'instant',
+
     })
+
+
   }
 
 
- function handleFocus() {
-
-  window.addEventListener(
-    'scroll',
-    lockScroll,
-    {
-      passive: true,
-    }
-  )
+  function handleFocus() {
 
 
-  setTimeout(() => {
-
-    const viewport =
-      window.visualViewport
-
-    if (!viewport) return
-
-
-    const keyboard =
-      window.innerHeight -
-      viewport.height
-
-
-    setKeyboardHeight(
-      keyboard > 0
-        ? keyboard
-        : 0
+    window.addEventListener(
+      'scroll',
+      lockScroll,
+      {
+        passive: true,
+      }
     )
 
 
-  }, 300)
 
-}
+    setTimeout(() => {
+
+  
+
+
+      const viewport =
+        window.visualViewport
+
+
+
+      if (!viewport) return
+
+
+
+      const keyboard =
+        window.innerHeight -
+        viewport.height
+
+      let finalKeyboard =
+        keyboard > 0
+          ? keyboard
+          : 0
+
+      if (/Android/i.test(navigator.userAgent)) {
+
+        finalKeyboard =
+          finalKeyboard -
+          viewport.offsetTop
+
+        if (finalKeyboard < 0) {
+          finalKeyboard = 0
+        }
+
+      }
+
+setKeyboardHeight(finalKeyboard)
+
+      setKeyboardHeight(
+        finalKeyboard
+      )
+
+    }, 300)
+
+
+  }
 
 
   function handleBlur() {
+
 
     window.removeEventListener(
       'scroll',
       lockScroll
     )
 
+
     setKeyboardHeight(0)
 
   }
 
-
-
-  //------------------------------------------
-  // RENDER
-  //------------------------------------------
-
   return (
 
+
     <div
+
 
       className="
         absolute
@@ -185,18 +270,26 @@ export default function AddItemsBar({
         duration-150
       "
 
+
+
       style={{
+
         transform:
           `translateY(-${keyboardHeight}px)`
+
       }}
+
 
     >
 
+
       <div className="mr-2 flex-1">
+
 
         <input
 
           type="text"
+
 
           placeholder={
             listEmpty
@@ -204,17 +297,25 @@ export default function AddItemsBar({
               : "Adicione um item..."
           }
 
+
           maxLength={100}
+
 
           value={itemTitle}
 
+
           onChange={(e) =>
-            setItemTitle(e.target.value)
+            setItemTitle(
+              e.target.value
+            )
           }
+
 
           onFocus={handleFocus}
 
+
           onBlur={handleBlur}
+
 
           autoComplete="off"
 
@@ -222,9 +323,13 @@ export default function AddItemsBar({
 
           spellCheck={false}
 
+
           enterKeyHint="done"
 
+
           onKeyDown={handleEnter}
+
+
 
           className="
             h-10
@@ -255,9 +360,13 @@ export default function AddItemsBar({
             focus:ring-(--color-primary)/20
           "
 
+
         />
 
+
       </div>
+
+
 
 
       <button
@@ -266,7 +375,6 @@ export default function AddItemsBar({
 
         className="
           flex
-
           h-10
           w-10
 
@@ -300,5 +408,7 @@ export default function AddItemsBar({
 
     </div>
 
+
   )
+
 }
