@@ -53,8 +53,9 @@ export default function AddItemsBar({
 
 
     const updateKeyboard = () => {
-      const keyboard =
-        window.innerHeight - viewport.height
+     const keyboard =
+  document.documentElement.clientHeight -
+  viewport.height
 
 
       setKeyboardHeight(
@@ -68,15 +69,24 @@ export default function AddItemsBar({
       updateKeyboard
     )
 
+    viewport.addEventListener(
+      'scroll',
+      updateKeyboard
+    )
+
 
     updateKeyboard()
 
 
     return () => {
-      viewport.removeEventListener(
-        'resize',
-        updateKeyboard
-      )
+        viewport.removeEventListener(
+          'resize',
+          updateKeyboard
+        )
+        viewport.removeEventListener(
+          'scroll',
+          updateKeyboard
+        )
     }
 
   }, [])
@@ -99,16 +109,40 @@ export default function AddItemsBar({
   }
 
 
-  function handleFocus() {
+ function handleFocus() {
 
-    window.addEventListener(
-      'scroll',
-      lockScroll,
-      {
-        passive: true,
-      }
+  window.addEventListener(
+    'scroll',
+    lockScroll,
+    {
+      passive: true,
+    }
+  )
+
+
+  setTimeout(() => {
+
+    const viewport =
+      window.visualViewport
+
+    if (!viewport) return
+
+
+    const keyboard =
+      window.innerHeight -
+      viewport.height
+
+
+    setKeyboardHeight(
+      keyboard > 0
+        ? keyboard
+        : 0
     )
-  }
+
+
+  }, 300)
+
+}
 
 
   function handleBlur() {

@@ -81,25 +81,28 @@ export function ThemeProvider({
   // UPDATE BROWSER / PWA COLOR
   //------------------------------------------
 
-  useEffect(() => {
+useEffect(() => {
+
+  const updateThemeColor = () => {
 
     const metaThemeColor =
       document.querySelector(
         'meta[name="theme-color"]'
       )
 
-    if (!metaThemeColor) {
-      return
-    }
+
+    if (!metaThemeColor) return
+
 
     const color =
       getComputedStyle(
         document.body
       )
-        .getPropertyValue(
-          '--color-primary'
-        )
-        .trim()
+      .getPropertyValue(
+        '--color-primary'
+      )
+      .trim()
+
 
     if (color) {
 
@@ -110,10 +113,19 @@ export function ThemeProvider({
 
     }
 
-  }, [
-    mode,
-    theme,
-  ])
+  }
+
+
+  // espera o CSS aplicar
+  requestAnimationFrame(() => {
+    updateThemeColor()
+  })
+
+
+}, [
+  mode,
+  theme
+])
 
   //------------------------------------------
   // RENDER

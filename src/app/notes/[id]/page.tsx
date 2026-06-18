@@ -292,6 +292,7 @@ useEffect(() => {
             autoFocus
             ref={textareaRef}
             spellCheck={false}
+            placeholder="Escreva suas ideias aqui..."
             className="
               h-full w-full
 

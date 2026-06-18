@@ -201,7 +201,7 @@ export default function ItemsListCard({
             items-center justify-center
 
             rounded-full
-            
+            no-select
 
             transition-all
             active:scale-95
@@ -262,6 +262,8 @@ export default function ItemsListCard({
             flex-1
 
             text-left
+
+            no-select
           "
         >
 
