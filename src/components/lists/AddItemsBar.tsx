@@ -6,9 +6,18 @@ import { Plus } from 'lucide-react'
 import { useItemList } from '@/store/useItemList'
 import incrementUserActions from '@/hooks/useIncrementUserActions'
 
-export default function AddItemsBar({ listId, listEmpty }: { listId: string; listEmpty: boolean }) {
+export default function AddItemsBar({
+  listId,
+  listEmpty,
+}: {
+  listId: string
+  listEmpty: boolean
+}) {
   const [itemTitle, setItemTitle] = useState<string>('')
+  const [keyboardHeight, setKeyboardHeight] = useState(0)
+
   const addItem = useItemList((state) => state.addItem)
+
 
   async function handleAddItem() {
     if (itemTitle.trim() === '') return
@@ -22,7 +31,10 @@ export default function AddItemsBar({ listId, listEmpty }: { listId: string; lis
     }
   }
 
-  function handleEnter(e: React.KeyboardEvent<HTMLInputElement>) {
+
+  function handleEnter(
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) {
     if (e.key === 'Enter') {
       e.preventDefault()
       handleAddItem()
@@ -30,90 +42,229 @@ export default function AddItemsBar({ listId, listEmpty }: { listId: string; lis
   }
 
 
+  //------------------------------------------
+  // KEYBOARD HANDLING IOS
+  //------------------------------------------
+
   useEffect(() => {
-  if (!window.visualViewport) return
+    const viewport = window.visualViewport
 
-  const handleResize = () => {
-    console.log(
-      'Viewport:',
-      window.visualViewport?.height
-    )
-  }
+    if (!viewport) return
 
-  window.visualViewport.addEventListener(
-    'resize',
-    handleResize
-  )
 
-  return () => {
-    window.visualViewport?.removeEventListener(
+    const updateKeyboard = () => {
+      const keyboard =
+        window.innerHeight - viewport.height
+
+
+      setKeyboardHeight(
+        keyboard > 0 ? keyboard : 0
+      )
+    }
+
+
+    viewport.addEventListener(
       'resize',
-      handleResize
+      updateKeyboard
+    )
+
+
+    updateKeyboard()
+
+
+    return () => {
+      viewport.removeEventListener(
+        'resize',
+        updateKeyboard
+      )
+    }
+
+  }, [])
+
+
+
+  //------------------------------------------
+  // LOCK SAFARI AUTO SCROLL
+  //------------------------------------------
+
+  function lockScroll() {
+
+    document.documentElement.scrollTop = 0
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant',
+    })
+  }
+
+
+  function handleFocus() {
+
+    window.addEventListener(
+      'scroll',
+      lockScroll,
+      {
+        passive: true,
+      }
     )
   }
-}, [])
+
+
+  function handleBlur() {
+
+    window.removeEventListener(
+      'scroll',
+      lockScroll
+    )
+
+    setKeyboardHeight(0)
+
+  }
+
+
+
+  //------------------------------------------
+  // RENDER
+  //------------------------------------------
 
   return (
-  
+
     <div
+
       className="
-        absolute bottom-0 left-0 right-0
-        flex items-center
-        mb-[calc(env(safe-area-inset-bottom)+8px)]
-        
+        absolute
+        bottom-0
+        left-0
+        right-0
+
+        flex
+        items-center
+
         w-full
+
         z-100
+
         p-5
+
+        transition-transform
+        duration-150
       "
+
+      style={{
+        transform:
+          `translateY(-${keyboardHeight}px)`
+      }}
+
     >
+
       <div className="mr-2 flex-1">
+
         <input
+
           type="text"
-          placeholder={listEmpty ? "Adicione seu primeiro item..." : "Adicione um item..."}
+
+          placeholder={
+            listEmpty
+              ? "Adicione seu primeiro item..."
+              : "Adicione um item..."
+          }
+
           maxLength={100}
+
           value={itemTitle}
-          onChange={(e) => setItemTitle(e.target.value)}
+
+          onChange={(e) =>
+            setItemTitle(e.target.value)
+          }
+
+          onFocus={handleFocus}
+
+          onBlur={handleBlur}
+
           autoComplete="off"
+
           autoCorrect="off"
+
           spellCheck={false}
+
           enterKeyHint="done"
+
           onKeyDown={handleEnter}
+
           className="
-            h-10 w-full
+            h-10
+            w-full
+
             rounded-full
+
             border-none
+
             bg-(--color-input-bg)
+
             px-4
-            text-[16px]
+
+            text-base
+
             text-(--color-text-primary)
+
             shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]
+
             outline-none
+
             transition-all
+
             placeholder:text-(--color-text-muted)
+
             focus:ring-2
+
             focus:ring-(--color-primary)/20
           "
 
-         
         />
+
       </div>
 
+
       <button
+
         onClick={handleAddItem}
+
         className="
-          flex h-10 w-10
-          items-center justify-center
+          flex
+
+          h-10
+          w-10
+
+          items-center
+          justify-center
+
           rounded-full
+
           bg-linear-to-b
+
           from-(--color-primary)
+
           to-(--color-hover-btn)
+
           shadow-md
+
           transition-all
+
           active:scale-[0.95]
         "
+
       >
-        <Plus size={20} color="white" />
+
+        <Plus
+          size={20}
+          color="white"
+        />
+
       </button>
+
+
     </div>
+
   )
 }

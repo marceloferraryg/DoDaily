@@ -55,6 +55,60 @@ export default function ChecklistView({ list }: ChecklistViewProps) {
   }
 
 
+                      const [scrollY, setScrollY] =
+                      useState(0)
+
+                    useEffect(() => {
+                      const update = () =>
+                        setScrollY(window.scrollY)
+
+                      window.addEventListener(
+                        'scroll',
+                        update
+                      )
+
+                      return () =>
+                        window.removeEventListener(
+                          'scroll',
+                          update
+                        )
+                    }, [])
+
+const [debug, setDebug] = useState({
+  win: 0,
+  html: 0,
+  body: 0,
+})
+
+useEffect(() => {
+  const update = () => {
+    setDebug({
+      win: window.scrollY,
+      html: document.documentElement.scrollTop,
+      body: document.body.scrollTop,
+    })
+  }
+
+  update()
+
+  window.addEventListener('scroll', update)
+
+  return () =>
+    window.removeEventListener('scroll', update)
+}, [])
+
+useEffect(() => {
+  const lockScroll = () => {
+    document.documentElement.scrollTop = 0
+    window.scrollTo(0, 0)
+  }
+
+  window.addEventListener('scroll', lockScroll)
+
+  return () => {
+    window.removeEventListener('scroll', lockScroll)
+  }
+}, [])
 
   return (
     <AppShell>
@@ -160,13 +214,32 @@ export default function ChecklistView({ list }: ChecklistViewProps) {
             >
               {list.title}
             </h1>
+
+            <div
+  className="
+    fixed
+    top-80
+    left-0
+    z-100
+    bg-red-500
+    text-white
+    text-xs
+  "
+>
+  win: {debug.win}
+  <br />
+  html: {debug.html}
+  <br />
+  body: {debug.body}
+</div>
+
           </div>                           
 
           <ItemsListCard items={items} /> 
         </div>
 
      
-         <AddItemsBar 
+         <AddItemsBar  
             listId={list.id}   
             listEmpty={items.length === 0}    
          />
