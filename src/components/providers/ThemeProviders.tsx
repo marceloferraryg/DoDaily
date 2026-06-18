@@ -80,52 +80,41 @@ export function ThemeProvider({
   //------------------------------------------
   // UPDATE BROWSER / PWA COLOR
   //------------------------------------------
+      useEffect(() => {
 
-useEffect(() => {
+        const updateThemeColor = () => {
 
-  const updateThemeColor = () => {
-
-    const metaThemeColor =
-      document.querySelector(
-        'meta[name="theme-color"]'
-      )
-
-
-    if (!metaThemeColor) return
+          const color =
+            getComputedStyle(document.body)
+              .getPropertyValue('--color-primary')
+              .trim()
 
 
-    const color =
-      getComputedStyle(
-        document.body
-      )
-      .getPropertyValue(
-        '--color-primary'
-      )
-      .trim()
+          const metaThemeColor =
+            document.querySelector(
+              'meta[name="theme-color"]'
+            )
 
 
-    if (color) {
+          if (metaThemeColor && color) {
 
-      metaThemeColor.setAttribute(
-        'content',
-        color
-      )
+            metaThemeColor.setAttribute(
+              'content',
+              color
+            )
 
-    }
+          }
 
-  }
-
-
-  // espera o CSS aplicar
-  requestAnimationFrame(() => {
-    updateThemeColor()
-  })
+        }
 
 
-}, [
-  mode,
-  theme
-])
+        // garante que as classes do tema já foram aplicadas
+        requestAnimationFrame(() => {
+          updateThemeColor()
+        })
+
+
+      }, [mode, theme])
 
   //------------------------------------------
   // RENDER

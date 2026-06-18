@@ -46,13 +46,20 @@ export default function RootLayout({
   return (
 
     <html
-      lang="pt-BR"
-      className={`
-        ${inter.variable}
-        h-full
-        antialiased
-      `}
-    >
+        lang="pt-BR"
+        className={`
+          ${inter.variable}
+          h-full
+          antialiased
+        `}
+      >
+
+      <head>
+        <meta
+          name="theme-color"
+          content="#f2f2f9"
+        />
+      </head>
 
       <body
         className="
