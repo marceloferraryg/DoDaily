@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
 
   allowedDevOrigins: [
     '192.168.0.127',
-    '192.168.1.105',
+    '192.168.1.107',
   ],
 
   compress: true,

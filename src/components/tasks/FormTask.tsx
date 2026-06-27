@@ -359,7 +359,7 @@ export default function FormTask({ mode, taskId }: Props) {
               transition active:scale-[0.98]
               ${
                 canSave
-                  ? ' bg-linear-to-b from-(--color-primary) to-(--color-hover-btn) shadow-[0_10px_30px_rgba(94,45,180,0.35)]'
+                  ? ' bg-linear-to-b from-(--color-primary) to-(--color-hover-btn) shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]'
                   : 'bg-gray-400'
               }
             `}

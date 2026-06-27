@@ -174,7 +174,7 @@ function handleEnter(
     return
   }
 
-  createUser(formattedName)
+  createUser(formattedName) 
 }
   
 const isDisabled =

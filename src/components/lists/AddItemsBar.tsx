@@ -287,76 +287,36 @@ setKeyboardHeight(finalKeyboard)
 
 
         <input
-
           type="text"
-
-
           placeholder={
             listEmpty
               ? "Adicione seu primeiro item..."
               : "Adicione um item..."
           }
-
-
           maxLength={100}
-
-
           value={itemTitle}
-
-
-          onChange={(e) =>
-            setItemTitle(
-              e.target.value
-            )
-          }
-
-
+          onChange={(e) => setItemTitle(e.target.value)}
           onFocus={handleFocus}
-
-
           onBlur={handleBlur}
-
-
           autoComplete="off"
-
           autoCorrect="off"
-
           spellCheck={false}
-
-
           enterKeyHint="done"
-
-
           onKeyDown={handleEnter}
-
-
-
           className="
             h-10
             w-full
-
             rounded-full
-
             border-none
-
             bg-(--color-input-bg)
-
             px-4
-
             text-base
-
             text-(--color-text-primary)
-
             shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]
-
             outline-none
-
             transition-all
-
             placeholder:text-(--color-text-muted)
-
             focus:ring-2
-
             focus:ring-(--color-primary)/20
           "
 

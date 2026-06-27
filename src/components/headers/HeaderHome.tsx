@@ -1,6 +1,8 @@
 
-import { useTheme } from "@/store/useTheme"
+import { useRouter } from "next/navigation"
 import { useUser } from "@/store/useUser"
+
+
 
 
 export function HeaderHome() {
@@ -14,14 +16,10 @@ export function HeaderHome() {
 
 const user = useUser((state) => state.user)
 
+  const router = useRouter()
   const Username = user?.name
 
   
-
-
-  const setTheme = useTheme(
-  (state) => state.setTheme
-)
 
   return (
 
@@ -47,10 +45,12 @@ const user = useUser((state) => state.user)
       <div className="flex flex-col items-center justify-center">
           
           <button 
-          className="w-10 h-10 rounded-full bg-(--color-bg-body) flex items-center justify-center">
-            <span className="text-lg text-(--color-primary)">
-              {user?.name[0].toUpperCase() || "Foto"}
-            </span>
+              onClick={() => router.push('/auth')}
+              className="w-10 h-10 rounded-full bg-(--color-bg-body) 
+                          flex items-center justify-center cursor-pointer">
+                <span className="text-lg text-(--color-primary)">
+                  {user?.name[0].toUpperCase() || "Foto"}
+                </span>
           </button>
 
           <div>
