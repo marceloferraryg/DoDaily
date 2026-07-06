@@ -5,6 +5,8 @@ export type User = {
 
   email?: string
 
+  supabaseId?: string
+
   avatar?: string
 
   theme: string 

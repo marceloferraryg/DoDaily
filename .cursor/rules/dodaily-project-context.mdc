@@ -1,0 +1,76 @@
+---
+description: Contexto geral do projeto DoDaily — arquitetura, stack, rotas e estado atual
+alwaysApply: true
+---
+
+# DoDaily — Contexto do Projeto
+
+App **mobile-first** de produtividade (tarefas, listas, notas). PWA com experiência tipo app nativo.
+
+## Stack
+
+- Next.js 16 (App Router) + React 19 + TypeScript
+- Tailwind CSS 4 (variáveis CSS: `bg-(--color-bg-body)`, etc.)
+- Zustand 5 + `persist` → localStorage (sem backend próprio)
+- Framer Motion (swipe em tarefas), Lucide React
+- Supabase parcial: só signup; `@supabase/ssr` instalado mas não usado
+- next-pwa (SW em `public/sw.js`, desabilitado em dev)
+
+## Estrutura
+
+```
+src/app/          → rotas (quase tudo 'use client')
+src/components/   → headers, tasks, lists, settings, utils, providers
+src/store/        → useUser, useTasks, useLists, useItemList, useNotes, useTheme
+src/types/        → modelos TS
+src/maps/         → TaskCategoryMap, TaskPriorityMap, ThemeMap, MenuTabBarMap
+src/lib/          → dateTasks, taskFilters, supabase
+src/hooks/        → useInstallPrompt, useIncrementUserActions
+```
+
+## Rotas
+
+| Rota | Função |
+|------|--------|
+| `/` | Home: onboarding nome + dashboard do dia |
+| `/tasks`, `/tasks/new`, `/tasks/[id]` | Tarefas (filtros, swipe, agrupamento temporal) |
+| `/list`, `/list/new`, `/list/[id]`, `/list/edit/[id]` | Listas com checklist |
+| `/notes`, `/notes/[id]` | Notas |
+| `/settings` | Perfil, tema (14 paletas), PWA install |
+| `/auth`, `/auth/signup`, `/auth/signin` | Conta (auth incompleto) |
+
+Tab bar: Hoje → Tarefas → Listas → Notas → Ajustes (`MenuTabBarMap`).
+
+## Estado (localStorage)
+
+| Store | Chave |
+|-------|-------|
+| useUser | `dodaily-user` |
+| useTasks | `dodaily-tasks-v1` |
+| useLists | `dodaily-lists-v1` |
+| useItemList | `dodaily-list-items-v1` |
+| useNotes | `dodaily-notes-v1` |
+| useTheme | `dodaily-theme` |
+
+## Auth (estado atual)
+
+- Fluxo principal: onboarding local → `createUser(name)` em `useUser.ts`
+- Signup (`/auth/signup`): `supabase.auth.signUp()` + `AuthProvider` (`useAuth`) armazena conta/sessão
+- `useAuth()`: `account`, `session`, `isAuthenticated`, `setAccountFromAuth`, `signOut`
+- Signin: só UI, sem `signInWithPassword`
+- Sem middleware, sem proteção de rotas, sem sync de dados na nuvem
+- Env: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+## Convenções
+
+- `AppShell` limita largura em desktop (max-w mobile)
+- `ThemeProvider` aplica `theme-light`/`theme-dark` + paleta no `<body>`
+- Maps centralizados para categorias, prioridades, períodos e menu
+- Path alias: `@/*` → `./src/*`
+- Sem `app/api/`, sem Server Actions, sem ORM/migrations
+
+## Lacunas conhecidas
+
+- README desatualizado (cita `profile/` em vez de `settings/`)
+- `ThemeColorSync.tsx` existe mas não é usado
+- Próximo passo natural: completar auth Supabase + sync na nuvem

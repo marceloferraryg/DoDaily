@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/components/providers/AuthProvider'
 import { useUser } from '@/store/useUser'
 import { useTheme } from '@/store/useTheme'
 
@@ -13,7 +14,10 @@ export default function SignUpPage() {
 
     const router = useRouter()
 
+    const { setAccountFromAuth } = useAuth()
+
     const user = useUser(state => state.user)
+    const updateUser = useUser(state => state.updateUser)
     const theme = useTheme(state => state.mode)
     const themeColor = useTheme(state => state.theme)
 
@@ -21,6 +25,8 @@ export default function SignUpPage() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     function isValidEmail(email: string): boolean {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -36,6 +42,12 @@ export default function SignUpPage() {
     function clearError() {
         if (errorMessage) {
             setErrorMessage('')
+        }
+    }
+
+    function clearSuccess() {
+        if (successMessage) {
+            setSuccessMessage('')
         }
     }
 
@@ -57,9 +69,10 @@ export default function SignUpPage() {
         }
 
         setErrorMessage('')
+        setSuccessMessage('')
+        setIsSubmitting(true)
 
-       
-      const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
@@ -74,18 +87,37 @@ export default function SignUpPage() {
             }
         })
 
+        setIsSubmitting(false)
+
         if (error) {
             setErrorMessage(error.message)
             return
         }
 
-        console.log(data) 
+        if (!data.user) {
+            setErrorMessage('Não foi possível criar a conta. Tente novamente.')
+            return
+        }
+
+        setAccountFromAuth(data.user, data.session)
+
+        updateUser({
+            email,
+            supabaseId: data.user.id,
+        })
 
         setEmail('')
         setPassword('')
         setConfirmPassword('')
-        
-        
+
+        if (data.session) {
+            router.push('/')
+            return
+        }
+
+        setSuccessMessage(
+            'Conta criada! Verifique seu e-mail para confirmar o cadastro.'
+        )
     }
 
     return (
@@ -146,6 +178,7 @@ export default function SignUpPage() {
                             onChange={(e) => {
                                 setEmail(e.target.value)
                                 clearError()
+                                clearSuccess()
                             }}
                             className="
                                 h-10
@@ -168,6 +201,7 @@ export default function SignUpPage() {
                             onChange={(e) => {
                                 setPassword(e.target.value)
                                 clearError()
+                                clearSuccess()
                             }}
                             className="
                                 h-10
@@ -190,6 +224,7 @@ export default function SignUpPage() {
                             onChange={(e) => {
                                 setConfirmPassword(e.target.value)
                                 clearError()
+                                clearSuccess()
                             }}
                             className="
                                 h-10
@@ -211,6 +246,12 @@ export default function SignUpPage() {
                             </span>
                         )}
 
+                        {successMessage && (
+                            <span className="text-center text-xs text-(--color-primary)">
+                                {successMessage}
+                            </span>
+                        )}
+
                     </div>
 
                     {/* BUTTONS */}
@@ -219,7 +260,7 @@ export default function SignUpPage() {
 
                         <button
                             onClick={handleRegister}
-                            disabled={!canRegister}
+                            disabled={!canRegister || isSubmitting}
                             className={`
                                 w-full
                                 h-12
@@ -230,13 +271,13 @@ export default function SignUpPage() {
                                 active:scale-97
                                 transition
                                 ${
-                                    canRegister
+                                    canRegister && !isSubmitting
                                         ? 'bg-linear-to-b from-(--color-primary) to-(--color-hover-btn) shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]'
                                         : 'bg-gray-400'
                                 }
                             `}
                         >
-                            Criar conta
+                            {isSubmitting ? 'Criando conta...' : 'Criar conta'}
                         </button>
 
                         <button
